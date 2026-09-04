@@ -1,0 +1,123 @@
+{
+  "topic": "The Council of Nicaea and the Arian controversy, 325 AD",
+  "sources_note": "Based on historical accounts of the First Council of Nicaea and the surviving writings of Athanasius",
+  "segments": [
+    {
+      "segment_number": 1,
+      "title": "An Empire-Wide Argument Over God",
+      "social_title": "The Controversy That Threatened to Split the Church in 325 AD",
+      "caption": "In the year 325, a single theological dispute threatened to tear the entire church apart. Follow for part 2!",
+      "scenes": [
+        {
+          "narration": "In the early fourth century, a priest from Alexandria named Arius began teaching something that struck many church leaders as deeply dangerous, arguing that Jesus Christ, though divine, had actually been created by God the Father at some point rather than existing eternally alongside him. This idea spread rapidly across congregations throughout the eastern Roman Empire, splitting bishops, priests, and ordinary believers into fiercely opposing camps almost overnight. Riots reportedly broke out in some cities, with crowds chanting slogans for or against Arius in the streets outside cathedrals, treating an abstract theological question as an urgent, personal battle. The newly Christian Emperor Constantine, having just unified the empire under his own rule, watched this growing religious chaos with real alarm, worried it might undo the fragile peace he had only just achieved. Follow for part 2.",
+          "pose": "pointing",
+          "robe_color": "red",
+          "sky": "temple",
+          "landmark": "temple",
+          "prop": null
+        }
+      ]
+    },
+    {
+      "segment_number": 2,
+      "title": "An Emperor Summons the Church",
+      "social_title": "Why Constantine Called Every Bishop in the Empire",
+      "caption": "Constantine made an unprecedented decision to summon bishops from across his empire. Follow for part 3!",
+      "scenes": [
+        {
+          "narration": "Constantine, though not yet fully understanding the theological details himself, recognized that a fractured church threatened the political unity he had spent years fighting to establish across a vast and diverse empire. He made the unprecedented decision to summon bishops from every corner of Christian territory to a single city called Nicaea, offering to personally fund their long and difficult journeys there. Over two hundred bishops eventually arrived, many bearing visible scars from earlier persecutions under previous emperors who had actively hunted Christians for their faith. For many of these men, walking into a grand imperial hall as honored guests of the emperor himself was almost as astonishing as the theological crisis that had brought them there in the first place. These journeys were genuinely difficult, some bishops traveling for weeks across mountains and open sea just to reach the meeting the emperor had personally requested. Follow for part 3.",
+          "pose": "walking",
+          "robe_color": "white",
+          "sky": "temple",
+          "landmark": "wall",
+          "prop": null
+        }
+      ]
+    },
+    {
+      "segment_number": 3,
+      "title": "A Young Deacon Steps Into History",
+      "social_title": "Athanasius and the Fight Against Arius Begins",
+      "caption": "Among the attendees stood a young deacon who would become the debate's fiercest voice. Follow for part 4!",
+      "scenes": [
+        {
+          "narration": "Among the attendees was a young deacon named Athanasius, barely out of his twenties, who accompanied his own bishop from Alexandria and quickly emerged as one of the sharpest voices arguing directly against Arius. Athanasius insisted that if Christ were merely created rather than eternal, then Christianity's entire claim about God becoming fully human would collapse into something far less meaningful than believers had always understood it to be. Arius, for his part, defended his position with equal conviction, arguing that only his view actually preserved the idea of one single, truly supreme God ruling over all creation. The debates grew heated enough that ancient accounts describe bishops shouting over one another, and in at least one popular legend, an exasperated bishop even struck Arius across the face in frustration. Follow for part 4.",
+          "pose": "teaching",
+          "robe_color": "blue",
+          "sky": "temple",
+          "landmark": "temple",
+          "prop": "scroll"
+        }
+      ]
+    },
+    {
+      "segment_number": 4,
+      "title": "Searching for a Single Word",
+      "social_title": "The Word That Nearly Broke the Council Apart",
+      "caption": "The council searched desperately for one word to settle the entire dispute. Follow for part 5!",
+      "scenes": [
+        {
+          "narration": "As the debate dragged on for weeks, the assembled bishops searched for precise language that could settle the dispute clearly enough to prevent it from ever tearing the church apart again in the future. They eventually settled on a specific Greek word, homoousios, meaning of the same essence, to describe the relationship between Christ and God the Father in exact theological terms. The word was controversial even among Arius's opponents, since it did not actually appear anywhere in scripture itself, worrying some bishops that it introduced dangerous philosophical language into sacred doctrine. Constantine himself, eager for any resolution at all, personally pushed for this specific wording, reportedly pronouncing the term aloud himself to encourage the hesitant bishops toward agreement. Historians still debate today exactly how much of that dramatic confrontation actually happened as later legend described it, though the underlying tension was undeniably real. Follow for part 5.",
+          "pose": "standing",
+          "robe_color": "purple",
+          "sky": "temple",
+          "landmark": "temple",
+          "prop": null
+        }
+      ]
+    },
+    {
+      "segment_number": 5,
+      "title": "Nearly Unanimous, But Not Quite",
+      "social_title": "The Bishops Who Refused to Sign the Creed",
+      "caption": "When the final vote came, almost every bishop present agreed, but not all. Follow for part 6!",
+      "scenes": [
+        {
+          "narration": "When the final vote was called, the overwhelming majority of bishops present signed onto what became known as the Nicene Creed, formally declaring Christ to be of the same essence as God the Father, not a lesser created being. Only a small handful of bishops refused to sign, Arius himself among them, and Constantine responded by exiling those who would not accept the council's official ruling. This was the first time in Christian history that an emperor had directly enforced a specific theological position using the actual power of the state itself. Many bishops left Nicaea believing the controversy was now permanently settled, unaware that the underlying argument would actually continue simmering for decades to come. Some modern historians argue this moment marked a permanent, uneasy blending of religious authority and political power that would shape church history for centuries afterward. Follow for part 6.",
+          "pose": "kneeling",
+          "robe_color": "white",
+          "sky": "temple",
+          "landmark": "temple",
+          "prop": "cross"
+        }
+      ]
+    },
+    {
+      "segment_number": 6,
+      "title": "The Fight Was Far From Over",
+      "social_title": "Why the Arian Controversy Raged for Decades After Nicaea",
+      "caption": "Despite the council's ruling, the underlying conflict was far from finished. Follow for part 7!",
+      "scenes": [
+        {
+          "narration": "Despite the apparent resolution at Nicaea, Arius's supporters never fully disappeared, and the controversy continued raging across the empire for decades after the council formally concluded its business. Athanasius, who eventually became bishop of Alexandria himself, was exiled from his own city five separate times over the following decades as political winds shifted repeatedly between pro-Nicene and pro-Arian emperors. At one particularly low point, it seemed as though the majority of the empire's bishops had actually shifted toward Arius's position, leaving Athanasius as one of the doctrine's few remaining defenders. He reportedly remarked that it sometimes felt like the whole world had turned against the very creed Nicaea had once so confidently established. His exiles took him as far as Gaul and back, yet he continued writing and defending the same position throughout every single period of banishment he endured. Follow for part 7.",
+          "pose": "sitting",
+          "robe_color": "white",
+          "sky": "night",
+          "landmark": null,
+          "prop": "scroll"
+        }
+      ]
+    },
+    {
+      "segment_number": 7,
+      "title": "A Creed That Outlasted an Empire",
+      "social_title": "How Nicaea's Decision Still Shapes Christianity Today",
+      "caption": "Seventeen hundred years later, that creed still shapes Christian worship worldwide.",
+      "scenes": [
+        {
+          "narration": "It took another full council decades later to finally affirm and permanently secure the Nicene position, ensuring that the creed drafted in that one contentious meeting would endure for centuries afterward. Today, nearly seventeen hundred years later, the Nicene Creed is still recited in churches across the entire world, spanning traditions that disagree on nearly everything else about how faith should be practiced. Few of the millions who recite it each week know the full story of the shouting matches, the exiled bishops, and the emperor who pushed a single Greek word into permanent doctrine. What began as one priest's controversial teaching in Alexandria ultimately shaped Christian belief for every generation that followed, right down to today. That later council is remembered today as Constantinople in 381, finally cementing language that Nicaea had first attempted but could not fully settle on its own.",
+          "pose": "standing",
+          "robe_color": "blue",
+          "sky": "temple",
+          "landmark": "temple",
+          "prop": null
+        }
+      ]
+    }
+  ],
+  "full_compilation": {
+    "title": "Nicaea: The Council That Defined Christianity",
+    "social_title": "The True Story of the 325 AD Council That Shaped Christian Belief Forever",
+    "caption": "One Greek word, chosen 1700 years ago, still recited every week. #ChurchHistory #CouncilOfNicaea #EarlyChristianity #StoryTime #Shorts #Reels"
+  }
+}

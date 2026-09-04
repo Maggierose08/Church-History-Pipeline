@@ -1,0 +1,11 @@
+google-genai
+google-cloud-texttospeech>=2.16.0
+google-cloud-storage
+google-api-python-client
+google-auth
+google-auth-oauthlib
+requests
+python-dotenv
+Pillow
+tzdata>=2024.1
+PyYAML
