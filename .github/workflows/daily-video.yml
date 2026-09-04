@@ -1,0 +1,66 @@
+name: Daily Video Pipeline
+
+on:
+  schedule:
+    - cron: '0 11 * * *'
+    - cron: '15 11 * * *'
+    - cron: '30 11 * * *'
+  workflow_dispatch: {}
+
+jobs:
+  run-pipeline:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install ffmpeg
+        run: sudo apt-get update && sudo apt-get install -y ffmpeg
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Write GCS service account key
+        run: echo '${{ secrets.GCS_SERVICE_ACCOUNT_JSON }}' > gcs-key.json
+
+      - name: Run pipeline
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          GEMINI_TEXT_MODEL: ${{ vars.GEMINI_TEXT_MODEL }}
+          POLLINATIONS_API_KEY: ${{ secrets.POLLINATIONS_API_KEY }}
+          GOOGLE_TTS_VOICE_NAMES: ${{ vars.GOOGLE_TTS_VOICE_NAMES }}
+          SUBTITLE_FONT_SIZE: ${{ vars.SUBTITLE_FONT_SIZE }}
+          SUBTITLE_MAX_WORDS_PER_LINE: ${{ vars.SUBTITLE_MAX_WORDS_PER_LINE }}
+          GCS_BUCKET: ${{ secrets.GCS_BUCKET }}
+          GOOGLE_APPLICATION_CREDENTIALS: ${{ github.workspace }}/gcs-key.json
+          POST_WINDOW_START: ${{ vars.POST_WINDOW_START }}
+          POST_WINDOW_END: ${{ vars.POST_WINDOW_END }}
+          POST_TIMEZONE: ${{ vars.POST_TIMEZONE }}
+          YOUTUBE_CLIENT_ID: ${{ secrets.YOUTUBE_CLIENT_ID }}
+          YOUTUBE_CLIENT_SECRET: ${{ secrets.YOUTUBE_CLIENT_SECRET }}
+          YOUTUBE_REFRESH_TOKEN: ${{ secrets.YOUTUBE_REFRESH_TOKEN }}
+          SMTP_HOST: ${{ secrets.SMTP_HOST }}
+          SMTP_PORT: ${{ secrets.SMTP_PORT }}
+          SMTP_USER: ${{ secrets.SMTP_USER }}
+          SMTP_PASSWORD: ${{ secrets.SMTP_PASSWORD }}
+          NOTIFY_EMAIL_TO: ${{ secrets.NOTIFY_EMAIL_TO }}
+          NOTIFY_EMAIL_FROM: ${{ secrets.NOTIFY_EMAIL_FROM }}
+        run: python run_pipeline.py
+
+      - name: Upload run outputs as artifact
+        if: always()
+        continue-on-error: true
+        uses: actions/upload-artifact@v4
+        with:
+          name: pipeline-outputs-${{ github.run_id }}
+          path: |
+            outputs/**/*.log
+            outputs/**/*.json
+            outputs/**/*.ass
+          retention-days: 3
+          if-no-files-found: warn
