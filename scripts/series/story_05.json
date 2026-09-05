@@ -10,35 +10,34 @@
       "scenes": [
         {
           "narration": "Around the year one hundred ten, Ignatius, the respected bishop of Antioch, was arrested during a period of persecution and sentenced not to immediate execution but to a long, brutal journey to Rome, where he would eventually face wild beasts in the arena. He had led the church in Antioch for years, guiding a community that now watched him depart under armed guard. His arrest came during a period when local authorities were actively seeking to suppress a faith they viewed as a growing threat to civic order throughout the region.",
-          "pose": "walking",
-          "robe_color": "purple",
           "sky": "desert",
           "landmark": null,
-          "prop": null
+          "crowd_count": 0,
+          "figures": [{"pose": "walking", "robe_color": "purple", "prop": null}]
         },
         {
           "narration": "Roman authorities frequently transported condemned prisoners great distances specifically to serve as public spectacles in the capital, using such journeys as a form of traveling deterrent against other Christians along the route. Ignatius understood exactly what role he was now expected to play in that larger imperial strategy. Such sentences were designed as much for their public spectacle value as for the actual punishment of the individual condemned to face them in the arena.",
-          "pose": "standing",
-          "robe_color": "purple",
           "sky": "desert",
           "landmark": "wall",
-          "prop": null
+          "crowd_count": 3,
+          "figures": [
+            {"pose": "walking", "robe_color": "purple", "prop": null},
+            {"pose": "standing", "robe_color": "brown", "prop": null}
+          ]
         },
         {
           "narration": "Ignatius was bound and guarded by a rotation of soldiers he himself described in his own later writing as behaving like leopards, growing harsher the kinder he treated them personally. Their unpredictable cruelty became a recurring theme in the letters he began composing along the way. He wrote candidly about this harsh treatment without ever framing it as complaint, treating it instead as simply another expected feature of the journey ahead of him.",
-          "pose": "walking",
-          "robe_color": "purple",
           "sky": "desert",
           "landmark": null,
-          "prop": null
+          "crowd_count": 0,
+          "figures": [{"pose": "walking", "robe_color": "purple", "prop": null}]
         },
         {
           "narration": "Rather than despair during this grueling forced march across the empire, Ignatius began writing letters at each stop, addressed to churches he passed near, creating some of the earliest surviving Christian correspondence outside of scripture itself. Each stop became an opportunity rather than simply another mile of suffering. He seemed to understand instinctively that his final weeks of life could become something far more valuable than simple suffering if he used them deliberately. Follow for part 2.",
-          "pose": "sitting",
-          "robe_color": "purple",
           "sky": "desert",
           "landmark": null,
-          "prop": "scroll"
+          "crowd_count": 0,
+          "figures": [{"pose": "sitting", "robe_color": "purple", "prop": "scroll"}]
         }
       ]
     },
@@ -50,35 +49,34 @@
       "scenes": [
         {
           "narration": "At each city where the guards paused, delegations from local churches often came to meet Ignatius, and he used these brief encounters to dictate letters addressed to congregations he would likely never actually visit in person. Word of his approach frequently traveled ahead of the actual guard detail. These meetings, brief as they typically were, gave local congregations a rare chance to encounter a condemned bishop in person rather than only through secondhand report.",
-          "pose": "sitting",
-          "robe_color": "purple",
           "sky": "plain",
           "landmark": null,
-          "prop": "scroll"
+          "crowd_count": 4,
+          "figures": [
+            {"pose": "sitting", "robe_color": "purple", "prop": "scroll"},
+            {"pose": "standing", "robe_color": "brown", "prop": null}
+          ]
         },
         {
           "narration": "In these surviving letters, he urged unity among believers, warned against emerging theological disputes already dividing certain communities, and encouraged Christians to remain steadfast under the same kind of pressure he himself was currently enduring. His own circumstances lent every warning added weight. He wrote as someone keenly aware that these might be his final words to communities he had never personally visited and now never would.",
-          "pose": "teaching",
-          "robe_color": "purple",
           "sky": "plain",
           "landmark": null,
-          "prop": "scroll"
+          "crowd_count": 0,
+          "figures": [{"pose": "teaching", "robe_color": "purple", "prop": "scroll"}]
         },
         {
           "narration": "He wrote with startling directness about his own approaching death, describing himself as wheat that needed to be ground by the teeth of wild beasts in order to become genuine bread for Christ. Few condemned prisoners of that era wrote about their fate in quite such vivid, deliberate terms. That striking image of grinding wheat into bread became one of the most quoted lines from any surviving early Christian text of this period.",
-          "pose": "standing",
-          "robe_color": "purple",
           "sky": "night",
           "landmark": null,
-          "prop": null
+          "crowd_count": 0,
+          "figures": [{"pose": "standing", "robe_color": "purple", "prop": null}]
         },
         {
           "narration": "Modern historians consider these letters remarkably valuable, offering a rare, intimate window into how an early church leader thought about faith, suffering, and church unity while facing his own certain death. Few comparable documents survive from this exact period of church history. Later generations of Christians facing their own persecutions frequently turned to these same letters for both guidance and genuine comfort during difficult times. Follow for part 3. His willingness to write so openly about his own fate, rather than avoiding the subject entirely, set his letters apart from other surviving correspondence of the period.",
-          "pose": "sitting",
-          "robe_color": "purple",
           "sky": "desert",
           "landmark": null,
-          "prop": "scroll"
+          "crowd_count": 0,
+          "figures": [{"pose": "sitting", "robe_color": "purple", "prop": "scroll"}]
         }
       ]
     },
@@ -90,35 +88,31 @@
       "scenes": [
         {
           "narration": "In perhaps his most startling surviving letter, addressed directly to the church in Rome itself, Ignatius specifically begged believers there not to attempt any intervention on his behalf, fearing that Christians with influence might try to have his sentence reduced or overturned entirely. He wrote this request with unusual urgency and clarity. He had apparently anticipated exactly this kind of well-meaning interference, and chose to address it directly rather than simply hope it would not occur.",
-          "pose": "praying",
-          "robe_color": "purple",
           "sky": "night",
           "landmark": null,
-          "prop": "cross"
+          "crowd_count": 0,
+          "figures": [{"pose": "praying", "robe_color": "purple", "prop": "cross"}]
         },
         {
           "narration": "He wrote that he genuinely feared their love for him more than he feared the beasts awaiting him in the arena, worried their good intentions might rob him of what he saw as a meaningful death. To him, rescue would have undone the very purpose he had come to embrace. Losing what he had come to see as a meaningful, deliberate death felt to him like a far greater loss than losing his own life.",
-          "pose": "kneeling",
-          "robe_color": "purple",
           "sky": "night",
           "landmark": null,
-          "prop": "cross"
+          "crowd_count": 0,
+          "figures": [{"pose": "kneeling", "robe_color": "purple", "prop": "cross"}]
         },
         {
           "narration": "This request struck even some of his contemporaries as extreme, since most condemned prisoners of that era desperately sought any possible means of rescue or delay available to them through whatever connections they could find. Ignatius stood apart from that common instinct entirely. Wealthy or well-connected Christians in this era sometimes did succeed in securing reduced sentences for condemned believers through careful negotiation with local officials.",
-          "pose": "standing",
-          "robe_color": "purple",
           "sky": "plain",
           "landmark": null,
-          "prop": null
+          "crowd_count": 0,
+          "figures": [{"pose": "standing", "robe_color": "purple", "prop": null}]
         },
         {
           "narration": "Ignatius insisted repeatedly throughout the letter that dying for his faith was not a tragedy to be prevented but a genuine privilege he had waited his entire life to fulfill completely. That conviction only grew stronger the closer his journey brought him to Rome. He asked instead that the Roman church simply pray for him, trusting that outcome entirely to whatever God intended for his own remaining days. Follow for part 4. His clarity on this point left the Roman church in the difficult position of honoring a request that ran against every natural instinct to help a fellow believer.",
-          "pose": "teaching",
-          "robe_color": "purple",
           "sky": "plain",
           "landmark": null,
-          "prop": "scroll"
+          "crowd_count": 0,
+          "figures": [{"pose": "teaching", "robe_color": "purple", "prop": "scroll"}]
         }
       ]
     },
@@ -130,35 +124,37 @@
       "scenes": [
         {
           "narration": "Partway through the long overland journey, Ignatius was unexpectedly joined by Polycarp, the bishop of Smyrna and an old friend from earlier years in ministry, who traveled to meet him despite the obvious danger of publicly associating with a condemned prisoner. Their reunion, brief as it was, meant a great deal to both men. Both men had corresponded for years before this chance meeting, though neither had expected their paths to cross under quite these circumstances.",
-          "pose": "standing",
-          "robe_color": "purple",
           "sky": "desert",
           "landmark": "wall",
-          "prop": null
+          "crowd_count": 0,
+          "figures": [
+            {"pose": "standing", "robe_color": "purple", "prop": null},
+            {"pose": "standing", "robe_color": "brown", "prop": null}
+          ]
         },
         {
           "narration": "The two men reportedly spent time together discussing the state of the wider church, and Ignatius entrusted Polycarp with several of his letters to ensure they reached their intended congregations even if he himself did not survive the remaining journey. Polycarp accepted this responsibility without hesitation. Polycarp carried those letters onward with the same seriousness he brought to his own pastoral responsibilities back in Smyrna.",
-          "pose": "sitting",
-          "robe_color": "purple",
           "sky": "desert",
           "landmark": null,
-          "prop": "scroll"
+          "crowd_count": 0,
+          "figures": [
+            {"pose": "sitting", "robe_color": "purple", "prop": "scroll"},
+            {"pose": "kneeling", "robe_color": "brown", "prop": null}
+          ]
         },
         {
           "narration": "This meeting was especially poignant, since Polycarp himself would face a strikingly similar death by execution several decades later, in circumstances that closely echoed his friend's own final days. Neither man could have known just how closely their two fates would eventually mirror each other. Later readers of both men's stories often note this connection as a small but meaningful thread linking two of early Christianity's most significant martyrdoms.",
-          "pose": "standing",
-          "robe_color": "purple",
           "sky": "night",
           "landmark": null,
-          "prop": null
+          "crowd_count": 0,
+          "figures": [{"pose": "standing", "robe_color": "purple", "prop": null}]
         },
         {
           "narration": "For a brief moment along an otherwise grim journey, Ignatius found genuine comfort in the presence of someone who fully understood exactly what he was choosing to face in the days ahead. That comfort, however temporary, carried him through the harder stretches still to come. Ignatius reportedly urged his friend to remain steadfast in his own ministry, unaware his words would later apply just as directly to Polycarp's own eventual fate. Follow for part 5. Their brief time together, however short, gave both men something neither had expected to receive again before the end of Ignatius's journey.",
-          "pose": "praying",
-          "robe_color": "purple",
           "sky": "night",
           "landmark": null,
-          "prop": "cross"
+          "crowd_count": 0,
+          "figures": [{"pose": "praying", "robe_color": "purple", "prop": "cross"}]
         }
       ]
     },
@@ -170,35 +166,31 @@
       "scenes": [
         {
           "narration": "After weeks of difficult travel across multiple regions of the empire, the guards finally brought Ignatius into Rome itself, timing his arrival deliberately to coincide with public games already scheduled in the arena for that particular week. The city's scale and noise stood in sharp contrast to the quiet roads he had just traveled. Roman crowds gathered for such games expected genuine spectacle, and provincial officials often timed executions specifically to satisfy that demand during major public events.",
-          "pose": "walking",
-          "robe_color": "purple",
           "sky": "plain",
           "landmark": "wall",
-          "prop": null
+          "crowd_count": 0,
+          "figures": [{"pose": "walking", "robe_color": "purple", "prop": null}]
         },
         {
           "narration": "Christians in Rome who had received his earlier letter respected his explicit wishes and made no attempt to intervene or rescue him from the sentence already awaiting him in the arena. His request, difficult as it must have been to honor, was carried out exactly as he had asked. Their restraint, given how easily influence and money could sometimes alter such outcomes in this era, reflected genuine respect for a dying man's explicit wishes.",
-          "pose": "standing",
-          "robe_color": "purple",
           "sky": "temple",
           "landmark": "wall",
-          "prop": null
+          "crowd_count": 0,
+          "figures": [{"pose": "standing", "robe_color": "purple", "prop": null}]
         },
         {
           "narration": "Ignatius reportedly spent his final hours in the city continuing to pray fervently, expressing gratitude that his long and difficult journey was finally, mercifully drawing to its close after so many exhausting weeks on the road. Relief and resolve seemed to sit side by side in his final recorded words. He had carried this same conviction across hundreds of miles of difficult travel, and it had clearly not wavered as his journey neared its end.",
-          "pose": "praying",
-          "robe_color": "purple",
           "sky": "night",
           "landmark": null,
-          "prop": "cross"
+          "crowd_count": 0,
+          "figures": [{"pose": "praying", "robe_color": "purple", "prop": "cross"}]
         },
         {
           "narration": "He is said to have told those gathered around him that he was truly God's wheat, and that he needed to be ground fine enough by the beasts to become bread worthy of Christ himself. That image, first written weeks earlier, now described a fate only hours away. Those gathered around him in his final hours later recorded these words specifically because they captured something essential about how he understood his own approaching death. Follow for part 6. That final image of himself as wheat meant for grinding had, by this point, become the lens through which he understood everything still ahead of him.",
-          "pose": "kneeling",
-          "robe_color": "purple",
           "sky": "night",
           "landmark": null,
-          "prop": "cross"
+          "crowd_count": 0,
+          "figures": [{"pose": "kneeling", "robe_color": "purple", "prop": "cross"}]
         }
       ]
     },
@@ -210,35 +202,31 @@
       "scenes": [
         {
           "narration": "On the day of the games, Ignatius was finally led into the crowded Roman arena, where wild beasts waited to carry out the sentence issued weeks earlier in distant Antioch. The journey that had spanned so many cities and so many letters had reached its final, intended destination. The crowd that day had no particular knowledge of the letters already circulating among Christian communities elsewhere in the empire, seeing only another condemned prisoner facing the games.",
-          "pose": "standing",
-          "robe_color": "purple",
           "sky": "temple",
           "landmark": "wall",
-          "prop": null
+          "crowd_count": 12,
+          "figures": [{"pose": "standing", "robe_color": "purple", "prop": null}]
         },
         {
           "narration": "Witnesses who later recorded the event described him facing his death with the same calm resolve that had characterized every letter he had written along the entire painful journey to reach this point. His final moments matched the conviction expressed in his own writing. Accounts describe a composure that matched everything he had already written about his own expectations for this exact moment.",
-          "pose": "standing",
-          "robe_color": "purple",
           "sky": "night",
           "landmark": "wall",
-          "prop": null
+          "crowd_count": 0,
+          "figures": [{"pose": "standing", "robe_color": "purple", "prop": null}]
         },
         {
           "narration": "His remains, according to early accounts, consisted only of a few larger bones too tough for the animals to fully consume, later gathered carefully by grieving members of the Roman Christian community. They treated what little remained with the same reverence his letters had already earned him. Such careful handling of a martyr's remains became an increasingly common practice among early Christian communities honoring those who died for their faith.",
-          "pose": "kneeling",
-          "robe_color": "purple",
           "sky": "night",
           "landmark": null,
-          "prop": "cross"
+          "crowd_count": 0,
+          "figures": [{"pose": "kneeling", "robe_color": "purple", "prop": "cross"}]
         },
         {
           "narration": "Word of his death eventually made its way back to his home congregation in Antioch, carried by the very churches he had written to along his difficult final journey across the empire. The community he had once led now had to absorb the news of his actual passing. That same community had spent weeks not knowing exactly when or how the news of his fate would finally reach them. Follow for part 7. His congregation back in Antioch had followed his journey through the very letters now circulating among churches across the region.",
-          "pose": "sitting",
-          "robe_color": "purple",
           "sky": "plain",
           "landmark": null,
-          "prop": "scroll"
+          "crowd_count": 0,
+          "figures": [{"pose": "sitting", "robe_color": "purple", "prop": "scroll"}]
         }
       ]
     },
@@ -250,35 +238,31 @@
       "scenes": [
         {
           "narration": "The seven letters Ignatius wrote during his final journey survived and were carefully copied and preserved by the early church, eventually becoming some of the most important surviving documents from Christianity's earliest centuries. Their survival across nearly two millennia is itself a small miracle of careful transmission. Scholars studying early church organization rely heavily on these letters specifically because so few comparable firsthand documents survive from this exact period.",
-          "pose": "teaching",
-          "robe_color": "purple",
           "sky": "temple",
           "landmark": "temple",
-          "prop": "scroll"
+          "crowd_count": 0,
+          "figures": [{"pose": "teaching", "robe_color": "purple", "prop": "scroll"}]
         },
         {
           "narration": "Nearly two thousand years later, historians and theologians still study his letters closely for insight into how the very earliest Christian communities organized themselves and understood their own emerging faith. Few documents from this period offer comparable detail about daily church life. His letters address practical questions of church leadership and unity that congregations were still actively working through in these earliest formative decades.",
-          "pose": "standing",
-          "robe_color": "purple",
           "sky": "temple",
           "landmark": "wall",
-          "prop": "scroll"
+          "crowd_count": 0,
+          "figures": [{"pose": "standing", "robe_color": "purple", "prop": "scroll"}]
         },
         {
           "narration": "His willingness to face death without seeking rescue, expressed so clearly in his letter to the Roman church, remains one of the most striking personal testimonies to survive from that early period of Christian history. That single request continues to draw scholarly attention today. Few condemned prisoners from antiquity left behind writing this personal, this theologically developed, or this widely preserved across so many centuries.",
-          "pose": "praying",
-          "robe_color": "purple",
           "sky": "night",
           "landmark": null,
-          "prop": "cross"
+          "crowd_count": 0,
+          "figures": [{"pose": "praying", "robe_color": "purple", "prop": "cross"}]
         },
         {
           "narration": "What began as a forced, brutal march toward execution ultimately produced some of the church's most treasured early writings, carried forward by the very churches he wrote to along the way. His story, like those of Perpetua, Polycarp, and countless others from that same era, reminds us that the early church's survival depended on ordinary people choosing extraordinary conviction. Their preservation across centuries of copying and translation reflects just how highly the early church valued the testimony of someone who died exactly as he said he would. Modern readers encountering his words for the first time often find them just as striking today as they clearly were to the congregations who first received them.",
-          "pose": "teaching",
-          "robe_color": "purple",
           "sky": "temple",
           "landmark": "temple",
-          "prop": null
+          "crowd_count": 0,
+          "figures": [{"pose": "teaching", "robe_color": "purple", "prop": null}]
         }
       ]
     }
