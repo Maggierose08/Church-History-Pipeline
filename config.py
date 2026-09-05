@@ -55,6 +55,11 @@ class Config:
     # --- Pollinations (free fallback for thumbnails only) ---
     pollinations_api_key: str = os.environ.get("POLLINATIONS_API_KEY", "")
 
+    # --- Mistral + Tavily (manual grounding fallback when Gemini is unavailable) ---
+    mistral_api_key: str = os.environ.get("MISTRAL_API_KEY", "")
+    mistral_text_model: str = os.environ.get("MISTRAL_TEXT_MODEL") or "mistral-large-latest"
+    tavily_api_key: str = os.environ.get("TAVILY_API_KEY", "")
+
     # --- Google Cloud Storage ---
     gcs_bucket: str = os.environ.get("GCS_BUCKET", "")
     gcs_staging_prefix: str = os.environ.get("GCS_STAGING_PREFIX", "church_staging")
