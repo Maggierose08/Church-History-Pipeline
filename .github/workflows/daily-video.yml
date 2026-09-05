@@ -33,6 +33,8 @@ jobs:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
           GEMINI_TEXT_MODEL: ${{ vars.GEMINI_TEXT_MODEL }}
           POLLINATIONS_API_KEY: ${{ secrets.POLLINATIONS_API_KEY }}
+          MISTRAL_API_KEY: ${{ secrets.MISTRAL_API_KEY }}
+          TAVILY_API_KEY: ${{ secrets.TAVILY_API_KEY }}
           GOOGLE_TTS_VOICE_NAMES: ${{ vars.GOOGLE_TTS_VOICE_NAMES }}
           SUBTITLE_FONT_SIZE: ${{ vars.SUBTITLE_FONT_SIZE }}
           SUBTITLE_MAX_WORDS_PER_LINE: ${{ vars.SUBTITLE_MAX_WORDS_PER_LINE }}
