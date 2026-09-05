@@ -13,6 +13,10 @@ from kenburns import build_scene_clip
 
 logger = logging.getLogger("video_pipeline")
 
+# Images change roughly every 2-3 seconds throughout a segment, not just once or
+# twice per scene - this is how often a new still/Ken-Burns-beat is generated.
+TARGET_BEAT_SECONDS = 2.5
+
 
 def _run_ffmpeg(cmd: list[str]):
     result = subprocess.run(cmd, capture_output=True, text=True)
@@ -38,13 +42,21 @@ def _mux_audio_and_burn_subtitles(video_path: str, audio_path: str, ass_path: st
     ])
 
 
+# Cycle of 4 distinct visual variations (position nudge + facing) applied in
+# sequence across a scene's beats, so a scene lasting many beats doesn't just
+# flip back and forth between 2 identical states repeatedly.
+_VARIANT_OFFSETS = {0: 0.0, 1: 0.05, 2: 0.0, 3: -0.05}
+_VARIANT_FLIP = {0: False, 1: True, 2: False, 3: True}
+NUM_VISUAL_VARIANTS = 4
+
+
 def _scene_to_image(scene: dict, output_path: str, variant: int = 0):
     """
     Converts one scene's visual spec (1-3 figures + optional background crowd +
-    sky/landmark) into a rendered stick-figure still. `variant` (0 or 1) nudges each
-    figure's position slightly and can mirror facing - used to produce a second,
-    genuinely different still from the SAME scene data, so the image can change
-    partway through a scene's screen time without needing new story content.
+    sky/landmark) into a rendered stick-figure still. `variant` cycles through 4
+    distinct position/facing states (see _VARIANT_OFFSETS/_VARIANT_FLIP) so a scene
+    split into many short beats shows real visual variety rather than repeating the
+    same 2 states over and over, without needing new story content.
     """
     has_landmark = bool(scene.get("landmark"))
     figure_specs = [
@@ -55,15 +67,17 @@ def _scene_to_image(scene: dict, output_path: str, variant: int = 0):
         figure_specs, config.video_width, config.video_height, has_landmark
     )
 
-    # variant 1 nudges every figure a little further from the frame center and
-    # flips facing, giving a genuinely different still without changing WHO is in
-    # the scene or WHAT they're doing.
-    if variant == 1:
+    v = variant % NUM_VISUAL_VARIANTS
+    offset_frac = _VARIANT_OFFSETS[v]
+    flip = _VARIANT_FLIP[v]
+    if offset_frac or flip:
         center_x = config.video_width // 2
         for fig in positioned:
-            direction = 1 if fig["x"] >= center_x else -1
-            fig["x"] += direction * int(config.video_width * 0.05)
-            fig["facing"] *= -1
+            if offset_frac:
+                direction = 1 if fig["x"] >= center_x else -1
+                fig["x"] += int(config.video_width * offset_frac) * direction
+            if flip:
+                fig["facing"] *= -1
 
     img = stick_figures.draw_scene(
         width=config.video_width,
@@ -105,23 +119,24 @@ def render_segment_video(segment: dict, audio_path: str, timestamps_path: str, r
     ass_path = f"{output_dir}/captions.ass"
     ass_captions.build_ass(words, ass_path, active_color=active_color, line_color=line_color)
 
-    # Each scene is split into 2 visual sub-beats of equal duration - same pose/robe/
-    # sky/landmark/prop (the actual story content is unchanged), but a shifted facing
-    # and position, so the image visibly changes roughly twice as often as before
-    # without requiring new narration or additional scenes to be written.
+    # Each scene is split into ~2-3 second beats (not just 2 halves) - same pose/robe/
+    # sky/landmark/prop (the actual story content is unchanged), cycling through 4
+    # position/facing variants, so the image visibly changes every 2-3 seconds
+    # throughout the whole segment without requiring new narration to be written.
     segment_clip_paths = []
     clip_index = 0
     for i, (scene, duration) in enumerate(zip(scenes, scene_durations)):
-        half_duration = duration / 2
-        for variant in (0, 1):
-            image_path = f"{output_dir}/scene_{i}_{variant}.png"
-            _scene_to_image(scene, image_path, variant=variant)
+        num_beats = max(1, round(duration / TARGET_BEAT_SECONDS))
+        beat_duration = duration / num_beats
+        for beat in range(num_beats):
+            image_path = f"{output_dir}/scene_{i}_{beat}.png"
+            _scene_to_image(scene, image_path, variant=beat)
             clip_path = f"{output_dir}/kb_clip_{clip_index}.mp4"
-            build_scene_clip(image_path, half_duration, clip_path, width=config.video_width, height=config.video_height)
+            build_scene_clip(image_path, beat_duration, clip_path, width=config.video_width, height=config.video_height)
             segment_clip_paths.append(clip_path)
             clip_index += 1
         poses = [f["pose"] for f in scene["figures"]]
-        logger.info(f"Rendered scene {i+1}/{len(scenes)} as 2 sub-beats ({duration:.1f}s total, {len(poses)} figure(s): {poses}, crowd={scene.get('crowd_count', 0)})")
+        logger.info(f"Rendered scene {i+1}/{len(scenes)} as {num_beats} beat(s) of ~{beat_duration:.1f}s each ({duration:.1f}s total, {len(poses)} figure(s): {poses}, crowd={scene.get('crowd_count', 0)})")
 
     concat_path = f"{output_dir}/concatenated.mp4"
     _concat_segments(segment_clip_paths, f"{output_dir}/concat_list.txt", concat_path)
