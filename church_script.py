@@ -26,10 +26,23 @@ VALID_SKIES = ["desert", "temple", "sea", "night", "plain"]
 VALID_LANDMARKS = ["temple", "hills", "ship", "wall", None]
 VALID_PROPS = ["staff", "scroll", "cross", None]
 
-MIN_SEGMENT_WORDS = 130   # ~1 min at this pipeline's speaking rate, hard floor
-MAX_SEGMENT_WORDS = 200   # ~1.5 min ceiling
+# Calibrated against REAL measured TTS output for this pipeline's en-US voice pool
+# at 1.5x (148 words -> 29.6s measured in production, i.e. ~5.0 words/sec) - NOT a
+# rough estimate. Segments need to genuinely fill 1-1.5 minutes (60-90s) as originally
+# specified, which requires roughly 300-450 words, not the much lower number an
+# unverified guess originally used.
+MIN_SEGMENT_WORDS = 300
+MAX_SEGMENT_WORDS = 450
 TARGET_SEGMENT_COUNT_MIN = 7
 TARGET_SEGMENT_COUNT_MAX = 9
+# A 60-90 second segment shown as a single unchanging still image is visually flat -
+# require real scene variety within each segment.
+MIN_SCENES_PER_SEGMENT = 3
+MAX_SCENES_PER_SEGMENT = 5
+
+# Some robe/sky color pairings render as nearly the same shade, making the figure
+# blend into the background instead of standing out - reject these combinations.
+LOW_CONTRAST_PAIRS = {("white", "temple"), ("white", "plain"), ("green", "night")}
 
 SYSTEM_PROMPT = f"""You are a historian and scriptwriter creating short-form narration videos \
 about real, documented church history - early Christianity, church fathers, missionary \
@@ -43,14 +56,20 @@ chapter, {MIN_SEGMENT_WORDS}-{MAX_SEGMENT_WORDS} words), which post first as a s
 building up the full story with a "Follow for part N"-style hook (dynamically numbered - segment 1 says
 "Follow for part 2", segment 2 says "Follow for part 3", and so on) at the end of every segment except the last. Days later, all segments are combined into one full-length video.
 
-For the VISUAL side: each segment is broken into scenes. Since figures are simple stick-figure \
-illustrations (not photorealistic), each scene must specify its visuals using ONLY these exact \
-values - do not invent new ones:
+For the VISUAL side: each segment must be broken into {MIN_SCENES_PER_SEGMENT}-{MAX_SCENES_PER_SEGMENT} \
+distinct scenes - a single unchanging image for a full 60-90 second segment is visually flat, so \
+real scene variety within each segment is required, not optional. Since figures are simple \
+stick-figure illustrations (not photorealistic), each scene must specify its visuals using ONLY \
+these exact values - do not invent new ones:
 - pose: one of {VALID_POSES}
 - robe_color: one of {VALID_ROBE_COLORS}
 - sky: one of {VALID_SKIES}
 - landmark: one of {['"' + l + '"' for l in VALID_LANDMARKS if l]} or null
 - prop: one of {['"' + p + '"' for p in VALID_PROPS if p]} or null
+
+IMPORTANT: never pair robe_color="white" with sky="temple" or sky="plain", and never pair \
+robe_color="green" with sky="night" - these specific combinations render as nearly the same \
+shade and make the figure disappear into the background. Every other combination is fine.
 
 Output ONLY valid JSON, no markdown fences, no commentary, matching this schema exactly:
 {{
@@ -146,6 +165,11 @@ def _validate_scene(scene: dict):
         raise ValueError(f"Invalid landmark: {scene.get('landmark')!r}")
     if scene.get("prop") not in VALID_PROPS:
         raise ValueError(f"Invalid prop: {scene.get('prop')!r}")
+    if (scene["robe_color"], scene["sky"]) in LOW_CONTRAST_PAIRS:
+        raise ValueError(
+            f"robe_color={scene['robe_color']!r} on sky={scene['sky']!r} renders as nearly "
+            f"the same shade (low contrast) - choose a different robe color or sky for this scene"
+        )
 
 
 def _validate_and_parse(raw: str) -> dict:
@@ -159,6 +183,11 @@ def _validate_and_parse(raw: str) -> dict:
         word_count = sum(len(sc["narration"].split()) for sc in seg["scenes"])
         if word_count < MIN_SEGMENT_WORDS:
             raise ValueError(f"Segment {i+1} has {word_count} words, under the {MIN_SEGMENT_WORDS} minimum")
+        if not (MIN_SCENES_PER_SEGMENT <= len(seg["scenes"]) <= MAX_SCENES_PER_SEGMENT):
+            raise ValueError(
+                f"Segment {i+1} has {len(seg['scenes'])} scene(s), expected "
+                f"{MIN_SCENES_PER_SEGMENT}-{MAX_SCENES_PER_SEGMENT} for visual variety within a 60-90s segment"
+            )
         for scene in seg["scenes"]:
             _validate_scene(scene)
 
