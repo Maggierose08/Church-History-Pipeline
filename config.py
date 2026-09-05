@@ -57,7 +57,11 @@ class Config:
 
     # --- Mistral + Tavily (manual grounding fallback when Gemini is unavailable) ---
     mistral_api_key: str = os.environ.get("MISTRAL_API_KEY", "")
-    mistral_text_model: str = os.environ.get("MISTRAL_TEXT_MODEL") or "mistral-large-latest"
+    # mistral-small-latest, not mistral-large-latest - Large requires phone (SMS)
+    # verification on Mistral's free tier, and a 403 "tier_not_allowed" error was
+    # hit in production on an unverified account. Small is confirmed available on
+    # every free-tier account regardless of verification status.
+    mistral_text_model: str = os.environ.get("MISTRAL_TEXT_MODEL") or "mistral-small-latest"
     tavily_api_key: str = os.environ.get("TAVILY_API_KEY", "")
 
     # --- Google Cloud Storage ---
