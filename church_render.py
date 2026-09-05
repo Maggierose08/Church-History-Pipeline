@@ -35,16 +35,19 @@ def _mux_audio_and_burn_subtitles(video_path: str, audio_path: str, ass_path: st
     ])
 
 
-def _scene_to_image(scene: dict, output_path: str):
+def _scene_to_image(scene: dict, output_path: str, variant: int = 0):
     """
     Converts one scene's visual spec (pose/robe_color/sky/landmark/prop) into a
-    rendered stick-figure still. One figure, centered, sized to fill the frame
-    appropriately depending on whether a landmark is present (landmarks need a bit
-    more room, so the figure is slightly smaller to avoid crowding).
+    rendered stick-figure still. `variant` (0 or 1) shifts facing direction and
+    horizontal position slightly - used to produce a second, genuinely different
+    still from the SAME scene data, so the image can change partway through a
+    scene's screen time without needing new story content or narration.
     """
     has_landmark = bool(scene.get("landmark"))
     scale = 2.2 if has_landmark else 2.6
     figure_y = int(config.video_height * 0.68)
+    facing = 1 if variant == 0 else -1
+    x_offset = 0 if variant == 0 else int(config.video_width * 0.08)
 
     img = stick_figures.draw_scene(
         width=config.video_width,
@@ -53,10 +56,10 @@ def _scene_to_image(scene: dict, output_path: str):
         landmark=scene.get("landmark"),
         figures=[{
             "pose": scene["pose"],
-            "x": config.video_width // 2,
+            "x": config.video_width // 2 + x_offset,
             "y": figure_y,
             "scale": scale,
-            "facing": 1,
+            "facing": facing,
             "robe_color": scene["robe_color"],
             "prop": scene.get("prop"),
         }],
@@ -87,14 +90,22 @@ def render_segment_video(segment: dict, audio_path: str, timestamps_path: str, r
     ass_path = f"{output_dir}/captions.ass"
     ass_captions.build_ass(words, ass_path, active_color=active_color, line_color=line_color)
 
+    # Each scene is split into 2 visual sub-beats of equal duration - same pose/robe/
+    # sky/landmark/prop (the actual story content is unchanged), but a shifted facing
+    # and position, so the image visibly changes roughly twice as often as before
+    # without requiring new narration or additional scenes to be written.
     segment_clip_paths = []
+    clip_index = 0
     for i, (scene, duration) in enumerate(zip(scenes, scene_durations)):
-        image_path = f"{output_dir}/scene_{i}.png"
-        _scene_to_image(scene, image_path)
-        clip_path = f"{output_dir}/kb_clip_{i}.mp4"
-        build_scene_clip(image_path, duration, clip_path, width=config.video_width, height=config.video_height)
-        segment_clip_paths.append(clip_path)
-        logger.info(f"Rendered scene {i+1}/{len(scenes)} ({duration:.1f}s, pose={scene['pose']})")
+        half_duration = duration / 2
+        for variant in (0, 1):
+            image_path = f"{output_dir}/scene_{i}_{variant}.png"
+            _scene_to_image(scene, image_path, variant=variant)
+            clip_path = f"{output_dir}/kb_clip_{clip_index}.mp4"
+            build_scene_clip(image_path, half_duration, clip_path, width=config.video_width, height=config.video_height)
+            segment_clip_paths.append(clip_path)
+            clip_index += 1
+        logger.info(f"Rendered scene {i+1}/{len(scenes)} as 2 sub-beats ({duration:.1f}s total, pose={scene['pose']})")
 
     concat_path = f"{output_dir}/concatenated.mp4"
     _concat_segments(segment_clip_paths, f"{output_dir}/concat_list.txt", concat_path)
