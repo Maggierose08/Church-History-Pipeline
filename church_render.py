@@ -2,10 +2,13 @@ import logging
 import os
 import subprocess
 
+from PIL import ImageDraw
+
 from config import config
 from retry_utils import retry_with_backoff
 import ass_captions
 import stick_figures
+import figure_layout
 from kenburns import build_scene_clip
 
 logger = logging.getLogger("video_pipeline")
@@ -37,33 +40,45 @@ def _mux_audio_and_burn_subtitles(video_path: str, audio_path: str, ass_path: st
 
 def _scene_to_image(scene: dict, output_path: str, variant: int = 0):
     """
-    Converts one scene's visual spec (pose/robe_color/sky/landmark/prop) into a
-    rendered stick-figure still. `variant` (0 or 1) shifts facing direction and
-    horizontal position slightly - used to produce a second, genuinely different
-    still from the SAME scene data, so the image can change partway through a
-    scene's screen time without needing new story content or narration.
+    Converts one scene's visual spec (1-3 figures + optional background crowd +
+    sky/landmark) into a rendered stick-figure still. `variant` (0 or 1) nudges each
+    figure's position slightly and can mirror facing - used to produce a second,
+    genuinely different still from the SAME scene data, so the image can change
+    partway through a scene's screen time without needing new story content.
     """
     has_landmark = bool(scene.get("landmark"))
-    scale = 2.2 if has_landmark else 2.6
-    figure_y = int(config.video_height * 0.68)
-    facing = 1 if variant == 0 else -1
-    x_offset = 0 if variant == 0 else int(config.video_width * 0.08)
+    figure_specs = [
+        {"pose": f["pose"], "robe_color": f["robe_color"], "prop": f.get("prop")}
+        for f in scene["figures"]
+    ]
+    positioned = figure_layout.position_figures(
+        figure_specs, config.video_width, config.video_height, has_landmark
+    )
+
+    # variant 1 nudges every figure a little further from the frame center and
+    # flips facing, giving a genuinely different still without changing WHO is in
+    # the scene or WHAT they're doing.
+    if variant == 1:
+        center_x = config.video_width // 2
+        for fig in positioned:
+            direction = 1 if fig["x"] >= center_x else -1
+            fig["x"] += direction * int(config.video_width * 0.05)
+            fig["facing"] *= -1
 
     img = stick_figures.draw_scene(
         width=config.video_width,
         height=config.video_height,
         sky=scene["sky"],
         landmark=scene.get("landmark"),
-        figures=[{
-            "pose": scene["pose"],
-            "x": config.video_width // 2 + x_offset,
-            "y": figure_y,
-            "scale": scale,
-            "facing": facing,
-            "robe_color": scene["robe_color"],
-            "prop": scene.get("prop"),
-        }],
+        figures=positioned,
     )
+
+    crowd_count = scene.get("crowd_count", 0) or 0
+    if crowd_count > 0:
+        draw = ImageDraw.Draw(img)
+        ground_y = int(config.video_height * 0.82)
+        stick_figures.draw_crowd_silhouettes(draw, crowd_count, config.video_width, ground_y)
+
     img.save(output_path)
 
 
@@ -105,7 +120,8 @@ def render_segment_video(segment: dict, audio_path: str, timestamps_path: str, r
             build_scene_clip(image_path, half_duration, clip_path, width=config.video_width, height=config.video_height)
             segment_clip_paths.append(clip_path)
             clip_index += 1
-        logger.info(f"Rendered scene {i+1}/{len(scenes)} as 2 sub-beats ({duration:.1f}s total, pose={scene['pose']})")
+        poses = [f["pose"] for f in scene["figures"]]
+        logger.info(f"Rendered scene {i+1}/{len(scenes)} as 2 sub-beats ({duration:.1f}s total, {len(poses)} figure(s): {poses}, crowd={scene.get('crowd_count', 0)})")
 
     concat_path = f"{output_dir}/concatenated.mp4"
     _concat_segments(segment_clip_paths, f"{output_dir}/concat_list.txt", concat_path)
