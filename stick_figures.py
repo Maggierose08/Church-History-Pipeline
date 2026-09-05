@@ -209,8 +209,6 @@ def draw_scene(width: int, height: int, sky: str, landmark: str, figures: list[d
     ground_y = int(height * 0.82)
 
     if landmark == "temple":
-        # Two smaller flanking buildings behind the main temple for a fuller skyline,
-        # not just one isolated structure.
         _draw_temple(draw, width * 0.18, ground_y, width * 0.28, height * 0.18, color=(200, 192, 200))
         _draw_temple(draw, width * 0.86, ground_y, width * 0.28, height * 0.18, color=(200, 192, 200))
         _draw_temple(draw, width * 0.5, ground_y, width * 0.85, height * 0.32)
@@ -220,8 +218,6 @@ def draw_scene(width: int, height: int, sky: str, landmark: str, figures: list[d
         _draw_ship(draw, width * 0.5, ground_y, width * 0.7)
     elif landmark == "wall":
         _draw_wall(draw, width, ground_y)
-        # A small cluster of building silhouettes peeking above the wall line,
-        # suggesting a city behind it rather than just a bare defensive wall.
         for bx, bw, bh in [(width * 0.15, width * 0.12, 60), (width * 0.35, width * 0.10, 45),
                             (width * 0.62, width * 0.14, 70), (width * 0.82, width * 0.11, 50)]:
             draw.rectangle([bx, ground_y - 90 - bh, bx + bw, ground_y - 90], fill=(160, 150, 135), outline=FIGURE_COLOR, width=2)
@@ -236,3 +232,28 @@ def draw_scene(width: int, height: int, sky: str, landmark: str, figures: list[d
         )
 
     return img
+
+
+def draw_crowd_silhouettes(draw, count: int, width: int, ground_y: int, scale: float = 0.9):
+    """
+    Draws `count` simplified, smaller background figures (no individual pose detail -
+    just a simple robe-blob + head silhouette) scattered behind the main interacting
+    figures, to suggest a larger crowd/mob/gathering without needing each person to
+    be a fully articulated, individually-posed character. Used for scenes like "a
+    furious mob," "two hundred bishops," or "a watching crowd" where the story calls
+    for a genuine group, not just 1-3 named individuals having a specific interaction.
+    """
+    import random
+    rng = random.Random(count * 97 + width)
+    silhouette_color = (90, 85, 95)
+    for i in range(count):
+        cx = width * (0.08 + 0.84 * i / max(1, count - 1)) + rng.uniform(-25, 25)
+        head_r = 16 * scale
+        body_h = 60 * scale
+        cy = ground_y - body_h - head_r * 2 - rng.uniform(0, 15)
+        draw.ellipse([cx - head_r, cy, cx + head_r, cy + head_r * 2], fill=silhouette_color)
+        draw.polygon(
+            [(cx - 14 * scale, cy + head_r * 2), (cx + 14 * scale, cy + head_r * 2),
+             (cx + 22 * scale, cy + head_r * 2 + body_h), (cx - 22 * scale, cy + head_r * 2 + body_h)],
+            fill=silhouette_color,
+        )
