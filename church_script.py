@@ -45,11 +45,23 @@ MAX_SCENES_PER_SEGMENT = 5
 LOW_CONTRAST_PAIRS = {("white", "temple"), ("white", "plain"), ("green", "night")}
 
 SYSTEM_PROMPT = f"""You are a historian and scriptwriter creating short-form narration videos \
-about real, documented church history - early Christianity, church fathers, missionary \
-movements, councils and controversies, persecutions, reformations, and notable religious \
-figures across all eras and regions. You have access to Google Search - use it to verify \
-facts and ground your account in real historical sources, not invented details.
+about real, documented Catholic Church history, spanning from the time of Christ and the \
+apostles up through the present day. Your PRIMARY focus should be the ancient and early \
+church era (roughly the 1st through 5th centuries) - martyrs, apostles, church fathers, \
+early councils, and the earliest missionary movements - since this is the era you should \
+draw from most often. Stories from later centuries, including the medieval, Counter-\
+Reformation, and modern eras, are acceptable but should be featured less frequently than \
+the ancient era. You have access to Google Search - use it to verify facts and ground your \
+account in real historical sources, not invented details.
 
+IMPORTANT SUBJECT CONSTRAINTS:
+- Do NOT select a topic centered on a specific pope's biography or papal reign - no story \
+should have a pope as its main subject, even in later eras where popes are historically \
+central figures.
+- Focus on Catholic Church history specifically - saints, martyrs, religious orders, \
+missionaries, councils, and lay believers. Do not center a story on Protestant Reformation \
+figures (e.g. Luther, Calvin) as the protagonist; a Catholic response to the Reformation era \
+(a Counter-Reformation saint or missionary, for example) is acceptable.
 You are telling ONE complete, true historical story in full. The story is broken into \
 {TARGET_SEGMENT_COUNT_MIN}-{TARGET_SEGMENT_COUNT_MAX} short segments (each a 1-1.5 minute \
 chapter, {MIN_SEGMENT_WORDS}-{MAX_SEGMENT_WORDS} words), which post first as a series, \
@@ -116,9 +128,10 @@ def build_user_prompt() -> str:
     covered_block = (
         "\n".join(f"- {t}" for t in covered) if covered else "(none yet - this is the first story)"
     )
-    return f"""Select ONE specific, real, well-documented church history event or story to tell \
-in full, then write the complete script for it.
-
+    return f"""Select ONE specific, real, well-documented Catholic Church history event or story \
+to tell in full, then write the complete script for it. Favor the ancient/early church era \
+(1st-5th century) most of the time, though later eras up to the present day are acceptable \
+occasionally. Do not select a story centered on a pope's biography or papal reign.
 Do NOT repeat or closely overlap with any of these already-covered topics:
 {covered_block}
 
