@@ -5,6 +5,7 @@ from pathlib import Path
 
 from config import config
 import church_script
+import mistral_script
 import topic_history
 
 logger = logging.getLogger("video_pipeline")
@@ -59,18 +60,28 @@ def _load_random_local_series(exclude_files: set[str] = None) -> tuple[dict, str
 
 def generate_story_with_fallback(exclude_local_files: set[str] = None) -> tuple[dict, str | None]:
     """
-    Gemini with Search Grounding -> local fallback pool. No Groq tier here, unlike
-    other pipelines - Groq has no equivalent free search-grounding capability, so a
-    Groq-generated story would have no way to verify historical accuracy, defeating
-    the whole point of this pipeline. Returns (story_data, source_file) - source_file
-    is the local pool filename if that tier was used, else None.
+    Three tiers: Gemini with native Search Grounding -> Mistral+Tavily manual
+    grounding (Mistral proposes a topic, Tavily searches real sources, Mistral
+    writes the story constrained to those sources) -> local fallback pool. Unlike
+    other pipelines, there's no ungrounded fallback tier (no plain Groq call) - an
+    AI generating historical claims with no way to verify them defeats the whole
+    point of this pipeline, so every AI tier here does real fact-checking one way
+    or another. Returns (story_data, source_file) - source_file is the local pool
+    filename if that tier was used, else None.
     """
     if config.gemini_api_key:
         try:
             story_data = church_script.generate_church_history_story()
             return story_data, None
         except Exception as e:
-            logger.warning(f"Search-grounded story generation failed after retries: {e}")
+            logger.warning(f"Gemini search-grounded story generation failed after retries: {e}")
+
+    if config.mistral_api_key and config.tavily_api_key:
+        try:
+            story_data = mistral_script.generate_mistral_grounded_story()
+            return story_data, None
+        except Exception as e:
+            logger.warning(f"Mistral+Tavily grounded story generation failed after retries: {e}")
 
     logger.info("Falling back to local story pool")
     return _load_random_local_series(exclude_local_files)
