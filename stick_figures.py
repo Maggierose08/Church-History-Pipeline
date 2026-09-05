@@ -23,8 +23,23 @@ ROBE_COLORS = {
 }
 
 
-def _draw_head(draw, cx, cy, r):
+def _draw_head(draw, cx, cy, r, facing=1):
+    """Head circle plus simple facial features (two eyes, a small mouth line) - the
+    eyes shift slightly toward `facing` direction so the figure visibly looks toward
+    whoever/whatever it's facing, matching the interaction direction set by facing."""
     draw.ellipse([cx - r, cy - r, cx + r, cy + r], outline=FIGURE_COLOR, width=LINE_WIDTH)
+
+    eye_offset_x = r * 0.28 * facing
+    eye_y = cy - r * 0.12
+    eye_r = max(2, r * 0.09)
+    for side in (-1, 1):
+        ex = cx + eye_offset_x + side * r * 0.32
+        draw.ellipse([ex - eye_r, eye_y - eye_r, ex + eye_r, eye_y + eye_r], fill=FIGURE_COLOR)
+
+    mouth_y = cy + r * 0.35
+    mouth_half_w = r * 0.22
+    mouth_x = cx + eye_offset_x * 0.5
+    draw.line([mouth_x - mouth_half_w, mouth_y, mouth_x + mouth_half_w, mouth_y], fill=FIGURE_COLOR, width=max(2, int(LINE_WIDTH * 0.4)))
 
 
 def _limb(draw, x1, y1, x2, y2, width=LINE_WIDTH):
@@ -123,7 +138,7 @@ def draw_pose(draw, pose: str, x: int, y: int, scale: float = 1.0, facing: int =
         _limb(draw, x - 10 * s * f, hip_y, x + 12 * s * f, hip_y + 15 * s, width=int(LINE_WIDTH * 0.7))
         _limb(draw, x - 10 * s * f, hip_y, x - 20 * s * f, hip_y + 15 * s, width=int(LINE_WIDTH * 0.7))
 
-    _draw_head(draw, x, y - head_r - 4 * s, head_r)
+    _draw_head(draw, x, y - head_r - 4 * s, head_r, facing=f)
 
     # Arms - each pose's arm geometry is chosen to stay clearly below the head's
     # bottom edge (y - 4*s), so nothing crosses through the face.
