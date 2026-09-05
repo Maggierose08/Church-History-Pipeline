@@ -10,35 +10,31 @@
       "scenes": [
         {
           "narration": "In the city of Smyrna around the year one hundred fifty five, an elderly bishop named Polycarp, believed to be in his mid eighties, became the target of a mob demanding his execution during a public festival. He had led his congregation for decades, respected by believers throughout the region for a lifetime of steady, patient leadership through repeated waves of persecution. His congregation had weathered several earlier waves of official hostility during his long tenure, and many credited his steady, patient guidance with holding their community together through each successive crisis.",
-          "pose": "standing",
-          "robe_color": "brown",
           "sky": "desert",
           "landmark": null,
-          "prop": null
+          "crowd_count": 0,
+          "figures": [{"pose": "standing", "robe_color": "brown", "prop": null}]
         },
         {
           "narration": "Polycarp had reportedly known the apostle John personally as a young man decades earlier, making him one of the last living links to the very first generation of Christian leaders anywhere in the empire. That personal connection lent his teaching an authority few other bishops of his era could genuinely claim for themselves. Later church writers frequently cited this direct connection to trace an unbroken line of teaching authority back to the apostles themselves, lending Polycarp's own words particular weight among believers.",
-          "pose": "teaching",
-          "robe_color": "brown",
           "sky": "temple",
           "landmark": "wall",
-          "prop": "scroll"
+          "crowd_count": 0,
+          "figures": [{"pose": "teaching", "robe_color": "brown", "prop": "scroll"}]
         },
         {
           "narration": "As anti-Christian sentiment in the city boiled over during the festival crowds, voices began calling out specifically for Polycarp's death, treating the elderly bishop as a symbolic target for their collective anger. His age and stature within the community made him an especially prominent target for a crowd already primed for violence. Local grievances against Christians, often simmering for years over economic or social tensions, found in that festival crowd a convenient outlet aimed squarely at their community's most visible leader.",
-          "pose": "pointing",
-          "robe_color": "red",
           "sky": "desert",
           "landmark": "wall",
-          "prop": null
+          "crowd_count": 10,
+          "figures": [{"pose": "pointing", "robe_color": "red", "prop": null}]
         },
         {
           "narration": "Friends urged him repeatedly to flee the city while there was still time, and reluctantly, out of respect for their pleading rather than his own fear, he agreed to hide at a nearby farm outside the city walls. He went, by his own account later relayed by witnesses, without any real belief that hiding would ultimately save him. He accepted their pleading more out of consideration for their evident distress than any genuine expectation that a countryside farm would keep him hidden for long. Follow for part 2.",
-          "pose": "walking",
-          "robe_color": "brown",
           "sky": "desert",
           "landmark": "hills",
-          "prop": "staff"
+          "crowd_count": 0,
+          "figures": [{"pose": "walking", "robe_color": "brown", "prop": "staff"}]
         }
       ]
     },
@@ -50,35 +46,37 @@
       "scenes": [
         {
           "narration": "While hiding at the countryside farm, Polycarp spent his days in constant prayer, reportedly telling companions he had experienced a vision showing his own pillow catching fire, which he interpreted calmly as a sign he would eventually die by burning. He shared this vision without any evident fear, treating it as simple foreknowledge rather than a warning to act on. He recounted the vision to his companions with the same steady tone he used for ordinary daily matters, neither alarmed nor particularly troubled by what it seemed to foretell.",
-          "pose": "praying",
-          "robe_color": "brown",
           "sky": "night",
           "landmark": null,
-          "prop": "cross"
+          "crowd_count": 0,
+          "figures": [{"pose": "praying", "robe_color": "brown", "prop": "cross"}]
         },
         {
           "narration": "Roman soldiers, under pressure to produce results for their superiors, eventually tracked down his location after torturing a young servant boy who broke under pressure and revealed exactly where the bishop was hiding. The betrayal, when it came, came from someone with intimate knowledge of the household's routines and movements. Roman authorities of this period frequently relied on exactly this kind of coerced information, since informants close to a target often knew details no outside investigation could easily uncover.",
-          "pose": "sitting",
-          "robe_color": "brown",
           "sky": "night",
           "landmark": null,
-          "prop": null
+          "crowd_count": 0,
+          "figures": [{"pose": "sitting", "robe_color": "brown", "prop": null}]
         },
         {
           "narration": "When the soldiers arrived at the farmhouse late in the evening, Polycarp reportedly remarked with surprising calm that God's will would now simply be done, refusing any further attempt to run or resist capture. He greeted his captors with a composure that reportedly unsettled several of the soldiers present that night. Several of the soldiers reportedly exchanged uneasy glances upon seeing how readily their elderly target accepted the news of his own capture.",
-          "pose": "standing",
-          "robe_color": "brown",
           "sky": "night",
           "landmark": "wall",
-          "prop": null
+          "crowd_count": 2,
+          "figures": [
+            {"pose": "praying", "robe_color": "brown", "prop": "cross"},
+            {"pose": "standing", "robe_color": "brown", "prop": null}
+          ]
         },
         {
           "narration": "He insisted on personally feeding his captors a meal before being taken, asking only for a brief hour to pray undisturbed beforehand, a request the soldiers, somewhat surprised by his hospitality, ultimately granted him. His calm hospitality toward the very men sent to arrest him struck several witnesses as remarkable in itself. His insistence on hospitality even toward his captors reflected, those present said, the same consistent character he had reportedly shown throughout his entire decades-long ministry. Follow for part 3.",
-          "pose": "kneeling",
-          "robe_color": "brown",
           "sky": "night",
           "landmark": null,
-          "prop": "cross"
+          "crowd_count": 0,
+          "figures": [
+            {"pose": "kneeling", "robe_color": "brown", "prop": "cross"},
+            {"pose": "standing", "robe_color": "brown", "prop": null}
+          ]
         }
       ]
     },
@@ -90,35 +88,31 @@
       "scenes": [
         {
           "narration": "Granted his request, Polycarp prayed aloud for nearly two full hours rather than the single hour he had originally asked for, and witnesses said even the soldiers sent to arrest him grew visibly uneasy listening to his composure. Nobody present made any move to interrupt or hurry him along. Ancient accounts describe this scene with unusual detail, suggesting it was remembered vividly by those who witnessed it and passed the story on to others soon afterward.",
-          "pose": "praying",
-          "robe_color": "brown",
           "sky": "night",
           "landmark": null,
-          "prop": "cross"
+          "crowd_count": 0,
+          "figures": [{"pose": "praying", "robe_color": "brown", "prop": "cross"}]
         },
         {
           "narration": "He prayed by name for people throughout the wider church, for friends and strangers alike, and for the church universal, according to those recording his final recorded words that night. His prayer moved outward from his own situation to encompass believers he would never personally meet. His prayer that night reportedly touched on people and communities scattered across the empire, a final act of pastoral care extending well beyond his own immediate circumstances.",
-          "pose": "kneeling",
-          "robe_color": "brown",
           "sky": "night",
           "landmark": null,
-          "prop": "cross"
+          "crowd_count": 0,
+          "figures": [{"pose": "kneeling", "robe_color": "brown", "prop": "cross"}]
         },
         {
           "narration": "Some of the very soldiers present were reportedly so struck by his evident peace that they began to regret their assigned role in his arrest that evening, according to accounts written soon afterward by his own congregation. Their discomfort did not, however, change the outcome already set in motion. Whatever regret those soldiers privately felt, none of them acted on it, and the arrest proceeded exactly as their orders required.",
-          "pose": "sitting",
-          "robe_color": "brown",
           "sky": "night",
           "landmark": null,
-          "prop": null
+          "crowd_count": 0,
+          "figures": [{"pose": "sitting", "robe_color": "brown", "prop": null}]
         },
         {
           "narration": "He was finally placed on a donkey and led back into the city toward the arena, where an increasingly restless crowd had already gathered awaiting his arrival. The short journey back into Smyrna gave him time to prepare for whatever awaited him at its end. The crowd waiting in the city had no way yet of knowing how that final journey through the countryside had actually unfolded. Follow for part 4. That single hour of prayer, extended almost twice as long as requested, remains one of the most detailed personal moments recorded from that entire early period of church history.",
-          "pose": "sitting",
-          "robe_color": "brown",
           "sky": "desert",
           "landmark": "wall",
-          "prop": null
+          "crowd_count": 0,
+          "figures": [{"pose": "sitting", "robe_color": "brown", "prop": null}]
         }
       ]
     },
@@ -130,35 +124,37 @@
       "scenes": [
         {
           "narration": "Brought before the Roman proconsul, Polycarp was given one final opportunity to save his own life by simply cursing Christ and offering sacrifice to the emperor as the law required of every citizen. The governor, by most accounts, seemed genuinely reluctant to execute such a respected elderly figure. Roman law at this time offered a straightforward, well-established path back to full legal standing for anyone willing to comply with the simple ritual being demanded of him.",
-          "pose": "standing",
-          "robe_color": "red",
           "sky": "temple",
           "landmark": "temple",
-          "prop": null
+          "crowd_count": 5,
+          "figures": [
+            {"pose": "standing", "robe_color": "red", "prop": null},
+            {"pose": "standing", "robe_color": "brown", "prop": null}
+          ]
         },
         {
           "narration": "Polycarp answered with words that were later recorded and preserved by the early church, saying that for eighty six years he had served Christ, and never once had his faith wronged him in any way at all. He delivered this answer, witnesses said, without any visible hesitation or fear. Several onlookers later remarked that his answer carried the weight of someone who had clearly considered this exact moment many times before it actually arrived.",
-          "pose": "pointing",
-          "robe_color": "brown",
           "sky": "temple",
           "landmark": "wall",
-          "prop": null
+          "crowd_count": 0,
+          "figures": [{"pose": "pointing", "robe_color": "brown", "prop": null}]
         },
         {
           "narration": "He said he saw no reason to abandon a king who had never once failed him, especially now, so close to the very end of his long life, regardless of what refusal might cost him personally. His calm certainty seemed to unsettle the governor more than any act of open defiance could have. Even those hostile to his faith reportedly found something difficult to dismiss in the sheer consistency of a man refusing to change course after eighty six years.",
-          "pose": "standing",
-          "robe_color": "brown",
           "sky": "temple",
           "landmark": "temple",
-          "prop": null
+          "crowd_count": 0,
+          "figures": [{"pose": "standing", "robe_color": "brown", "prop": null}]
         },
         {
           "narration": "The furious governor threatened him with wild beasts and then with fire itself, and Polycarp responded that fire which burns only briefly held far less fear for him than the eternal fire awaiting those who abandoned their faith entirely. That answer effectively ended any remaining possibility of leniency. Some who were present that day reportedly left troubled, unable to reconcile the old man's calm dignity with the sentence about to be carried out. Follow for part 5.",
-          "pose": "pointing",
-          "robe_color": "red",
           "sky": "night",
           "landmark": "wall",
-          "prop": null
+          "crowd_count": 5,
+          "figures": [
+            {"pose": "pointing", "robe_color": "red", "prop": null},
+            {"pose": "standing", "robe_color": "brown", "prop": null}
+          ]
         }
       ]
     },
@@ -170,35 +166,34 @@
       "scenes": [
         {
           "narration": "The gathered crowd, sensing the governor's hesitation to execute such a respected elderly figure, began shouting for Polycarp to be burned alive rather than shown any further leniency at all. Their impatience effectively forced the governor's hand toward the harshest available sentence. Roman governors in this period often deferred to public sentiment during festival occasions specifically, wary of provoking further unrest by appearing lenient toward an unpopular defendant.",
-          "pose": "pointing",
-          "robe_color": "red",
           "sky": "night",
           "landmark": "wall",
-          "prop": null
+          "crowd_count": 12,
+          "figures": [{"pose": "pointing", "robe_color": "red", "prop": null}]
         },
         {
           "narration": "Jewish and pagan residents of the city reportedly joined together in gathering firewood themselves, eager participants in preparing for the execution about to unfold in the arena that evening. Accounts describe an unusual unity among otherwise divided communities, united only by their shared hostility that day. Such cooperation across otherwise divided communities was unusual enough that later writers specifically noted it as a striking detail worth preserving in the official account.",
-          "pose": "standing",
-          "robe_color": "brown",
           "sky": "night",
           "landmark": "wall",
-          "prop": null
+          "crowd_count": 8,
+          "figures": [
+            {"pose": "standing", "robe_color": "brown", "prop": null},
+            {"pose": "standing", "robe_color": "red", "prop": null}
+          ]
         },
         {
           "narration": "As soldiers moved to nail him to the stake in the traditional method, Polycarp calmly asked them not to, insisting he would remain perfectly still on his own without needing to be physically restrained at all. His request, unusual as it was, was ultimately granted. His calm insistence on standing unrestrained struck several witnesses as entirely consistent with the composure he had already shown throughout his arrest and trial.",
-          "pose": "standing",
-          "robe_color": "brown",
           "sky": "night",
           "landmark": null,
-          "prop": null
+          "crowd_count": 0,
+          "figures": [{"pose": "standing", "robe_color": "brown", "prop": null}]
         },
         {
           "narration": "Witnesses recorded that he stood peacefully at the stake, hands simply tied rather than nailed, praying once more as the fire was finally lit around him in front of the assembled crowd. His composure in that final moment left a lasting impression on those recording the scene. That same steady composure, maintained right up to the final moment, became one of the most frequently cited details in later retellings of his story. Follow for part 6. His steady, unhurried manner throughout every stage of the proceedings reportedly left a lasting impression even on those who had come specifically to see him condemned.",
-          "pose": "standing",
-          "robe_color": "red",
           "sky": "night",
           "landmark": "wall",
-          "prop": "cross"
+          "crowd_count": 0,
+          "figures": [{"pose": "standing", "robe_color": "red", "prop": "cross"}]
         }
       ]
     },
@@ -210,35 +205,31 @@
       "scenes": [
         {
           "narration": "According to the account written by eyewitnesses shortly afterward, the flames rose around Polycarp but curved outward like a ship's sail filled with wind, forming a protective arch rather than consuming him directly as everyone had expected. The unusual detail struck those present as worth recording precisely as they witnessed it. Modern historians still debate exactly how much of this vivid detail reflects literal eyewitness observation versus the kind of embellishment common in early martyrdom literature more broadly.",
-          "pose": "standing",
-          "robe_color": "red",
           "sky": "night",
           "landmark": null,
-          "prop": null
+          "crowd_count": 0,
+          "figures": [{"pose": "standing", "robe_color": "red", "prop": null}]
         },
         {
           "narration": "The gathered witnesses described a fragrance like incense or baking bread filling the arena, a detail that struck many present as deeply unusual for what was otherwise an execution by fire. Whatever the explanation, it was recorded alongside the rest of the account without embellishment. Regardless of its precise origin, the detail was recorded soon enough after the actual event that later editors evidently saw no reason to remove or soften it.",
-          "pose": "sitting",
-          "robe_color": "brown",
           "sky": "night",
           "landmark": "wall",
-          "prop": null
+          "crowd_count": 0,
+          "figures": [{"pose": "sitting", "robe_color": "brown", "prop": null}]
         },
         {
           "narration": "When the fire alone failed to kill him after several long minutes, an executioner was finally ordered to stab him directly, and witnesses claimed so much blood poured out that it extinguished much of the remaining fire around his body. The scene, by every account, left a deep impression on the crowd. Accounts from this period frequently emphasized physical details of martyrdom precisely because they served as tangible proof of a believer's ultimate faithfulness under pressure.",
-          "pose": "kneeling",
-          "robe_color": "red",
           "sky": "night",
           "landmark": null,
-          "prop": null
+          "crowd_count": 0,
+          "figures": [{"pose": "kneeling", "robe_color": "red", "prop": null}]
         },
         {
           "narration": "His remains were later gathered by followers who considered his bones more valuable than expensive jewels, worth preserving carefully for future generations of believers to honor. That same document is still read aloud in some church traditions today, nearly nineteen centuries after it was first written down. That same document is still read aloud in some church traditions today, nearly nineteen centuries after it was first written down by his own community. Follow for part 7.",
-          "pose": "kneeling",
-          "robe_color": "brown",
           "sky": "night",
           "landmark": null,
-          "prop": "cross"
+          "crowd_count": 0,
+          "figures": [{"pose": "kneeling", "robe_color": "brown", "prop": "cross"}]
         }
       ]
     },
@@ -250,35 +241,31 @@
       "scenes": [
         {
           "narration": "The detailed account of Polycarp's death, written soon afterward by members of his own congregation, became one of the earliest and most influential martyrdom narratives in all of Christian history. Its careful, eyewitness detail set a template later martyrdom accounts would frequently follow. Later writers studying persecution across the empire frequently returned to this account specifically for its unusually close, contemporaneous perspective on the events it described.",
-          "pose": "teaching",
-          "robe_color": "brown",
           "sky": "temple",
           "landmark": "temple",
-          "prop": "scroll"
+          "crowd_count": 0,
+          "figures": [{"pose": "teaching", "robe_color": "brown", "prop": "scroll"}]
         },
         {
           "narration": "It was copied and circulated among churches across the empire, offered as both a warning and an inspiration to communities facing their own periods of persecution in the centuries that followed his death. Congregations far from Smyrna drew genuine comfort from his example. Congregations reading it aloud centuries later found in it not just history but active encouragement for whatever hardships their own particular era happened to bring.",
-          "pose": "standing",
-          "robe_color": "brown",
           "sky": "temple",
           "landmark": "wall",
-          "prop": "scroll"
+          "crowd_count": 0,
+          "figures": [{"pose": "standing", "robe_color": "brown", "prop": "scroll"}]
         },
         {
           "narration": "Nearly nineteen hundred years later, historians still consider Polycarp's account remarkably reliable, written close to the actual events by people who witnessed them firsthand rather than relying on distant legend or later embellishment. Its early date lends it unusual credibility among surviving martyrdom texts. Its early composition, likely within a year or two of Polycarp's actual death, sets it apart from many later martyrdom accounts written generations after the fact.",
-          "pose": "sitting",
-          "robe_color": "brown",
           "sky": "desert",
           "landmark": null,
-          "prop": "scroll"
+          "crowd_count": 0,
+          "figures": [{"pose": "sitting", "robe_color": "brown", "prop": "scroll"}]
         },
         {
           "narration": "His final words, refusing to abandon eighty six years of faithful service, remain quoted today as one of the clearest personal testimonies to survive from the earliest generations of the Christian church anywhere in the empire. Few voices from that era speak so directly across so many centuries. Few surviving texts from antiquity offer quite so direct and personal a window into how the earliest Christians actually understood facing death for their faith. That such a personal, intimate account survived intact across nineteen centuries of copying and translation is itself a small testament to how highly the early church valued preserving it.",
-          "pose": "teaching",
-          "robe_color": "brown",
           "sky": "temple",
           "landmark": "temple",
-          "prop": null
+          "crowd_count": 0,
+          "figures": [{"pose": "teaching", "robe_color": "brown", "prop": null}]
         }
       ]
     }
