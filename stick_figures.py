@@ -31,8 +31,22 @@ def _limb(draw, x1, y1, x2, y2, width=LINE_WIDTH):
     draw.line([x1, y1, x2, y2], fill=FIGURE_COLOR, width=width)
 
 
+def _shade(rgb, factor):
+    """Darkens (factor < 1) or lightens (factor > 1) an RGB color for fold shading."""
+    return tuple(max(0, min(255, int(c * factor))) for c in rgb)
+
+
 def _draw_robe(draw, x, y, hip_y, width_top, width_bottom, color):
+    """
+    Draws the robe as a trapezoid base, then adds a few subtle vertical fold lines
+    plus a rounded hem - a flat single-color polygon reads as a plain block rather
+    than fabric, so this adds simple shading/creases to break up that flat look
+    without needing actual texture rendering.
+    """
     rgb = ROBE_COLORS.get(color, ROBE_COLORS["white"])
+    fold_dark = _shade(rgb, 0.82)
+    fold_light = _shade(rgb, 1.12)
+
     draw.polygon(
         [
             (x - width_top, y),
@@ -43,6 +57,21 @@ def _draw_robe(draw, x, y, hip_y, width_top, width_bottom, color):
         fill=rgb,
         outline=FIGURE_COLOR,
     )
+
+    # A rounded hem instead of a flat bottom edge - a small arc softens the "block" look.
+    hem_height = (hip_y - y) * 0.06
+    draw.ellipse(
+        [x - width_bottom, hip_y - hem_height, x + width_bottom, hip_y + hem_height],
+        fill=rgb, outline=FIGURE_COLOR,
+    )
+
+    # 3 subtle fold lines, alternating light/dark, fanning slightly outward toward the hem.
+    fold_offsets = [-0.45, 0.0, 0.45]
+    fold_colors = [fold_dark, fold_light, fold_dark]
+    for offset, fold_color in zip(fold_offsets, fold_colors):
+        top_x = x + offset * width_top * 0.7
+        bottom_x = x + offset * width_bottom * 0.9
+        draw.line([top_x, y + 4, bottom_x, hip_y - 4], fill=fold_color, width=3)
 
 
 def _draw_prop(draw, prop, x, y, hip_y, scale, facing):
@@ -180,6 +209,10 @@ def draw_scene(width: int, height: int, sky: str, landmark: str, figures: list[d
     ground_y = int(height * 0.82)
 
     if landmark == "temple":
+        # Two smaller flanking buildings behind the main temple for a fuller skyline,
+        # not just one isolated structure.
+        _draw_temple(draw, width * 0.18, ground_y, width * 0.28, height * 0.18, color=(200, 192, 200))
+        _draw_temple(draw, width * 0.86, ground_y, width * 0.28, height * 0.18, color=(200, 192, 200))
         _draw_temple(draw, width * 0.5, ground_y, width * 0.85, height * 0.32)
     elif landmark == "hills":
         _draw_hills(draw, width, ground_y)
@@ -187,6 +220,11 @@ def draw_scene(width: int, height: int, sky: str, landmark: str, figures: list[d
         _draw_ship(draw, width * 0.5, ground_y, width * 0.7)
     elif landmark == "wall":
         _draw_wall(draw, width, ground_y)
+        # A small cluster of building silhouettes peeking above the wall line,
+        # suggesting a city behind it rather than just a bare defensive wall.
+        for bx, bw, bh in [(width * 0.15, width * 0.12, 60), (width * 0.35, width * 0.10, 45),
+                            (width * 0.62, width * 0.14, 70), (width * 0.82, width * 0.11, 50)]:
+            draw.rectangle([bx, ground_y - 90 - bh, bx + bw, ground_y - 90], fill=(160, 150, 135), outline=FIGURE_COLOR, width=2)
 
     draw.line([0, ground_y, width, ground_y], fill=(60, 50, 35), width=5)
 
