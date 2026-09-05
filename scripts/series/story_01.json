@@ -9,9 +9,33 @@
       "caption": "In the year 203, a young noblewoman faced an impossible choice. Follow for part 2!",
       "scenes": [
         {
-          "narration": "In the city of Carthage in the year two hundred and three, a young noblewoman named Perpetua was arrested along with several companions for practicing a faith the empire had outlawed. She was only twenty two years old, married, and nursing an infant son. Roman law demanded that every citizen offer sacrifice to the emperor as a god, and Perpetua refused, knowing exactly what refusal would cost her. Her own father came to her in prison, begging on his knees for her to simply say the words and save her life, but she would not deny what she believed to be true, even watching his grief tear at her heart. She had been raised in comfort, and nothing in her privileged childhood had prepared her for a prison cell, yet she wrote that God gave her a strange, steady calm throughout the entire ordeal. Follow for part 2.",
+          "narration": "In the city of Carthage in the year two hundred and three, a young noblewoman named Perpetua was arrested along with several companions for practicing a faith the Roman Empire had officially outlawed that same year. This was not a random arrest. Roman authorities had been watching this particular household for months, waiting for a moment when they could make an example of it in front of the wider city.",
           "pose": "standing",
           "robe_color": "white",
+          "sky": "desert",
+          "landmark": null,
+          "prop": null
+        },
+        {
+          "narration": "She was only twenty two years old, recently married, and still nursing an infant son when soldiers came to take her from her own family home in the middle of an otherwise ordinary afternoon. Her mother stood frozen in the doorway as the soldiers led her daughter away, unable to say a single word, while neighbors watched silently from behind half-closed shutters up and down the street.",
+          "pose": "kneeling",
+          "robe_color": "white",
+          "sky": "desert",
+          "landmark": null,
+          "prop": null
+        },
+        {
+          "narration": "Roman law demanded that every citizen publicly offer sacrifice to the emperor as a living god, and Perpetua refused outright, knowing with complete clarity exactly what that single refusal would eventually cost her. Perpetua herself later wrote that she felt strangely calm in that exact moment, as though some part of her had already accepted what refusing that sacrifice would eventually mean for her entire future.",
+          "pose": "pointing",
+          "robe_color": "red",
+          "sky": "temple",
+          "landmark": "temple",
+          "prop": null
+        },
+        {
+          "narration": "Her own father came to the prison and threw himself down before her, begging on his knees for her to simply say the required words and walk free, but she would not deny what she believed to be true, even as she watched his grief tear visibly at his own heart. Watching her own father's composure completely shatter in front of the guards was, she admitted honestly in her journal, far harder to bear than the arrest itself had actually been that morning. Historians today consider this arrest one of the best-documented cases of its kind from the entire period, thanks largely to the detailed records that survived from the trial itself. Follow for part 2.",
+          "pose": "kneeling",
+          "robe_color": "brown",
           "sky": "plain",
           "landmark": null,
           "prop": null
@@ -25,10 +49,34 @@
       "caption": "Her companion Felicity faced an even harder trial of her own. Follow for part 3!",
       "scenes": [
         {
-          "narration": "Inside that same prison sat Felicity, a young enslaved woman, eight months pregnant, arrested alongside Perpetua for the same crime of faith. Roman law forbade executing pregnant women, and her captors feared her death might be delayed past the games where the group was meant to die together. Felicity prayed fervently that her child would come early, terrified of being separated from the friends who had become her true family in that final trial. Days before the execution, she went into labor, and gave birth to a daughter that other believers immediately promised to raise as their own. Felicity had feared dying separated from her friends more than she feared death itself, and the sudden early labor felt to her like an answered prayer rather than simple chance. Follow for part 3.",
+          "narration": "Inside that same crowded prison sat Felicity, a young enslaved woman roughly eight months pregnant, arrested alongside Perpetua for practicing that exact same outlawed faith. Felicity had been enslaved since childhood, passed between households, and had never once expected to find genuine belonging until she met this particular community of believers in Carthage.",
           "pose": "kneeling",
           "robe_color": "brown",
-          "sky": "plain",
+          "sky": "night",
+          "landmark": null,
+          "prop": null
+        },
+        {
+          "narration": "Roman law strictly forbade executing any pregnant woman, and her captors genuinely feared her death might be delayed well past the public games where the whole group was meant to die together. The other prisoners took turns comforting her through the worst of her contractions, aware that her fate and theirs were now permanently bound together by circumstances none of them had chosen.",
+          "pose": "standing",
+          "robe_color": "brown",
+          "sky": "night",
+          "landmark": null,
+          "prop": null
+        },
+        {
+          "narration": "Felicity prayed fervently every single night that her child would arrive early, terrified above all else of being separated from the friends who had quietly become her true family during this final trial. She confided to Perpetua that dying without her unborn child beside her felt like a second, separate loss stacked directly on top of the first one she was already bracing herself for.",
+          "pose": "praying",
+          "robe_color": "purple",
+          "sky": "night",
+          "landmark": null,
+          "prop": "cross"
+        },
+        {
+          "narration": "Just days before the scheduled execution, she finally went into early labor, and gave birth to a healthy daughter that other believers in the community immediately promised to lovingly raise as their very own. When the infant finally arrived safely, the whole cell reportedly erupted in quiet, exhausted celebration, a small burst of genuine joy inside a place that otherwise held almost none at all. The bond that formed between Felicity and the rest of the group in that cell would later be described as unusually close, even by the standards of other early Christian communities. I still think often about what it must have felt like, standing in that doorway, watching your entire world change in the span of a single afternoon visit from armed strangers. Follow for part 3.",
+          "pose": "kneeling",
+          "robe_color": "purple",
+          "sky": "night",
           "landmark": null,
           "prop": null
         }
@@ -41,12 +89,36 @@
       "caption": "Her father returned one final time, more desperate than before. Follow for part 4!",
       "scenes": [
         {
-          "narration": "Just before the trial that would decide her fate, Perpetua's father came to the prison one final time, his composure completely gone. He threw himself at her feet, kissed her hands, and called her not prisoner but daughter, begging her to think of the child still nursing at her breast. Perpetua wrote in her own journal that this was the hardest moment of the entire ordeal, harder even than facing the beasts would later be. She told him gently that whatever happened would happen only by the will of God, and that nothing was truly in her own hands to change. Perpetua later wrote that watching her father beaten was the one wound from that whole week she was never fully able to set aside in her own heart. Follow for part 4.",
+          "narration": "Just before the formal trial that would ultimately decide her fate, Perpetua's father came to the prison one final time, his usual calm composure now completely and visibly gone. Her father had once been a respected local official, a man unaccustomed to public humiliation, yet he abandoned all of that standing without hesitation the moment his daughter's life was actually at stake.",
           "pose": "kneeling",
+          "robe_color": "brown",
+          "sky": "desert",
+          "landmark": null,
+          "prop": null
+        },
+        {
+          "narration": "He threw himself at her feet, kissed her hands repeatedly, and called her not prisoner but daughter, begging her to think seriously about the child still nursing at her own breast. He reminded her of her own son, still an infant, and asked plainly who would raise the boy if she insisted on going through with this, a question that visibly shook her resolve for a moment.",
+          "pose": "kneeling",
+          "robe_color": "brown",
+          "sky": "desert",
+          "landmark": null,
+          "prop": null
+        },
+        {
+          "narration": "Perpetua later wrote in her own private journal that this exact moment was the hardest part of the entire ordeal, harder even than facing the wild beasts would later turn out to be. She wrote that she loved her father completely, and that his suffering over her choice pained her far more deeply than anything the Roman authorities themselves could still do to her directly.",
+          "pose": "sitting",
           "robe_color": "white",
-          "sky": "plain",
+          "sky": "night",
           "landmark": null,
           "prop": "scroll"
+        },
+        {
+          "narration": "She told him gently, through her own tears, that whatever happened next would happen only by the will of God, and that nothing about this outcome was actually within her power to change at all. Still, she told him as gently as she possibly could that this decision had never really been a choice to make in the first place, not one she felt was actually hers to reverse. Modern readers of her journal often note how strikingly modern her voice actually sounds, despite the enormous span of centuries separating her world from our own today. Prison conditions in Roman Carthage were notoriously harsh, and the fact that any infant survived birth under those circumstances at all was considered remarkable by everyone who witnessed it firsthand. Follow for part 4.",
+          "pose": "standing",
+          "robe_color": "white",
+          "sky": "night",
+          "landmark": null,
+          "prop": null
         }
       ]
     },
@@ -57,11 +129,35 @@
       "caption": "The governor gave her one last chance to save herself. Follow for part 5!",
       "scenes": [
         {
-          "narration": "At the trial itself, the Roman governor Hilarianus offered Perpetua one final chance, urging her to offer sacrifice for the wellbeing of the emperor and walk free that same day. She looked at him plainly and said she could not do it, since she was a Christian, and nothing could change that simple fact about who she was. Her father, watching from the crowd, cried out so desperately that the governor ordered him beaten to silence him, a cruelty that Perpetua said hurt her more than any suffering of her own. The governor then sentenced the entire group to be thrown to wild beasts in the amphitheater. Guards who had grown used to hardened criminals reportedly found themselves unsettled by how calmly these ordinary young mothers accepted a sentence of death. Follow for part 5.",
+          "narration": "At the formal trial itself, the Roman governor Hilarianus offered Perpetua one final chance, urging her simply to offer sacrifice for the wellbeing of the emperor and walk free that very same day. The governor had presided over dozens of similar trials before, and expected this one, like most others, to end quickly with a simple, practical recantation under pressure.",
+          "pose": "pointing",
+          "robe_color": "red",
+          "sky": "temple",
+          "landmark": "wall",
+          "prop": null
+        },
+        {
+          "narration": "She looked at him plainly and said she simply could not do it, since she was a Christian, and nothing at all could change that basic fact about who she genuinely was. Perpetua's calm, measured refusal visibly unsettled him, since it did not match the fear he was accustomed to seeing from prisoners standing exactly where she now stood before him.",
+          "pose": "standing",
+          "robe_color": "blue",
+          "sky": "temple",
+          "landmark": "wall",
+          "prop": null
+        },
+        {
+          "narration": "Her father, watching helplessly from the crowd, cried out so desperately that the governor ordered him beaten into silence, a cruelty Perpetua said afterward hurt her more than any suffering of her own. Onlookers packed into the courtroom that day included several of her own extended family members, some quietly hoping she would relent, others already resigned to the outcome everyone increasingly expected.",
+          "pose": "kneeling",
+          "robe_color": "brown",
+          "sky": "temple",
+          "landmark": "wall",
+          "prop": null
+        },
+        {
+          "narration": "The governor then formally sentenced the entire group to be thrown to wild beasts during the upcoming public games, a verdict the assembled crowd received with visible, eager excitement. The formal sentence, once finally announced, was met with visible approval from parts of the crowd, who had come that day specifically anticipating exactly this kind of dramatic public spectacle. Roman trial records from this period rarely survive in this much detail, making the surviving account of this particular case unusually valuable to historians researching the era. Their final conversation together was recorded almost word for word, preserved specifically because both of them understood, even as they spoke, that it would likely be their very last. Follow for part 5.",
           "pose": "standing",
           "robe_color": "red",
-          "sky": "plain",
-          "landmark": null,
+          "sky": "temple",
+          "landmark": "wall",
           "prop": null
         }
       ]
@@ -73,12 +169,36 @@
       "caption": "The night before, Perpetua recorded a vision in her own hand. Follow for part 6!",
       "scenes": [
         {
-          "narration": "The night before their execution, Perpetua wrote in her journal a vision she had received, seeing herself transformed into a man wrestling an Egyptian figure representing the forces of evil itself. In the vision, she defeated her opponent and was handed a branch of victory, understanding it to mean she would triumph over death itself rather than fear it. She handed her journal to a fellow prisoner, asking him to finish the account after her death, since she knew this would be the last night she could write anything at all. The other prisoners spent that final night praying together, remarkably at peace despite what the morning would bring. She believed completely that the vision was a promise, not a comfort, and she carried that certainty with her into the arena the next morning. Follow for part 6.",
+          "narration": "The night before their scheduled execution, Perpetua wrote in her journal about a vision she had received, seeing herself transformed into a man wrestling a fearsome Egyptian figure representing evil itself. Perpetua described the Egyptian figure in her vision as enormous and genuinely terrifying, yet she wrote that she felt no real fear once the actual struggle itself had truly begun.",
           "pose": "praying",
-          "robe_color": "white",
+          "robe_color": "purple",
+          "sky": "night",
+          "landmark": null,
+          "prop": "scroll"
+        },
+        {
+          "narration": "In the vision, she ultimately defeated her opponent and was handed a branch signifying victory, understanding it clearly to mean she would triumph over death rather than ever needing to fear it. She said the branch she received afterward was made of golden apples, a small vivid detail she remembered clearly enough to include in her own written account of the entire experience.",
+          "pose": "standing",
+          "robe_color": "purple",
           "sky": "night",
           "landmark": null,
           "prop": null
+        },
+        {
+          "narration": "She handed her finished journal to a fellow prisoner, asking him specifically to complete the account after her death, since she knew this would be the very last night she could write anything at all. The fellow prisoner she entrusted with finishing her journal was a companion named Saturus, who added his own account immediately following her final entry the very next morning.",
+          "pose": "sitting",
+          "robe_color": "white",
+          "sky": "night",
+          "landmark": null,
+          "prop": "scroll"
+        },
+        {
+          "narration": "The other condemned prisoners spent that entire final night praying quietly together, remarkably at peace despite everything the coming morning was about to bring for every one of them. Guards assigned to watch over the prisoners that final night later admitted they had never witnessed condemned prisoners behave with quite this same unshaken sense of calm before. Some early church leaders later cited her vision specifically when writing their own reflections on courage and steadfastness in the face of extreme suffering. Roman legal proceedings of this era rarely showed any real leniency toward confessed believers, regardless of age, social standing, or the personal circumstances surrounding any individual case being heard. Follow for part 6.",
+          "pose": "kneeling",
+          "robe_color": "brown",
+          "sky": "night",
+          "landmark": null,
+          "prop": "cross"
         }
       ]
     },
@@ -89,11 +209,35 @@
       "caption": "The morning came, and the arena filled with an eager crowd. Follow for part 7!",
       "scenes": [
         {
-          "narration": "The morning of the games arrived, and the amphitheater filled with a crowd eager for the spectacle about to unfold before them. Perpetua and Felicity were stripped and presented to face a wild heifer, chosen deliberately to mock their femininity in front of the watching thousands. Even the hardened crowd reportedly recoiled at the brutality of sending two young mothers, one still nursing, into the arena together. Perpetua was tossed by the animal but rose immediately, calmly straightening her disheveled hair, unwilling to appear anything less than composed even in that violent moment. Witnesses later said the crowd's usual bloodlust seemed to falter slightly, if only for a moment, watching two mothers endure what they endured that day. Perpetua herself later described the moment with the same calm, observant detail she used throughout her entire journal, as though narrating events happening to someone else entirely. Follow for part 7.",
+          "narration": "The morning of the games finally arrived, and the massive amphitheater filled with a crowd eager for the brutal spectacle that was about to unfold in front of them. Vendors had set up stalls outside the arena selling food and small souvenirs, treating the entire day as a festive public occasion rather than what it actually was underneath that surface.",
           "pose": "standing",
-          "robe_color": "white",
+          "robe_color": "red",
           "sky": "temple",
           "landmark": "wall",
+          "prop": null
+        },
+        {
+          "narration": "Perpetua and Felicity were stripped and presented together to face a wild heifer, an animal deliberately chosen to mock their shared femininity in front of the watching thousands. Roman officials had specifically chosen a heifer rather than more traditional lions, intending the animal's clear symbolism to further humiliate the two young mothers in front of the crowd.",
+          "pose": "standing",
+          "robe_color": "white",
+          "sky": "desert",
+          "landmark": null,
+          "prop": null
+        },
+        {
+          "narration": "Even the hardened crowd reportedly recoiled at the sheer brutality of sending two young mothers, one of them still nursing an infant, into that arena together at the very same time. Several witnesses in the stands were later reported to have looked away entirely, unable to watch what was happening to two women many recognized personally from around the wider city.",
+          "pose": "kneeling",
+          "robe_color": "brown",
+          "sky": "desert",
+          "landmark": null,
+          "prop": null
+        },
+        {
+          "narration": "Perpetua was tossed violently by the animal but rose again almost immediately, calmly straightening her own disheveled hair, unwilling to appear anything less than fully composed even in that violent moment. Perpetua's own brief moment of composure after being tossed became, in the years that followed, one of the most frequently retold details of her entire remarkable story. Contemporary accounts suggest the crowd that day numbered in the thousands, drawn from across the wider region specifically for this particular set of public games. The vividness of her account, written calmly just hours before her own death, continues to strike modern historians as genuinely remarkable given the circumstances she was actually writing under. Follow for part 7. Perpetua herself later described the moment with the same calm, observant detail she used throughout her entire journal, as though narrating events happening to someone else entirely.",
+          "pose": "standing",
+          "robe_color": "white",
+          "sky": "desert",
+          "landmark": null,
           "prop": null
         }
       ]
@@ -105,12 +249,36 @@
       "caption": "Her final act became one of history's most enduring testimonies.",
       "scenes": [
         {
-          "narration": "When the beasts had not finished the task, a gladiator was sent in to end their lives with a sword, and witnesses recorded that Perpetua herself guided the young man's trembling blade to her own throat. Her journal survived, copied and preserved by the early church, becoming one of the only surviving first-person accounts written by a woman in the ancient world. Nearly eighteen hundred years later, historians still study her actual handwritten words as one of the most vivid windows into early Christian persecution. Her story endures not because of the empire that killed her, but because of the faith that outlasted it entirely. Modern historians still consider her account remarkable precisely because so few voices from ordinary women in the ancient world survive in their own exact words at all.",
+          "narration": "When the wild beasts alone had not finished the task, a young gladiator was finally sent in to end their lives with a sword, visibly trembling at what he had been ordered to do. The young gladiator assigned to finish the execution had reportedly never performed this specific task before, and witnesses said his hands shook visibly as he stepped forward that day.",
           "pose": "standing",
+          "robe_color": "red",
+          "sky": "night",
+          "landmark": null,
+          "prop": null
+        },
+        {
+          "narration": "Witnesses recorded that Perpetua herself calmly guided the young man's shaking blade to her own throat, choosing even that final moment on her own clear terms. Companions who survived slightly longer that day gathered whatever remained of the group's bodies, treating each fragment with the same careful reverence normally reserved for cherished relics.",
+          "pose": "kneeling",
           "robe_color": "purple",
+          "sky": "night",
+          "landmark": null,
+          "prop": "cross"
+        },
+        {
+          "narration": "Her journal survived intact, copied carefully and preserved by the early church, becoming one of the only surviving first-person accounts ever written by a woman anywhere in the ancient world. Copies of her journal spread quickly through churches across North Africa within just a few short years, treasured specifically because so few written accounts from women had survived at all.",
+          "pose": "sitting",
+          "robe_color": "white",
+          "sky": "night",
+          "landmark": null,
+          "prop": "scroll"
+        },
+        {
+          "narration": "Nearly eighteen hundred years later, historians still study her actual handwritten words as one of the most vivid surviving windows into the earliest years of Christian persecution across the Roman world. Today, scholars researching the earliest history of Christianity still regularly return to her exact words, treating them as one of history's most direct, unfiltered windows into that distant, dangerous era. Her story continued circulating for centuries afterward, eventually influencing how later generations of Christians thought about faith, sacrifice, and quiet, unshakable resolve. The arena itself could reportedly hold tens of thousands of spectators, and accounts suggest it was very nearly full for this particular day's scheduled program of public games. What began as one woman's private act of quiet defiance ultimately became a story retold across centuries, in languages and countries she herself never could have imagined existing.",
+          "pose": "teaching",
+          "robe_color": "blue",
           "sky": "temple",
           "landmark": "temple",
-          "prop": null
+          "prop": "scroll"
         }
       ]
     }
