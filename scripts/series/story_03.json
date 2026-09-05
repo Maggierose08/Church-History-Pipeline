@@ -6,12 +6,36 @@
       "segment_number": 1,
       "title": "An Empire-Wide Argument Over God",
       "social_title": "The Controversy That Threatened to Split the Church in 325 AD",
-      "caption": "In the year 325, a single theological dispute threatened to tear the entire church apart. Follow for part 2!",
+      "caption": "In 325, a single theological dispute threatened to tear the church apart. Follow for part 2!",
       "scenes": [
         {
-          "narration": "In the early fourth century, a priest from Alexandria named Arius began teaching something that struck many church leaders as deeply dangerous, arguing that Jesus Christ, though divine, had actually been created by God the Father at some point rather than existing eternally alongside him. This idea spread rapidly across congregations throughout the eastern Roman Empire, splitting bishops, priests, and ordinary believers into fiercely opposing camps almost overnight. Riots reportedly broke out in some cities, with crowds chanting slogans for or against Arius in the streets outside cathedrals, treating an abstract theological question as an urgent, personal battle. The newly Christian Emperor Constantine, having just unified the empire under his own rule, watched this growing religious chaos with real alarm, worried it might undo the fragile peace he had only just achieved. Follow for part 2.",
+          "narration": "In the early fourth century, a priest from Alexandria named Arius began teaching something that struck many church leaders as deeply dangerous, arguing that Jesus Christ, though divine, had actually been created by God the Father at some point rather than existing eternally alongside him from the very beginning. This idea directly challenged how most congregations already understood the nature of Christ, and it did not stay confined to Alexandria for long. Alexandria at the time was one of the intellectual centers of the entire Christian world, making it an especially significant place for such a controversial teaching to first take root and spread.",
           "pose": "pointing",
           "robe_color": "red",
+          "sky": "temple",
+          "landmark": "temple",
+          "prop": null
+        },
+        {
+          "narration": "The teaching spread rapidly across congregations throughout the eastern Roman Empire, splitting bishops, priests, and ordinary believers into fiercely opposing camps in a remarkably short span of time. What had begun as one priest's private conviction became, within a few short years, an empire-wide controversy nobody could easily ignore. Congregations that had coexisted peacefully for generations suddenly found themselves divided along theological lines that many ordinary believers struggled to fully articulate, let alone resolve on their own.",
+          "pose": "teaching",
+          "robe_color": "red",
+          "sky": "temple",
+          "landmark": "wall",
+          "prop": "scroll"
+        },
+        {
+          "narration": "Riots reportedly broke out in some cities, with crowds chanting slogans for or against Arius in the streets outside cathedrals, treating an abstract theological question as an urgent, deeply personal battle worth fighting over publicly. Church leaders on both sides found themselves unable to simply wait out a dispute that showed no sign of resolving itself. Some historians note that the passion behind these public disputes reflected just how central the question of Christ's exact nature had become to everyday religious identity.",
+          "pose": "standing",
+          "robe_color": "purple",
+          "sky": "temple",
+          "landmark": "wall",
+          "prop": null
+        },
+        {
+          "narration": "The newly Christian Emperor Constantine, having just unified the empire under his own rule after years of civil war, watched this growing religious chaos with real alarm, worried it might undo the fragile peace he had only just achieved. A fractured church, he feared, could just as easily fracture the empire that increasingly depended on it. He had spent over a decade consolidating power through military victory, and the last thing he wanted was his newly unified realm splitting apart over doctrine. Follow for part 2.",
+          "pose": "standing",
+          "robe_color": "purple",
           "sky": "temple",
           "landmark": "temple",
           "prop": null
@@ -25,9 +49,33 @@
       "caption": "Constantine made an unprecedented decision to summon bishops from across his empire. Follow for part 3!",
       "scenes": [
         {
-          "narration": "Constantine, though not yet fully understanding the theological details himself, recognized that a fractured church threatened the political unity he had spent years fighting to establish across a vast and diverse empire. He made the unprecedented decision to summon bishops from every corner of Christian territory to a single city called Nicaea, offering to personally fund their long and difficult journeys there. Over two hundred bishops eventually arrived, many bearing visible scars from earlier persecutions under previous emperors who had actively hunted Christians for their faith. For many of these men, walking into a grand imperial hall as honored guests of the emperor himself was almost as astonishing as the theological crisis that had brought them there in the first place. These journeys were genuinely difficult, some bishops traveling for weeks across mountains and open sea just to reach the meeting the emperor had personally requested. Follow for part 3.",
+          "narration": "Constantine, though not yet fully understanding the theological details himself, recognized that a fractured church threatened the political unity he had spent years fighting to establish across a vast and religiously diverse empire. He needed a resolution, and he needed it to come from the church's own leaders rather than from imperial decree alone. Some bishops had to travel for weeks by sea and by land, crossing considerable distances at imperial expense to reach a city few of them had ever visited before.",
+          "pose": "pointing",
+          "robe_color": "purple",
+          "sky": "temple",
+          "landmark": "temple",
+          "prop": null
+        },
+        {
+          "narration": "He made the unprecedented decision to summon bishops from every corner of Christian territory to a single city called Nicaea, offering to personally fund their long and often difficult journeys there. No emperor before him had ever attempted to gather Christian leadership on quite this scale. The very act of an emperor summoning church leaders together marked a striking shift from decades of persecution to sudden, almost overwhelming official favor.",
+          "pose": "standing",
+          "robe_color": "purple",
+          "sky": "temple",
+          "landmark": "wall",
+          "prop": "scroll"
+        },
+        {
+          "narration": "Over two hundred bishops eventually arrived, many bearing visible scars from earlier persecutions under previous emperors who had actively hunted Christians for practicing their faith at all. For many of these men, simply surviving to see this gathering happen felt like its own kind of quiet miracle. Several attendees reportedly bore missing eyes or crippled limbs, permanent reminders of tortures endured under earlier emperors hostile to their faith entirely.",
           "pose": "walking",
-          "robe_color": "white",
+          "robe_color": "brown",
+          "sky": "desert",
+          "landmark": null,
+          "prop": "staff"
+        },
+        {
+          "narration": "For many of these bishops, walking into a grand imperial hall as honored guests of the emperor himself was almost as astonishing as the theological crisis that had brought them there in the first place. Only a generation earlier, gathering so publicly as Christians would have meant near-certain arrest. The contrast between their recent past and this unprecedented gathering was not lost on anyone present in that grand hall that day. Follow for part 3. Even the emperor's own advisors reportedly disagreed among themselves about how directly Constantine should involve himself in matters of church doctrine.",
+          "pose": "standing",
+          "robe_color": "brown",
           "sky": "temple",
           "landmark": "wall",
           "prop": null
@@ -41,12 +89,36 @@
       "caption": "Among the attendees stood a young deacon who would become the debate's fiercest voice. Follow for part 4!",
       "scenes": [
         {
-          "narration": "Among the attendees was a young deacon named Athanasius, barely out of his twenties, who accompanied his own bishop from Alexandria and quickly emerged as one of the sharpest voices arguing directly against Arius. Athanasius insisted that if Christ were merely created rather than eternal, then Christianity's entire claim about God becoming fully human would collapse into something far less meaningful than believers had always understood it to be. Arius, for his part, defended his position with equal conviction, arguing that only his view actually preserved the idea of one single, truly supreme God ruling over all creation. The debates grew heated enough that ancient accounts describe bishops shouting over one another, and in at least one popular legend, an exasperated bishop even struck Arius across the face in frustration. Follow for part 4.",
+          "narration": "Among the attendees was a young deacon named Athanasius, barely out of his twenties, who accompanied his own bishop from Alexandria and quickly emerged as one of the sharpest voices arguing directly against Arius. Despite his youth and relatively junior standing, he refused to stay quiet on a question he considered essential. His own bishop, Alexander of Alexandria, had been one of the earliest and most vocal critics of Arius's teaching, and Athanasius had absorbed that opposition closely over several years.",
           "pose": "teaching",
           "robe_color": "blue",
           "sky": "temple",
           "landmark": "temple",
           "prop": "scroll"
+        },
+        {
+          "narration": "Athanasius insisted that if Christ were merely created rather than eternal, then Christianity's entire claim about God becoming fully human would collapse into something far less meaningful than believers had always understood it to be. For him, this was never simply an abstract academic dispute. To Athanasius, a created Christ could not truly bridge the gap between humanity and God in the way scripture seemed to describe throughout the New Testament.",
+          "pose": "pointing",
+          "robe_color": "blue",
+          "sky": "temple",
+          "landmark": "wall",
+          "prop": null
+        },
+        {
+          "narration": "Arius, for his part, defended his position with equal conviction, arguing that only his view actually preserved the idea of one single, truly supreme God ruling over all creation without rival or equal. He too believed, sincerely, that the opposing view risked a serious theological error. Arius had studied under respected teachers himself, and he genuinely believed his opponents risked collapsing the distinction between creator and creation entirely.",
+          "pose": "standing",
+          "robe_color": "red",
+          "sky": "temple",
+          "landmark": "temple",
+          "prop": "scroll"
+        },
+        {
+          "narration": "The debates grew heated enough that ancient accounts describe bishops shouting over one another, and in at least one popular legend, an exasperated bishop even struck Arius across the face in frustration during the proceedings. Whatever the exact truth of that particular story, the underlying tension was undeniably real. Historians still debate today exactly how much of that dramatic confrontation actually happened as later legend described it, though the underlying tension was undeniably real. Follow for part 4. Their disagreement, though framed in careful theological language, ultimately came down to two fundamentally different ways of understanding who Christ actually was.",
+          "pose": "pointing",
+          "robe_color": "purple",
+          "sky": "temple",
+          "landmark": "wall",
+          "prop": null
         }
       ]
     },
@@ -57,8 +129,32 @@
       "caption": "The council searched desperately for one word to settle the entire dispute. Follow for part 5!",
       "scenes": [
         {
-          "narration": "As the debate dragged on for weeks, the assembled bishops searched for precise language that could settle the dispute clearly enough to prevent it from ever tearing the church apart again in the future. They eventually settled on a specific Greek word, homoousios, meaning of the same essence, to describe the relationship between Christ and God the Father in exact theological terms. The word was controversial even among Arius's opponents, since it did not actually appear anywhere in scripture itself, worrying some bishops that it introduced dangerous philosophical language into sacred doctrine. Constantine himself, eager for any resolution at all, personally pushed for this specific wording, reportedly pronouncing the term aloud himself to encourage the hesitant bishops toward agreement. Historians still debate today exactly how much of that dramatic confrontation actually happened as later legend described it, though the underlying tension was undeniably real. Follow for part 5.",
+          "narration": "As the debate dragged on for weeks, the assembled bishops searched for precise language that could settle the dispute clearly enough to prevent it from ever tearing the church apart again in the future. Vague compromise wording, several of them argued, would only delay the same argument to another year. Some bishops proposed alternative phrases first, each one eventually rejected as either too vague to prevent future disputes or too narrow to gain broad acceptance.",
+          "pose": "sitting",
+          "robe_color": "brown",
+          "sky": "temple",
+          "landmark": null,
+          "prop": "scroll"
+        },
+        {
+          "narration": "They eventually settled on a specific Greek word, homoousios, meaning of the same essence, to describe the precise relationship between Christ and God the Father in exact theological terms. The word itself became almost as contested as the underlying doctrine it was meant to clarify. Supporters of the term argued that sometimes protecting biblical truth required precise, even non-biblical vocabulary capable of closing loopholes ambiguous language might otherwise leave open.",
+          "pose": "teaching",
+          "robe_color": "blue",
+          "sky": "temple",
+          "landmark": "temple",
+          "prop": "scroll"
+        },
+        {
+          "narration": "The word was controversial even among Arius's opponents, since it did not actually appear anywhere in scripture itself, worrying some bishops that it introduced dangerous philosophical language into sacred doctrine. Using an unscriptural term to defend scriptural truth struck several attendees as its own kind of risk. Even among those who eventually accepted the wording, private reservations lingered for years about the precedent of settling doctrine through unfamiliar philosophical terminology.",
           "pose": "standing",
+          "robe_color": "purple",
+          "sky": "temple",
+          "landmark": "wall",
+          "prop": null
+        },
+        {
+          "narration": "Constantine himself, eager for any resolution at all after weeks of deadlock, personally pushed for this specific wording, reportedly pronouncing the term aloud himself to encourage the hesitant bishops toward agreement. An emperor personally lobbying for a specific theological term was, by itself, without real precedent. Some modern historians argue this moment marked a permanent, uneasy blending of religious authority and political power that would shape church history for centuries afterward. Follow for part 5. Language chosen under such pressure, several bishops privately worried, might solve one problem while quietly creating several new ones for future generations to untangle.",
+          "pose": "pointing",
           "robe_color": "purple",
           "sky": "temple",
           "landmark": "temple",
@@ -73,12 +169,36 @@
       "caption": "When the final vote came, almost every bishop present agreed, but not all. Follow for part 6!",
       "scenes": [
         {
-          "narration": "When the final vote was called, the overwhelming majority of bishops present signed onto what became known as the Nicene Creed, formally declaring Christ to be of the same essence as God the Father, not a lesser created being. Only a small handful of bishops refused to sign, Arius himself among them, and Constantine responded by exiling those who would not accept the council's official ruling. This was the first time in Christian history that an emperor had directly enforced a specific theological position using the actual power of the state itself. Many bishops left Nicaea believing the controversy was now permanently settled, unaware that the underlying argument would actually continue simmering for decades to come. Some modern historians argue this moment marked a permanent, uneasy blending of religious authority and political power that would shape church history for centuries afterward. Follow for part 6.",
+          "narration": "When the final vote was called, the overwhelming majority of bishops present signed onto what became known as the Nicene Creed, formally declaring Christ to be of the same essence as God the Father, not a lesser created being. Only a small handful of holdouts remained unconvinced. For most bishops present, exhaustion after weeks of intense debate likely played some role in how readily they agreed to a resolution they hoped would finally end the dispute.",
+          "pose": "standing",
+          "robe_color": "brown",
+          "sky": "temple",
+          "landmark": "wall",
+          "prop": "cross"
+        },
+        {
+          "narration": "Only a small handful of bishops refused to sign, Arius himself among them, and Constantine responded by exiling those who would not accept the council's official ruling on the matter. For Arius specifically, this marked the beginning of years spent far from the communities he had once led. Exile in this era typically meant permanent separation from one's congregation, family, and homeland, a genuinely severe consequence for holding a minority theological position.",
           "pose": "kneeling",
-          "robe_color": "white",
+          "robe_color": "red",
+          "sky": "desert",
+          "landmark": null,
+          "prop": null
+        },
+        {
+          "narration": "This was the first time in Christian history that an emperor had directly enforced a specific theological position using the actual power of the state itself, rather than leaving doctrine entirely to church leaders. The precedent it set would echo through church-state relations for centuries afterward. Some scholars view this moment as the true beginning of centuries of complicated entanglement between imperial politics and church doctrine across the Christian world.",
+          "pose": "standing",
+          "robe_color": "purple",
           "sky": "temple",
           "landmark": "temple",
-          "prop": "cross"
+          "prop": null
+        },
+        {
+          "narration": "Many bishops left Nicaea believing the controversy was now permanently settled, unaware that the underlying argument would actually continue simmering for decades to come across the empire. The creed they had just signed was far from the final word on the matter. The optimism of that closing day would prove, in hindsight, considerably premature given everything still to come in the following decades. Follow for part 6. Word of the exiles spread quickly through Christian communities, serving as a stark reminder of how seriously the empire now took theological conformity.",
+          "pose": "walking",
+          "robe_color": "white",
+          "sky": "desert",
+          "landmark": null,
+          "prop": "staff"
         }
       ]
     },
@@ -89,12 +209,36 @@
       "caption": "Despite the council's ruling, the underlying conflict was far from finished. Follow for part 7!",
       "scenes": [
         {
-          "narration": "Despite the apparent resolution at Nicaea, Arius's supporters never fully disappeared, and the controversy continued raging across the empire for decades after the council formally concluded its business. Athanasius, who eventually became bishop of Alexandria himself, was exiled from his own city five separate times over the following decades as political winds shifted repeatedly between pro-Nicene and pro-Arian emperors. At one particularly low point, it seemed as though the majority of the empire's bishops had actually shifted toward Arius's position, leaving Athanasius as one of the doctrine's few remaining defenders. He reportedly remarked that it sometimes felt like the whole world had turned against the very creed Nicaea had once so confidently established. His exiles took him as far as Gaul and back, yet he continued writing and defending the same position throughout every single period of banishment he endured. Follow for part 7.",
+          "narration": "Despite the apparent resolution at Nicaea, Arius's supporters never fully disappeared, and the controversy continued raging across the empire for decades after the council formally concluded its business. Political winds shifted repeatedly, and with them, the fortunes of both sides of the dispute. Constantine's own successors did not always share his particular theological preferences, and each change in emperor could mean a corresponding change in which side of the dispute held official favor.",
           "pose": "sitting",
           "robe_color": "white",
+          "sky": "desert",
+          "landmark": null,
+          "prop": "scroll"
+        },
+        {
+          "narration": "Athanasius, who eventually became bishop of Alexandria himself, was exiled from his own city five separate times over the following decades as emperors friendly to Arian views repeatedly rose to power. Each exile forced him to rebuild support from scratch upon his eventual return. Each return from exile required Athanasius to essentially rebuild trust and authority from scratch, often facing communities that had grown accustomed to different leadership in his absence.",
+          "pose": "walking",
+          "robe_color": "blue",
+          "sky": "desert",
+          "landmark": null,
+          "prop": null
+        },
+        {
+          "narration": "At one particularly low point, it seemed as though the majority of the empire's bishops had actually shifted toward Arius's position, leaving Athanasius as one of the doctrine's few remaining prominent defenders. The tide of theological opinion had turned dramatically against the very creed he had helped shape. Letters from this period reveal a man increasingly weary of a fight that seemed to have no permanent resolution in sight despite decades of effort.",
+          "pose": "sitting",
+          "robe_color": "blue",
           "sky": "night",
           "landmark": null,
           "prop": "scroll"
+        },
+        {
+          "narration": "He reportedly remarked that it sometimes felt like the whole world had turned against the very creed Nicaea had once so confidently established, a frustration he carried through years of repeated exile. Yet he continued writing and defending that same position without wavering. That same later council is remembered today as Constantinople in 381, finally cementing language that Nicaea had first attempted but could not fully settle on its own. Follow for part 7. Through it all, he maintained that the creed's actual wording mattered less to him than the underlying truth he believed it was created to protect.",
+          "pose": "praying",
+          "robe_color": "blue",
+          "sky": "night",
+          "landmark": null,
+          "prop": "cross"
         }
       ]
     },
@@ -105,12 +249,36 @@
       "caption": "Seventeen hundred years later, that creed still shapes Christian worship worldwide.",
       "scenes": [
         {
-          "narration": "It took another full council decades later to finally affirm and permanently secure the Nicene position, ensuring that the creed drafted in that one contentious meeting would endure for centuries afterward. Today, nearly seventeen hundred years later, the Nicene Creed is still recited in churches across the entire world, spanning traditions that disagree on nearly everything else about how faith should be practiced. Few of the millions who recite it each week know the full story of the shouting matches, the exiled bishops, and the emperor who pushed a single Greek word into permanent doctrine. What began as one priest's controversial teaching in Alexandria ultimately shaped Christian belief for every generation that followed, right down to today. That later council is remembered today as Constantinople in 381, finally cementing language that Nicaea had first attempted but could not fully settle on its own.",
+          "narration": "It took another full council decades later, in the year three hundred eighty one, to finally affirm and permanently secure the Nicene position, ensuring the creed drafted at that one contentious meeting would endure for centuries afterward. What Nicaea started, Constantinople ultimately confirmed. The gap between these two councils, spanning more than five decades, illustrates just how genuinely difficult it was to achieve lasting theological consensus across such a vast and diverse empire.",
+          "pose": "teaching",
+          "robe_color": "blue",
+          "sky": "temple",
+          "landmark": "temple",
+          "prop": "scroll"
+        },
+        {
+          "narration": "Today, nearly seventeen hundred years later, the Nicene Creed is still recited in churches across the entire world, spanning traditions that disagree on nearly everything else about how faith should be practiced. Few shared texts in history have proven quite so durable across so many divides. Scholars studying the period note that the creed's survival owed as much to persistent institutional memory as to any single decisive moment of agreement.",
+          "pose": "standing",
+          "robe_color": "purple",
+          "sky": "temple",
+          "landmark": "wall",
+          "prop": null
+        },
+        {
+          "narration": "Few of the millions who recite it each week know the full story of the shouting matches, the exiled bishops, and the emperor who pushed a single Greek word into permanent doctrine centuries ago. The creed's familiar words carry a far more turbulent history than most realize. Sunday services in wildly different traditions, separated by language, culture, and centuries of separate development, still converge on these same carefully chosen words.",
           "pose": "standing",
           "robe_color": "blue",
           "sky": "temple",
           "landmark": "temple",
           "prop": null
+        },
+        {
+          "narration": "What began as one priest's controversial teaching in Alexandria ultimately shaped Christian belief for every generation that followed, right down to today's congregations reciting the very same words. A single theological argument from the fourth century still echoes through worship services worldwide. That such a specific fourth-century compromise could shape worship so many centuries later remains one of history's more remarkable examples of doctrine outlasting empire. Historians continue studying this period specifically because it reveals how contested and fragile even our most familiar religious traditions once were.",
+          "pose": "teaching",
+          "robe_color": "purple",
+          "sky": "temple",
+          "landmark": "temple",
+          "prop": "scroll"
         }
       ]
     }
