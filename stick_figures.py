@@ -97,8 +97,14 @@ def _draw_prop(draw, prop, x, y, hip_y, scale, facing):
         bot_x, bot_y = x + 45 * s * f, hip_y + 60 * s
         draw.line([top_x, top_y, bot_x, bot_y], fill=(90, 65, 40), width=int(LINE_WIDTH * 0.8))
     elif prop == "scroll":
+        # x0/x1 computed with min/max - when facing is -1, the raw expressions
+        # swap order (x0 > x1), which Pillow's rounded_rectangle rejects outright.
+        # This was a real, previously-latent bug: it only ever triggered once the
+        # beat-variant system started deliberately flipping facing for variety.
+        scroll_x0 = x + 20 * s * f
+        scroll_x1 = x + 50 * s * f
         draw.rounded_rectangle(
-            [x + 20 * s * f, y + 35 * s, x + 50 * s * f, y + 58 * s],
+            [min(scroll_x0, scroll_x1), y + 35 * s, max(scroll_x0, scroll_x1), y + 58 * s],
             radius=6, fill=(230, 218, 190), outline=FIGURE_COLOR, width=3,
         )
     elif prop == "cross":
