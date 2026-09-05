@@ -10,35 +10,37 @@
       "scenes": [
         {
           "narration": "Around the year four hundred, a sixteen year old boy from a Christian family in Roman Britain lived a comfortable, unremarkable life on his father's coastal estate, thinking little about the faith his parents practiced. He spent his days much like any other teenager of his class, more concerned with daily comforts than any deeper questions about belief or purpose. His father served as a local church official, though young Patrick himself later admitted he treated the position as little more than a family obligation rather than anything meaningful to him personally.",
-          "pose": "standing",
-          "robe_color": "brown",
           "sky": "desert",
           "landmark": "hills",
-          "prop": null
+          "crowd_count": 0,
+          "figures": [{"pose": "standing", "robe_color": "brown", "prop": null}]
         },
         {
           "narration": "That comfortable life ended abruptly one afternoon when Irish raiders struck the coastline in a sudden, violent attack, capturing dozens of people including the young Patrick himself. He watched his family's estate burn behind him as the raiders forced their captives toward waiting ships, offering no time to process what was actually happening. Screams echoed across the property as raiders moved from house to house, and Patrick had only moments to process the fact that his entire world was being violently torn apart around him.",
-          "pose": "kneeling",
-          "robe_color": "brown",
           "sky": "sea",
           "landmark": "ship",
-          "prop": null
+          "crowd_count": 5,
+          "figures": [
+            {"pose": "pointing", "robe_color": "brown", "prop": null},
+            {"pose": "kneeling", "robe_color": "brown", "prop": null}
+          ]
         },
         {
           "narration": "He was carried across the sea to Ireland and sold into slavery, purchased by a local chieftain who put him to work as a shepherd on a remote, windswept hillside. The isolation was almost total, with only sheep and harsh weather for company through long stretches of freezing days and nights. The other captives around him included neighbors and even distant relatives, all now facing an identical, uncertain fate as property to be sold in a foreign land none of them had ever seen.",
-          "pose": "standing",
-          "robe_color": "brown",
           "sky": "desert",
           "landmark": "hills",
-          "prop": null
+          "crowd_count": 4,
+          "figures": [
+            {"pose": "standing", "robe_color": "brown", "prop": null},
+            {"pose": "walking", "robe_color": "brown", "prop": null}
+          ]
         },
         {
           "narration": "For six long years, Patrick lived this way, cut off from everything and everyone he had once known, tending animals for a master who cared nothing for his wellbeing. Slowly, in that isolation, something in him that had never mattered before began to genuinely change. He later described these years as the period when God finally opened his previously indifferent heart, though at the time it simply felt like unbearable, unrelenting loneliness. Follow for part 2.",
-          "pose": "praying",
-          "robe_color": "brown",
           "sky": "night",
           "landmark": "hills",
-          "prop": null
+          "crowd_count": 0,
+          "figures": [{"pose": "praying", "robe_color": "brown", "prop": null}]
         }
       ]
     },
@@ -50,35 +52,31 @@
       "scenes": [
         {
           "narration": "After six years of isolation and hard labor, Patrick had begun praying constantly throughout each day, finding in that lonely shepherd's life a faith he had never actually possessed back home in Britain. What had once been his parents' religion had slowly become entirely his own during those difficult years. He estimated he prayed close to a hundred times daily by that point, rain or shine, treating each prayer as the only real structure left in an otherwise brutal, monotonous existence.",
-          "pose": "praying",
-          "robe_color": "brown",
           "sky": "night",
           "landmark": "hills",
-          "prop": "cross"
+          "crowd_count": 0,
+          "figures": [{"pose": "praying", "robe_color": "brown", "prop": "cross"}]
         },
         {
           "narration": "One night, he later wrote, a voice spoke to him clearly in a dream, telling him plainly that a ship was waiting for him, ready to carry him home if only he could reach the coast in time. The voice gave him no map and no clear directions, only the certainty that this moment was real. He described the voice as unmistakably clear, unlike anything from an ordinary dream, carrying an authority that left him with no real doubt about what he needed to do next.",
-          "pose": "sitting",
-          "robe_color": "brown",
           "sky": "night",
           "landmark": null,
-          "prop": null
+          "crowd_count": 0,
+          "figures": [{"pose": "sitting", "robe_color": "brown", "prop": null}]
         },
         {
           "narration": "He had no actual idea where the nearest coastline even was, having spent six years confined to one remote inland hillside with no reason to travel anywhere else. Trusting the voice completely despite the obvious risk, he simply began walking in the direction that felt right. Six years of confinement to that single hillside meant he possessed no practical knowledge of Irish geography whatsoever, only the shepherd's paths he had walked a thousand times before.",
-          "pose": "walking",
-          "robe_color": "brown",
           "sky": "desert",
           "landmark": "hills",
-          "prop": "staff"
+          "crowd_count": 0,
+          "figures": [{"pose": "walking", "robe_color": "brown", "prop": "staff"}]
         },
         {
           "narration": "The journey covered nearly two hundred miles on foot, through unfamiliar territory, with almost nothing to eat and constant fear of being recaptured along the way. Every step forward was also a step further from the only life he had known since his capture six years earlier. He carried nothing with him except the clothes on his back, walking through territory controlled by the very people who had once purchased him as property. Follow for part 3.",
-          "pose": "walking",
-          "robe_color": "brown",
           "sky": "desert",
           "landmark": null,
-          "prop": "staff"
+          "crowd_count": 0,
+          "figures": [{"pose": "walking", "robe_color": "brown", "prop": "staff"}]
         }
       ]
     },
@@ -90,35 +88,37 @@
       "scenes": [
         {
           "narration": "After days of walking with almost nothing to eat, Patrick finally reached the coast and found, remarkably, the exact ship his dream had described, its crew actively preparing to depart that very day. The sight of it after such a desperate journey felt almost impossible to believe. Ships like this one rarely came through such remote stretches of coastline, making its presence there feel to Patrick like more than simple coincidence after everything he had already endured.",
-          "pose": "walking",
-          "robe_color": "brown",
           "sky": "sea",
           "landmark": "ship",
-          "prop": null
+          "crowd_count": 0,
+          "figures": [{"pose": "walking", "robe_color": "brown", "prop": null}]
         },
         {
           "narration": "The ship's captain took one look at the ragged, starving young man and flatly refused to let him board, suspicious of an obvious runaway slave with no money and an unlikely story. Patrick had no proof of anything he claimed, only his own desperate words. Merchant captains of that era had good reason for such suspicion, since harboring an escaped slave carried real legal and financial risk under prevailing customs of the time.",
-          "pose": "standing",
-          "robe_color": "brown",
           "sky": "sea",
           "landmark": "ship",
-          "prop": null
+          "crowd_count": 0,
+          "figures": [
+            {"pose": "kneeling", "robe_color": "brown", "prop": null},
+            {"pose": "pointing", "robe_color": "brown", "prop": null}
+          ]
         },
         {
           "narration": "Patrick turned away in despair, walking back along the shore and praying quietly, when the crew suddenly called him back, having apparently reconsidered without offering any clear explanation for the sudden change of heart. He never fully understood why they changed their minds that day. He stood on that shore for what felt like an eternity, unsure whether to keep pleading or simply accept that his journey home might end right there on that beach.",
-          "pose": "praying",
-          "robe_color": "brown",
           "sky": "sea",
           "landmark": null,
-          "prop": null
+          "crowd_count": 0,
+          "figures": [
+            {"pose": "praying", "robe_color": "brown", "prop": null},
+            {"pose": "standing", "robe_color": "brown", "prop": null}
+          ]
         },
         {
           "narration": "He boarded that ship not knowing where exactly it would actually take him, only that it was sailing away from six years of captivity at last. For the first time since his capture, Patrick allowed himself something close to real hope about what might come next. Whatever passed between the crew members in that moment, Patrick chose not to question it further, simply grateful for a place among cargo bound for anywhere but Ireland. Follow for part 4.",
-          "pose": "standing",
-          "robe_color": "white",
           "sky": "sea",
           "landmark": "ship",
-          "prop": null
+          "crowd_count": 0,
+          "figures": [{"pose": "standing", "robe_color": "white", "prop": null}]
         }
       ]
     },
@@ -130,35 +130,31 @@
       "scenes": [
         {
           "narration": "The ship eventually landed, but not in Britain as Patrick had hoped, dropping its passengers instead in a desolate, unfamiliar region where food supplies quickly ran out for the entire crew. The relief of escaping slavery gave way almost immediately to a new, different kind of crisis. The unfamiliar landscape offered no clear landmarks, no friendly faces, and no assurance that this leg of the journey would prove any less dangerous than the last six years combined.",
-          "pose": "standing",
-          "robe_color": "brown",
           "sky": "desert",
           "landmark": null,
-          "prop": null
+          "crowd_count": 0,
+          "figures": [{"pose": "standing", "robe_color": "brown", "prop": null}]
         },
         {
           "narration": "The sailors, half starving themselves and increasingly desperate, mocked Patrick for his faith, daring him to pray for food if his God was truly as powerful as he claimed while they walked. Their mockery stung, but Patrick prayed anyway, refusing to let their doubt shake his own. Some of the sailors had grown openly hostile by this point, blaming their misfortune partly on their strange passenger and his unusual insistence on praying through their shared hardship.",
-          "pose": "walking",
-          "robe_color": "brown",
           "sky": "desert",
           "landmark": null,
-          "prop": null
+          "crowd_count": 0,
+          "figures": [{"pose": "walking", "robe_color": "brown", "prop": null}]
         },
         {
           "narration": "Shortly afterward, the group unexpectedly encountered a herd of wild pigs along their path, providing enough food to sustain the entire crew through the remainder of that difficult overland journey. Even the sailors who had mocked him fell quiet, uncertain what to make of the timing. Patrick himself later wrote that he viewed the timing of that discovery as unmistakable evidence that his prayers, however mocked, had actually been heard.",
-          "pose": "pointing",
-          "robe_color": "brown",
           "sky": "desert",
           "landmark": null,
-          "prop": null
+          "crowd_count": 0,
+          "figures": [{"pose": "pointing", "robe_color": "brown", "prop": null}]
         },
         {
           "narration": "It took several more weeks of hardship before Patrick finally reached familiar territory and made his way back to his family's home in Britain, exhausted but alive. The comfortable childhood estate he had left behind felt like a memory from someone else's life entirely. Word of his return likely reached his family before he did, carried by travelers along routes he himself was still slowly retracing on exhausted, blistered feet. Follow for part 5. Patrick came to view that entire ordeal as a formative test of the very faith he had only recently discovered during his years of captivity.",
-          "pose": "walking",
-          "robe_color": "brown",
           "sky": "desert",
           "landmark": "hills",
-          "prop": null
+          "crowd_count": 0,
+          "figures": [{"pose": "walking", "robe_color": "brown", "prop": null}]
         }
       ]
     },
@@ -170,35 +166,34 @@
       "scenes": [
         {
           "narration": "Patrick's family welcomed him home with overwhelming relief, certain that his six years of nightmare captivity were finally, completely behind him for good. For a while, it seemed as though his old life might simply resume exactly where it had been interrupted. Neighbors and extended family visited constantly during those early weeks, eager to hear details of a captivity most of them had assumed had ended in death rather than eventual freedom.",
-          "pose": "standing",
-          "robe_color": "blue",
           "sky": "plain",
           "landmark": null,
-          "prop": null
+          "crowd_count": 3,
+          "figures": [
+            {"pose": "standing", "robe_color": "blue", "prop": null},
+            {"pose": "standing", "robe_color": "brown", "prop": null}
+          ]
         },
         {
           "narration": "But Patrick found himself unable to settle back into that old life, haunted by vivid dreams of the very Irish people who had once enslaved him, now somehow calling him back toward their island. The dreams grew more frequent and more specific as the months passed. He confided to almost no one at first, unsure how to explain a calling that made so little sense to people who had never experienced anything like his six years in Ireland.",
-          "pose": "sitting",
-          "robe_color": "blue",
           "sky": "night",
           "landmark": null,
-          "prop": "scroll"
+          "crowd_count": 0,
+          "figures": [{"pose": "sitting", "robe_color": "blue", "prop": "scroll"}]
         },
         {
           "narration": "In one particularly vivid dream, he wrote, he heard the voices of Irish children specifically begging him to come and walk among them once again. The request felt impossible to ignore, no matter how much easier staying in Britain would have been. The specificity of these dreams unsettled him precisely because he could not simply dismiss them as ordinary anxiety left over from his years of captivity.",
-          "pose": "praying",
-          "robe_color": "blue",
           "sky": "night",
           "landmark": null,
-          "prop": "cross"
+          "crowd_count": 0,
+          "figures": [{"pose": "praying", "robe_color": "blue", "prop": "cross"}]
         },
         {
           "narration": "He began studying for the priesthood soon afterward, telling his bewildered family that he genuinely intended to return, willingly this time, to the very country that had once stolen his freedom from him. Few of them understood his reasoning at first. His mother reportedly wept upon hearing his plan, having only just gotten her son back after believing him lost for the better part of a decade. Follow for part 6. Every conversation about his plans seemed to end the same way, with loved ones quietly hoping he might eventually reconsider such a dangerous undertaking.",
-          "pose": "teaching",
-          "robe_color": "blue",
           "sky": "plain",
           "landmark": null,
-          "prop": "scroll"
+          "crowd_count": 0,
+          "figures": [{"pose": "teaching", "robe_color": "blue", "prop": "scroll"}]
         }
       ]
     },
@@ -210,35 +205,34 @@
       "scenes": [
         {
           "narration": "Years of study and preparation later, Patrick was formally ordained and made the deliberate choice to sail back to Ireland, the very land where he had once been enslaved as a frightened teenager. The decision struck many who knew him as almost unbelievable. Some who had known him before his capture struggled to reconcile the ordinary boy they remembered with the determined man now preparing to return voluntarily to his former captors.",
-          "pose": "standing",
-          "robe_color": "green",
           "sky": "sea",
           "landmark": "ship",
-          "prop": "staff"
+          "crowd_count": 0,
+          "figures": [{"pose": "standing", "robe_color": "green", "prop": "staff"}]
         },
         {
           "narration": "Many church leaders at the time doubted him openly, questioning whether a former slave with limited formal education was truly fit to lead such a difficult and dangerous mission. Patrick faced this skepticism directly, unwilling to let it change his resolve. He had, by this point, spent years anticipating exactly this kind of resistance, and refused to let it derail plans he had already committed his entire future toward.",
-          "pose": "pointing",
-          "robe_color": "green",
           "sky": "temple",
           "landmark": "temple",
-          "prop": "scroll"
+          "crowd_count": 5,
+          "figures": [
+            {"pose": "pointing", "robe_color": "green", "prop": "scroll"},
+            {"pose": "standing", "robe_color": "purple", "prop": null}
+          ]
         },
         {
           "narration": "He pressed forward anyway, driven by what he consistently described as an unshakable calling he simply could not set aside or ignore any longer, no matter how many doubted him. That certainty had carried him this far already. He had learned enough of the Irish language and customs during his captivity to know precisely how difficult and dangerous this undertaking would actually prove to be.",
-          "pose": "praying",
-          "robe_color": "green",
           "sky": "temple",
           "landmark": null,
-          "prop": "cross"
+          "crowd_count": 0,
+          "figures": [{"pose": "praying", "robe_color": "green", "prop": "cross"}]
         },
         {
           "narration": "He arrived on Irish shores not as a captive this time, but as a missionary determined to bring his faith to the very people who had once taken his freedom from him. The hillsides that had once held him prisoner now welcomed a very different kind of arrival. The very shepherd's paths he had once walked in chains now marked the beginning of a mission he had chosen entirely for himself this time. Follow for part 7. He had made peace long ago with the very real possibility that this mission might ultimately cost him his life a second time.",
-          "pose": "standing",
-          "robe_color": "green",
           "sky": "desert",
           "landmark": "hills",
-          "prop": "staff"
+          "crowd_count": 0,
+          "figures": [{"pose": "standing", "robe_color": "green", "prop": "staff"}]
         }
       ]
     },
@@ -250,35 +244,34 @@
       "scenes": [
         {
           "narration": "Patrick spent decades traveling across Ireland, establishing churches and communities throughout a land that had once known him only as property to be bought and sold. Each new community represented years of patient, difficult work in unfamiliar territory. Local monasteries and small congregations sprang up gradually across regions that had never before had any organized Christian presence whatsoever within their communities.",
-          "pose": "teaching",
-          "robe_color": "green",
           "sky": "temple",
           "landmark": "temple",
-          "prop": "staff"
+          "crowd_count": 0,
+          "figures": [{"pose": "teaching", "robe_color": "green", "prop": "staff"}]
         },
         {
           "narration": "He faced real hostility along the way, including direct threats from local chieftains who saw his growing influence as a genuine challenge to their own traditional authority over the land. More than once, his mission hung in real danger. On at least one occasion, historical accounts suggest his life was directly threatened by a local ruler wary of a foreign missionary gaining genuine influence among his own people.",
-          "pose": "standing",
-          "robe_color": "green",
           "sky": "temple",
           "landmark": "wall",
-          "prop": null
+          "crowd_count": 0,
+          "figures": [
+            {"pose": "pointing", "robe_color": "red", "prop": null},
+            {"pose": "standing", "robe_color": "green", "prop": "staff"}
+          ]
         },
         {
           "narration": "Despite the danger, his mission steadily took root across the island, and by the time of his death, Christianity had established a lasting and permanent presence throughout Ireland. What began with one man's difficult return had grown into something far larger than himself. Communities that had once viewed Christianity as a completely foreign import slowly began adopting it as something recognizably their own, shaped by Patrick's patient decades of work.",
-          "pose": "kneeling",
-          "robe_color": "white",
           "sky": "desert",
           "landmark": "hills",
-          "prop": "cross"
+          "crowd_count": 0,
+          "figures": [{"pose": "kneeling", "robe_color": "white", "prop": "cross"}]
         },
         {
           "narration": "Nearly sixteen hundred years later, Patrick remains one of history's most recognized names, his entire legacy built on a single choice to return to the very place that had once enslaved him. Few who celebrate his memory today know the full story behind it. Modern historians still debate exactly how much of the later legend surrounding him is accurate, though the basic outline of his extraordinary journey remains well documented. His writings, preserved for nearly sixteen centuries, remain among the only firsthand accounts historians have from that entire era of British and Irish history. His feast day is now celebrated by millions worldwide, most of whom know only a small fraction of the genuinely remarkable journey behind it.",
-          "pose": "standing",
-          "robe_color": "green",
           "sky": "temple",
           "landmark": "temple",
-          "prop": "staff"
+          "crowd_count": 0,
+          "figures": [{"pose": "standing", "robe_color": "green", "prop": "staff"}]
         }
       ]
     }
