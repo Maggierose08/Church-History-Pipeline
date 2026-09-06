@@ -4,6 +4,7 @@ import logging
 import sys
 import time
 import uuid
+import re
 from datetime import datetime
 from pathlib import Path
 
@@ -39,15 +40,36 @@ def _load_json(path: str) -> dict:
         return json.load(f)
 
 
+_FOLLOW_PHRASE_PATTERN = re.compile(r"\s*Follow for part \d+\.?", re.IGNORECASE)
+
+
+def _strip_follow_phrase(narration: str) -> str:
+    """Removes a trailing 'Follow for part N.' from narration text - meaningful
+    when a segment posts standalone, but nonsensical baked into a single complete
+    video where there's no separate 'next part' to follow to at all."""
+    return _FOLLOW_PHRASE_PATTERN.sub("", narration).strip()
+
+
 def _compilation_to_segment_shape(compilation_data: dict) -> dict:
     """
     Normalizes a queued compilation (title/social_title/caption + a list of segments,
     each with its own scenes) into the same {"title", "social_title", "caption",
     "scenes"} shape a single segment already has, by flattening every segment's
     scenes into one combined list - so TTS/render code downstream never needs to
-    know whether it's handling a single short segment or a full compilation.
+    know whether it's handling a single short segment or a full compilation. Every
+    segment's last scene had a "Follow for part N" phrase baked into its narration
+    (required for the standalone short to work) - that phrase is stripped here
+    since it would otherwise play mid-video, several times, in the final compilation.
     """
-    all_scenes = [scene for seg in compilation_data["segments"] for scene in seg["scenes"]]
+    segments = compilation_data["segments"]
+    all_scenes = []
+    for seg in segments:
+        scenes = seg["scenes"]
+        for j, scene in enumerate(scenes):
+            scene_copy = dict(scene)
+            if j == len(scenes) - 1:
+                scene_copy["narration"] = _strip_follow_phrase(scene["narration"])
+            all_scenes.append(scene_copy)
     return {
         "title": compilation_data["title"],
         "social_title": compilation_data["social_title"],
