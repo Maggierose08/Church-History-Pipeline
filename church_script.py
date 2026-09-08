@@ -27,15 +27,15 @@ VALID_LANDMARKS = ["temple", "hills", "ship", "wall", None]
 VALID_PROPS = ["staff", "scroll", "cross", None]
 
 # Calibrated against REAL measured TTS output for this pipeline's en-US voice pool
-# at 1.5x (148 words -> 29.6s measured in production, i.e. ~5.0 words/sec) - NOT a
-# rough estimate. Segments need to genuinely fill 1-1.5 minutes (60-90s) as originally
-# specified, which requires roughly 300-450 words, not the much lower number an
-# unverified guess originally used.
+# at 1.5x (~5.0 words/sec measured in production). Segments target ~1-1.5 minutes
+# (60-90s) each, which requires roughly 300-450 words. Segment count is 10-14 (not
+# the earlier 7-9) so the total compiled video still lands in the 15-20 minute
+# target with shorter individual segments.
 MIN_SEGMENT_WORDS = 300
 MAX_SEGMENT_WORDS = 450
-TARGET_SEGMENT_COUNT_MIN = 7
-TARGET_SEGMENT_COUNT_MAX = 9
-# A 60-90 second segment shown as a single unchanging still image is visually flat -
+TARGET_SEGMENT_COUNT_MIN = 10
+TARGET_SEGMENT_COUNT_MAX = 14
+# A 1-1.5 minute segment shown as a single unchanging still image is visually flat -
 # require real scene variety within each segment.
 MIN_SCENES_PER_SEGMENT = 3
 MAX_SCENES_PER_SEGMENT = 5
@@ -87,7 +87,7 @@ building up the full story with a "Follow for part N"-style hook (dynamically nu
 "Follow for part 2", segment 2 says "Follow for part 3", and so on) at the end of every segment except the last. Days later, all segments are combined into one full-length video.
 
 For the VISUAL side: each segment must be broken into {MIN_SCENES_PER_SEGMENT}-{MAX_SCENES_PER_SEGMENT} \
-distinct scenes - a single unchanging image for a full 60-90 second segment is visually flat, so \
+distinct scenes - a single unchanging image for a full 1-1.5 minute segment is visually flat, so \
 real scene variety within each segment is required, not optional. Since figures are simple \
 stick-figure illustrations (not photorealistic), each scene depicts what is actually HAPPENING \
 using 1-3 fully-detailed figures, plus an optional background crowd:
@@ -255,7 +255,7 @@ def _validate_and_parse(raw: str) -> dict:
         if not (MIN_SCENES_PER_SEGMENT <= len(seg["scenes"]) <= MAX_SCENES_PER_SEGMENT):
             raise ValueError(
                 f"Segment {i+1} has {len(seg['scenes'])} scene(s), expected "
-                f"{MIN_SCENES_PER_SEGMENT}-{MAX_SCENES_PER_SEGMENT} for visual variety within a 60-90s segment"
+                f"{MIN_SCENES_PER_SEGMENT}-{MAX_SCENES_PER_SEGMENT} for visual variety within a 1-1.5 minute segment"
             )
         for scene in seg["scenes"]:
             _validate_scene(scene)
