@@ -23,11 +23,27 @@ ROBE_COLORS = {
 }
 
 
+SKIN_COLOR = (232, 194, 160)
+
+
+HAIR_COLOR = (60, 42, 30)
+
+
 def _draw_head(draw, cx, cy, r, facing=1):
-    """Head circle plus simple facial features (two eyes, a small mouth line) - the
-    eyes shift slightly toward `facing` direction so the figure visibly looks toward
-    whoever/whatever it's facing, matching the interaction direction set by facing."""
-    draw.ellipse([cx - r, cy - r, cx + r, cy + r], outline=FIGURE_COLOR, width=LINE_WIDTH)
+    """Head circle, FILLED with a solid skin tone (previously just an unfilled
+    outline, letting the background show through) plus simple facial features and
+    hair. Eyes shift slightly toward `facing` direction so the figure visibly
+    looks toward whoever/whatever it's facing, matching the interaction direction.
+    Hair is deliberately gender-neutral in shape (a simple cap-like top rather
+    than a style implying a specific gender) since the schema has no gender field
+    - adding it safely for every figure without risking mismatched styling on
+    female historical figures like Perpetua or Felicity.
+    """
+    draw.ellipse([cx - r, cy - r, cx + r, cy + r], fill=SKIN_COLOR, outline=FIGURE_COLOR, width=LINE_WIDTH)
+
+    # Simple hair cap: an arc covering roughly the top half of the head.
+    hair_bbox = [cx - r * 1.02, cy - r * 1.15, cx + r * 1.02, cy + r * 0.25]
+    draw.pieslice(hair_bbox, start=180, end=360, fill=HAIR_COLOR, outline=FIGURE_COLOR, width=max(2, int(LINE_WIDTH * 0.5)))
 
     eye_offset_x = r * 0.28 * facing
     eye_y = cy - r * 0.12
@@ -88,6 +104,28 @@ def _draw_robe(draw, x, y, hip_y, width_top, width_bottom, color):
         bottom_x = x + offset * width_bottom * 0.9
         draw.line([top_x, y + 4, bottom_x, hip_y - 4], fill=fold_color, width=3)
 
+    # A simple belt/sash at the waist, on every figure - a small but real addition
+    # of robe detail/style that doesn't depend on any gender-specific assumption.
+    belt_y = y + (hip_y - y) * 0.42
+    belt_half_width = width_top + (width_bottom - width_top) * 0.42
+    draw.line([x - belt_half_width, belt_y, x + belt_half_width, belt_y], fill=fold_dark, width=6)
+
+    # A hood, for robe colors that read as more monastic/humble (brown, a wandering
+    # hermit or shepherd's cloak) or more formally religious (purple, a bishop's
+    # vestment) - not tied to any figure gender, purely a robe-color-based style
+    # choice, so it stays safe without a gender field in the schema.
+    if color in ("brown", "purple"):
+        # A rounded cowl shape sitting on the shoulders behind the head/neck,
+        # wider than the robe collar - drawn as a simple ellipse rather than a
+        # pieslice, which is easier to make read clearly as "hood fabric" rather
+        # than stray side flaps.
+        hood_w = width_top * 2.6
+        hood_h = width_top * 2.0
+        draw.ellipse(
+            [x - hood_w / 2, y - hood_h * 0.35, x + hood_w / 2, y + hood_h * 0.65],
+            fill=rgb, outline=FIGURE_COLOR, width=3,
+        )
+
 
 def _draw_prop(draw, prop, x, y, hip_y, scale, facing):
     s = scale
@@ -111,6 +149,24 @@ def _draw_prop(draw, prop, x, y, hip_y, scale, facing):
         cx, cy = x - 55 * s * f, y - 20 * s
         draw.line([cx, cy - 30 * s, cx, cy + 30 * s], fill=(80, 60, 45), width=int(LINE_WIDTH * 0.8))
         draw.line([cx - 15 * s, cy - 12 * s, cx + 15 * s, cy - 12 * s], fill=(80, 60, 45), width=int(LINE_WIDTH * 0.8))
+    elif prop == "book":
+        # A closed, thicker rectangular book, distinct from the flatter scroll shape.
+        book_x0 = min(x + 18 * s * f, x + 52 * s * f)
+        book_x1 = max(x + 18 * s * f, x + 52 * s * f)
+        draw.rectangle(
+            [book_x0, y + 32 * s, book_x1, y + 62 * s],
+            fill=(150, 60, 50), outline=FIGURE_COLOR, width=3,
+        )
+        draw.line([(book_x0 + book_x1) / 2, y + 32 * s, (book_x0 + book_x1) / 2, y + 62 * s], fill=FIGURE_COLOR, width=2)
+    elif prop == "torch":
+        top_x, top_y = x + 55 * s * f, y - 55 * s
+        bot_x, bot_y = x + 48 * s * f, hip_y + 40 * s
+        draw.line([top_x, top_y, bot_x, bot_y], fill=(90, 65, 40), width=int(LINE_WIDTH * 0.7))
+        flame_pts = [
+            (top_x, top_y - 35 * s), (top_x - 12 * s, top_y - 8 * s),
+            (top_x, top_y + 5 * s), (top_x + 12 * s, top_y - 8 * s),
+        ]
+        draw.polygon(flame_pts, fill=(240, 140, 40), outline=(200, 90, 20))
 
 
 def draw_pose(draw, pose: str, x: int, y: int, scale: float = 1.0, facing: int = 1,
@@ -140,7 +196,10 @@ def draw_pose(draw, pose: str, x: int, y: int, scale: float = 1.0, facing: int =
     elif pose == "walking":
         _limb(draw, x - 8 * s * f, hip_y, x + 32 * s * f, hip_y + 15 * s, width=int(LINE_WIDTH * 0.7))
         _limb(draw, x - 8 * s * f, hip_y, x - 25 * s * f, hip_y + 20 * s, width=int(LINE_WIDTH * 0.7))
-    else:  # standing
+    elif pose == "grieving":
+        _limb(draw, x - 10 * s * f, hip_y, x + 6 * s * f, hip_y + 15 * s, width=int(LINE_WIDTH * 0.7))
+        _limb(draw, x - 10 * s * f, hip_y, x - 16 * s * f, hip_y + 15 * s, width=int(LINE_WIDTH * 0.7))
+    else:  # standing, writing, raising_arms
         _limb(draw, x - 10 * s * f, hip_y, x + 12 * s * f, hip_y + 15 * s, width=int(LINE_WIDTH * 0.7))
         _limb(draw, x - 10 * s * f, hip_y, x - 20 * s * f, hip_y + 15 * s, width=int(LINE_WIDTH * 0.7))
 
@@ -164,6 +223,22 @@ def draw_pose(draw, pose: str, x: int, y: int, scale: float = 1.0, facing: int =
     elif pose == "kneeling":
         _limb(draw, x, shoulder_y, x + 20 * s * f, shoulder_y + 25 * s)
         _limb(draw, x, shoulder_y, x - 20 * s * f, shoulder_y + 25 * s)
+    elif pose == "writing":
+        # One arm extended down and forward, as if writing on a surface at hip height.
+        _limb(draw, x + 6 * s * f, shoulder_y, x + 45 * s * f, shoulder_y + 55 * s)
+        _limb(draw, x, shoulder_y, x - 22 * s * f, shoulder_y + 30 * s)
+    elif pose == "raising_arms":
+        # Both arms raised well above head height, angled WIDE enough to clear
+        # the sides of the head entirely (not cross through the face) - blessing,
+        # proclamation, or celebration, clearly distinct from praying (hands
+        # together at chest) or teaching (one arm extended sideways).
+        _limb(draw, x, shoulder_y, x + 75 * s * f, shoulder_y - 85 * s)
+        _limb(draw, x, shoulder_y, x - 75 * s * f, shoulder_y - 85 * s)
+    elif pose == "grieving":
+        # Arms drawn inward toward the chest/face - head implicitly lowered via
+        # the shortened lower body above, giving a mourning silhouette.
+        _limb(draw, x, shoulder_y, x + 14 * s * f, shoulder_y - 15 * s)
+        _limb(draw, x, shoulder_y, x - 14 * s * f, shoulder_y - 15 * s)
     else:
         _limb(draw, x, shoulder_y, x + 28 * s * f, shoulder_y + 35 * s)
         _limb(draw, x, shoulder_y, x - 28 * s * f, shoulder_y + 35 * s)
@@ -215,7 +290,23 @@ def _draw_wall(draw, width, base_y, height=90, color=(180, 165, 145)):
         draw.rectangle([x, base_y - height, x + 40, base_y - height + 20], fill=(160, 145, 125))
 
 
-LANDMARKS = {"temple": _draw_temple, "hills": _draw_hills, "ship": _draw_ship, "wall": _draw_wall}
+def _draw_prison(draw, width, base_y, color=(120, 115, 110)):
+    """A simple stone building with barred windows - relevant background for the
+    many captivity-themed scenes in this content (Perpetua's prison, Patrick's
+    enslavement, Polycarp's farmhouse hideout)."""
+    building_h = 260
+    draw.rectangle([width * 0.15, base_y - building_h, width * 0.85, base_y], fill=color, outline=FIGURE_COLOR, width=3)
+    bar_color = (60, 55, 50)
+    window_y0, window_y1 = base_y - building_h * 0.72, base_y - building_h * 0.35
+    for wx in [width * 0.28, width * 0.50, width * 0.72]:
+        window_w = width * 0.12
+        draw.rectangle([wx - window_w / 2, window_y0, wx + window_w / 2, window_y1], fill=(35, 32, 40), outline=FIGURE_COLOR, width=2)
+        for bar_x_frac in [0.25, 0.5, 0.75]:
+            bar_x = wx - window_w / 2 + window_w * bar_x_frac
+            draw.line([bar_x, window_y0, bar_x, window_y1], fill=bar_color, width=4)
+
+
+LANDMARKS = {"temple": _draw_temple, "hills": _draw_hills, "ship": _draw_ship, "wall": _draw_wall, "prison": _draw_prison}
 
 
 def draw_scene(width: int, height: int, sky: str, landmark: str, figures: list[dict]) -> Image.Image:
@@ -230,6 +321,8 @@ def draw_scene(width: int, height: int, sky: str, landmark: str, figures: list[d
     ground_y = int(height * 0.82)
 
     if landmark == "temple":
+        # Two smaller flanking buildings behind the main temple for a fuller skyline,
+        # not just one isolated structure.
         _draw_temple(draw, width * 0.18, ground_y, width * 0.28, height * 0.18, color=(200, 192, 200))
         _draw_temple(draw, width * 0.86, ground_y, width * 0.28, height * 0.18, color=(200, 192, 200))
         _draw_temple(draw, width * 0.5, ground_y, width * 0.85, height * 0.32)
@@ -239,9 +332,13 @@ def draw_scene(width: int, height: int, sky: str, landmark: str, figures: list[d
         _draw_ship(draw, width * 0.5, ground_y, width * 0.7)
     elif landmark == "wall":
         _draw_wall(draw, width, ground_y)
+        # A small cluster of building silhouettes peeking above the wall line,
+        # suggesting a city behind it rather than just a bare defensive wall.
         for bx, bw, bh in [(width * 0.15, width * 0.12, 60), (width * 0.35, width * 0.10, 45),
                             (width * 0.62, width * 0.14, 70), (width * 0.82, width * 0.11, 50)]:
             draw.rectangle([bx, ground_y - 90 - bh, bx + bw, ground_y - 90], fill=(160, 150, 135), outline=FIGURE_COLOR, width=2)
+    elif landmark == "prison":
+        _draw_prison(draw, width, ground_y)
 
     draw.line([0, ground_y, width, ground_y], fill=(60, 50, 35), width=5)
 
