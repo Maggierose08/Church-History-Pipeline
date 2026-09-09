@@ -13,9 +13,28 @@ from kenburns import build_scene_clip
 
 logger = logging.getLogger("video_pipeline")
 
-# Images change roughly every 2-3 seconds throughout a segment, not just once or
-# twice per scene - this is how often a new still/Ken-Burns-beat is generated.
-TARGET_BEAT_SECONDS = 2.5
+# Images change completely every ~5 seconds throughout a segment - a genuinely
+# different static framing each time (not a zoom/pan animation, and not just the
+# same shot mirrored left-right).
+TARGET_BEAT_SECONDS = 5.0
+
+# The scene is rendered once at this oversized canvas, then each beat crops a
+# DIFFERENT static window from that same render - producing genuinely different
+# shots (a wide view, a close view on the figures, background-emphasis, left/
+# right framing) from a single underlying piece of art, with no zoom/pan motion
+# within any individual clip.
+OVERSIZE_FACTOR = 1.5
+
+# Each preset is (crop_width_frac, crop_height_frac, x_center_frac, y_center_frac)
+# as fractions of the oversized canvas - x/y center is where that crop window is
+# positioned. Cycled through in order so consecutive beats are never identical.
+FRAMING_PRESETS = [
+    (1.0, 1.0, 0.5, 0.5),      # wide: the full oversized canvas, nothing cropped away
+    (0.55, 0.55, 0.5, 0.62),   # close on the figures
+    (0.75, 0.75, 0.32, 0.55),  # left-weighted medium shot
+    (0.75, 0.75, 0.68, 0.55),  # right-weighted medium shot
+    (0.85, 0.85, 0.5, 0.30),   # background-emphasis: shifted up toward sky/landmark
+]
 
 
 def _run_ffmpeg(cmd: list[str]):
@@ -42,58 +61,55 @@ def _mux_audio_and_burn_subtitles(video_path: str, audio_path: str, ass_path: st
     ])
 
 
-# Cycle of 4 distinct visual variations (position nudge + facing) applied in
-# sequence across a scene's beats, so a scene lasting many beats doesn't just
-# flip back and forth between 2 identical states repeatedly.
-_VARIANT_OFFSETS = {0: 0.0, 1: 0.05, 2: 0.0, 3: -0.05}
-_VARIANT_FLIP = {0: False, 1: True, 2: False, 3: True}
-NUM_VISUAL_VARIANTS = 4
-
-
-def _scene_to_image(scene: dict, output_path: str, variant: int = 0):
+def _render_oversized_scene(scene: dict):
     """
-    Converts one scene's visual spec (1-3 figures + optional background crowd +
-    sky/landmark) into a rendered stick-figure still. `variant` cycles through 4
-    distinct position/facing states (see _VARIANT_OFFSETS/_VARIANT_FLIP) so a scene
-    split into many short beats shows real visual variety rather than repeating the
-    same 2 states over and over, without needing new story content.
+    Renders one scene's visual spec (1-3 figures + optional background crowd +
+    sky/landmark) ONCE, at an oversized canvas (OVERSIZE_FACTOR bigger than the
+    final video resolution). Different beats then crop different windows from
+    this same oversized render - see _crop_framing.
     """
+    ow = int(config.video_width * OVERSIZE_FACTOR)
+    oh = int(config.video_height * OVERSIZE_FACTOR)
     has_landmark = bool(scene.get("landmark"))
     figure_specs = [
         {"pose": f["pose"], "robe_color": f["robe_color"], "prop": f.get("prop")}
         for f in scene["figures"]
     ]
-    positioned = figure_layout.position_figures(
-        figure_specs, config.video_width, config.video_height, has_landmark
-    )
-
-    v = variant % NUM_VISUAL_VARIANTS
-    offset_frac = _VARIANT_OFFSETS[v]
-    flip = _VARIANT_FLIP[v]
-    if offset_frac or flip:
-        center_x = config.video_width // 2
-        for fig in positioned:
-            if offset_frac:
-                direction = 1 if fig["x"] >= center_x else -1
-                fig["x"] += int(config.video_width * offset_frac) * direction
-            if flip:
-                fig["facing"] *= -1
+    positioned = figure_layout.position_figures(figure_specs, ow, oh, has_landmark)
 
     img = stick_figures.draw_scene(
-        width=config.video_width,
-        height=config.video_height,
-        sky=scene["sky"],
-        landmark=scene.get("landmark"),
-        figures=positioned,
+        width=ow, height=oh, sky=scene["sky"], landmark=scene.get("landmark"), figures=positioned,
     )
 
     crowd_count = scene.get("crowd_count", 0) or 0
     if crowd_count > 0:
         draw = ImageDraw.Draw(img)
-        ground_y = int(config.video_height * 0.82)
-        stick_figures.draw_crowd_silhouettes(draw, crowd_count, config.video_width, ground_y)
+        ground_y = int(oh * 0.82)
+        stick_figures.draw_crowd_silhouettes(draw, crowd_count, ow, ground_y)
 
-    img.save(output_path)
+    return img
+
+
+def _crop_framing(oversized_img, preset_index: int):
+    """
+    Crops ONE static window from the oversized render, per FRAMING_PRESETS, then
+    resizes it to the final target resolution. Each preset produces a genuinely
+    different-looking still (different crop position/size) from the SAME
+    underlying artwork - no zoom/pan animation within the resulting clip, just a
+    different fixed shot each time.
+    """
+    ow, oh = oversized_img.size
+    w_frac, h_frac, cx_frac, cy_frac = FRAMING_PRESETS[preset_index % len(FRAMING_PRESETS)]
+
+    crop_w = int(ow * w_frac)
+    crop_h = int(oh * h_frac)
+    cx = int(ow * cx_frac)
+    cy = int(oh * cy_frac)
+
+    left = max(0, min(ow - crop_w, cx - crop_w // 2))
+    top = max(0, min(oh - crop_h, cy - crop_h // 2))
+    cropped = oversized_img.crop((left, top, left + crop_w, top + crop_h))
+    return cropped.resize((config.video_width, config.video_height))
 
 
 def render_segment_video(segment: dict, audio_path: str, timestamps_path: str, run_id: str, output_dir: str) -> dict:
@@ -119,18 +135,21 @@ def render_segment_video(segment: dict, audio_path: str, timestamps_path: str, r
     ass_path = f"{output_dir}/captions.ass"
     ass_captions.build_ass(words, ass_path, active_color=active_color, line_color=line_color)
 
-    # Each scene is split into ~2-3 second beats (not just 2 halves) - same pose/robe/
-    # sky/landmark/prop (the actual story content is unchanged), cycling through 4
-    # position/facing variants, so the image visibly changes every 2-3 seconds
-    # throughout the whole segment without requiring new narration to be written.
+    # Each scene is rendered ONCE at an oversized canvas, then split into ~5-second
+    # beats, each showing a genuinely DIFFERENT static crop/framing of that same
+    # render (wide, close, left, right, background-emphasis) - real visual variety
+    # every 5 seconds, not a mirrored repeat of the same shot, and no zoom/pan
+    # motion within any individual clip.
     segment_clip_paths = []
     clip_index = 0
     for i, (scene, duration) in enumerate(zip(scenes, scene_durations)):
+        oversized = _render_oversized_scene(scene)
         num_beats = max(1, round(duration / TARGET_BEAT_SECONDS))
         beat_duration = duration / num_beats
         for beat in range(num_beats):
+            framed = _crop_framing(oversized, beat)
             image_path = f"{output_dir}/scene_{i}_{beat}.png"
-            _scene_to_image(scene, image_path, variant=beat)
+            framed.save(image_path)
             clip_path = f"{output_dir}/kb_clip_{clip_index}.mp4"
             build_scene_clip(image_path, beat_duration, clip_path, width=config.video_width, height=config.video_height)
             segment_clip_paths.append(clip_path)
