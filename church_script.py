@@ -20,19 +20,21 @@ def _follow_phrase(next_segment_number: int) -> str:
 
 # Must match the enums the stick-figure render library actually supports -
 # the model is constrained to pick from these, not free-form image descriptions.
-VALID_POSES = ["walking", "standing", "sitting", "kneeling", "praying", "teaching", "pointing"]
+VALID_POSES = ["walking", "standing", "sitting", "kneeling", "praying", "teaching", "pointing", "writing", "raising_arms", "grieving"]
 VALID_ROBE_COLORS = ["white", "red", "blue", "brown", "purple", "green"]
 VALID_SKIES = ["desert", "temple", "sea", "night", "plain"]
-VALID_LANDMARKS = ["temple", "hills", "ship", "wall", None]
-VALID_PROPS = ["staff", "scroll", "cross", None]
+VALID_LANDMARKS = ["temple", "hills", "ship", "wall", "prison", None]
+VALID_PROPS = ["staff", "scroll", "cross", "book", "torch", None]
 
-# Calibrated against REAL measured TTS output for this pipeline's en-US voice pool
-# at 1.5x (~5.0 words/sec measured in production). Segments target ~1-1.5 minutes
-# (60-90s) each, which requires roughly 300-450 words. Segment count is 10-14 (not
-# the earlier 7-9) so the total compiled video still lands in the 15-20 minute
-# target with shorter individual segments.
-MIN_SEGMENT_WORDS = 300
-MAX_SEGMENT_WORDS = 450
+# Speed changed to 1.2x with a switch to a British male Studio-tier voice, per
+# explicit request. Word targets (240-360, up from the 200-300 used at 1.0x) are
+# PROPORTIONALLY ESTIMATED from the previously measured real rate (5.0 words/sec
+# at 1.5x, on a different voice/tier/accent) - not re-measured against this
+# specific new voice. Verify the actual duration in the first real production
+# log (look for "Final audio duration") and adjust these two constants if the
+# real rate differs meaningfully from the ~4.0 words/sec this assumes.
+MIN_SEGMENT_WORDS = 240
+MAX_SEGMENT_WORDS = 360
 TARGET_SEGMENT_COUNT_MIN = 10
 TARGET_SEGMENT_COUNT_MAX = 14
 # A 1-1.5 minute segment shown as a single unchanging still image is visually flat -
@@ -101,7 +103,11 @@ behind the 1-3 detailed ones. Use 0 (or omit it) when no larger group is actuall
 
 Match the figures to what the narration for that scene actually describes - if the text says \
 "her father begged her," show 2 figures, not 1. If it says "the crowd demanded his death," use \
-crowd_count. Each figure specifies its visuals using ONLY these exact values - do not invent new ones:
+crowd_count. Use "writing" for letter/journal-writing scenes, "raising_arms" for blessing or \
+proclamation moments, "grieving" for mourning, "book" for scripture/reading (distinct from the \
+"scroll" prop, used for letters), "torch" for night processions or searches, and the "prison" \
+landmark for captivity scenes. Each figure specifies its visuals using ONLY these exact values \
+- do not invent new ones:
 - pose: one of {VALID_POSES}
 - robe_color: one of {VALID_ROBE_COLORS}
 - prop: one of {['"' + p + '"' for p in VALID_PROPS if p]} or null
@@ -252,6 +258,8 @@ def _validate_and_parse(raw: str) -> dict:
         word_count = sum(len(sc["narration"].split()) for sc in seg["scenes"])
         if word_count < MIN_SEGMENT_WORDS:
             raise ValueError(f"Segment {i+1} has {word_count} words, under the {MIN_SEGMENT_WORDS} minimum")
+        if word_count > MAX_SEGMENT_WORDS:
+            raise ValueError(f"Segment {i+1} has {word_count} words, over the {MAX_SEGMENT_WORDS} maximum")
         if not (MIN_SCENES_PER_SEGMENT <= len(seg["scenes"]) <= MAX_SCENES_PER_SEGMENT):
             raise ValueError(
                 f"Segment {i+1} has {len(seg['scenes'])} scene(s), expected "
