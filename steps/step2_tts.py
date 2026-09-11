@@ -29,6 +29,14 @@ _voice_pool_cache = None
 
 
 def _discover_voice_pool() -> list[str]:
+    """
+    Filters by the configured tier (e.g. "Studio") rather than the previous
+    hardcoded Standard/Wavenet check, since this pipeline now specifically wants
+    a single consistent Studio-tier voice, not a rotating pool of Standard/
+    Wavenet voices. Gender is confirmed via the API's own ssml_gender field
+    rather than assumed from the voice name, since Google doesn't document a
+    reliable naming convention for gender.
+    """
     global _voice_pool_cache
     if _voice_pool_cache is not None:
         return _voice_pool_cache
@@ -39,20 +47,24 @@ def _discover_voice_pool() -> list[str]:
     try:
         client = _get_client()
         response = client.list_voices(language_code=config.tts_language_code)
-        all_names = [v for v in response.voices if ("Standard" in v.name or "Wavenet" in v.name)]
+        tier = config.tts_voice_tier
+        all_names = [v for v in response.voices if tier in v.name]
+        if not all_names:
+            logger.warning(f"No {tier}-tier voices found for {config.tts_language_code} - falling back to Standard/Wavenet.")
+            all_names = [v for v in response.voices if ("Standard" in v.name or "Wavenet" in v.name)]
         if config.tts_voice_gender:
             target_gender = texttospeech.SsmlVoiceGender[config.tts_voice_gender.upper()]
             gendered = [v.name for v in all_names if v.ssml_gender == target_gender]
             if gendered:
-                logger.info(f"Discovered {len(gendered)} {config.tts_voice_gender} {config.tts_language_code} voice(s) via API: {gendered}")
-                _voice_pool_cache = gendered
-                return gendered
-            logger.warning(f"No {config.tts_voice_gender} voices found for {config.tts_language_code} - falling back to any gender.")
+                logger.info(f"Discovered {len(gendered)} {config.tts_voice_gender} {tier} {config.tts_language_code} voice(s) via API: {sorted(gendered)}")
+                _voice_pool_cache = sorted(gendered)
+                return _voice_pool_cache
+            logger.warning(f"No {config.tts_voice_gender} {tier} voices found for {config.tts_language_code} - falling back to any gender within the tier.")
         names = [v.name for v in all_names]
         if names:
-            logger.info(f"Discovered {len(names)} {config.tts_language_code} voice(s) via API: {names}")
-            _voice_pool_cache = names
-            return names
+            logger.info(f"Discovered {len(names)} {tier} {config.tts_language_code} voice(s) via API: {sorted(names)}")
+            _voice_pool_cache = sorted(names)
+            return _voice_pool_cache
         logger.warning(f"No voices found for {config.tts_language_code} via API - falling back to {config.tts_fallback_voice}")
     except Exception as e:
         logger.warning(f"Voice discovery failed ({e}) - falling back to {config.tts_fallback_voice}")
@@ -61,9 +73,14 @@ def _discover_voice_pool() -> list[str]:
 
 
 def _pick_voice_name() -> str:
+    """
+    Picks the FIRST voice from the (sorted, so deterministic) discovered pool -
+    NOT a random choice - per explicit request to use the exact same voice for
+    every video, rather than rotating through several for variety.
+    """
     pool = _discover_voice_pool()
-    voice_name = random.choice(pool)
-    logger.info(f"Selected Google TTS voice: {voice_name} (1 of {len(pool)} in pool)")
+    voice_name = pool[0]
+    logger.info(f"Selected Google TTS voice: {voice_name} (same voice used for every video, out of {len(pool)} matching candidate(s))")
     return voice_name
 
 
