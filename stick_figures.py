@@ -135,10 +135,6 @@ def _draw_prop(draw, prop, x, y, hip_y, scale, facing):
         bot_x, bot_y = x + 45 * s * f, hip_y + 60 * s
         draw.line([top_x, top_y, bot_x, bot_y], fill=(90, 65, 40), width=int(LINE_WIDTH * 0.8))
     elif prop == "scroll":
-        # x0/x1 computed with min/max - when facing is -1, the raw expressions
-        # swap order (x0 > x1), which Pillow's rounded_rectangle rejects outright.
-        # This was a real, previously-latent bug: it only ever triggered once the
-        # beat-variant system started deliberately flipping facing for variety.
         scroll_x0 = x + 20 * s * f
         scroll_x1 = x + 50 * s * f
         draw.rounded_rectangle(
@@ -150,7 +146,6 @@ def _draw_prop(draw, prop, x, y, hip_y, scale, facing):
         draw.line([cx, cy - 30 * s, cx, cy + 30 * s], fill=(80, 60, 45), width=int(LINE_WIDTH * 0.8))
         draw.line([cx - 15 * s, cy - 12 * s, cx + 15 * s, cy - 12 * s], fill=(80, 60, 45), width=int(LINE_WIDTH * 0.8))
     elif prop == "book":
-        # A closed, thicker rectangular book, distinct from the flatter scroll shape.
         book_x0 = min(x + 18 * s * f, x + 52 * s * f)
         book_x1 = max(x + 18 * s * f, x + 52 * s * f)
         draw.rectangle(
@@ -180,14 +175,10 @@ def draw_pose(draw, pose: str, x: int, y: int, scale: float = 1.0, facing: int =
     f = facing
     head_r = 32 * s
 
-    # Kneeling compresses the torso-to-hip distance (person is lower to the ground);
-    # everyone else uses the standard standing torso length.
     hip_y = y + (70 * s if pose == "kneeling" else 100 * s)
 
     _draw_robe(draw, x, y, hip_y, 22 * s, 55 * s, robe_color)
 
-    # Lower body: only small feet marks peek below the robe hem, avoiding leg lines
-    # that would otherwise cross messily through the colored robe shape.
     if pose == "kneeling":
         _limb(draw, x - 12 * s * f, hip_y, x + 18 * s * f, hip_y + 6 * s, width=int(LINE_WIDTH * 0.7))
     elif pose == "sitting":
@@ -205,8 +196,6 @@ def draw_pose(draw, pose: str, x: int, y: int, scale: float = 1.0, facing: int =
 
     _draw_head(draw, x, y - head_r - 4 * s, head_r, facing=f)
 
-    # Arms - each pose's arm geometry is chosen to stay clearly below the head's
-    # bottom edge (y - 4*s), so nothing crosses through the face.
     shoulder_y = y + 20 * s
     if pose == "praying":
         _limb(draw, x, shoulder_y, x + 16 * s * f, shoulder_y - 30 * s)
@@ -224,19 +213,12 @@ def draw_pose(draw, pose: str, x: int, y: int, scale: float = 1.0, facing: int =
         _limb(draw, x, shoulder_y, x + 20 * s * f, shoulder_y + 25 * s)
         _limb(draw, x, shoulder_y, x - 20 * s * f, shoulder_y + 25 * s)
     elif pose == "writing":
-        # One arm extended down and forward, as if writing on a surface at hip height.
         _limb(draw, x + 6 * s * f, shoulder_y, x + 45 * s * f, shoulder_y + 55 * s)
         _limb(draw, x, shoulder_y, x - 22 * s * f, shoulder_y + 30 * s)
     elif pose == "raising_arms":
-        # Both arms raised well above head height, angled WIDE enough to clear
-        # the sides of the head entirely (not cross through the face) - blessing,
-        # proclamation, or celebration, clearly distinct from praying (hands
-        # together at chest) or teaching (one arm extended sideways).
         _limb(draw, x, shoulder_y, x + 75 * s * f, shoulder_y - 85 * s)
         _limb(draw, x, shoulder_y, x - 75 * s * f, shoulder_y - 85 * s)
     elif pose == "grieving":
-        # Arms drawn inward toward the chest/face - head implicitly lowered via
-        # the shortened lower body above, giving a mourning silhouette.
         _limb(draw, x, shoulder_y, x + 14 * s * f, shoulder_y - 15 * s)
         _limb(draw, x, shoulder_y, x - 14 * s * f, shoulder_y - 15 * s)
     else:
@@ -276,7 +258,7 @@ def _draw_ship(draw, cx, base_y, width, color=(120, 85, 55)):
         [(cx - width / 2, base_y), (cx + width / 2, base_y), (cx + width * 0.4, base_y + 55), (cx - width * 0.4, base_y + 55)],
         fill=color, outline=FIGURE_COLOR, width=3,
     )
-    mast_x = cx - width * 0.28  # offset left of center, away from a centered figure
+    mast_x = cx - width * 0.28
     draw.line([mast_x, base_y, mast_x, base_y - 220], fill=(80, 60, 40), width=10)
     draw.polygon(
         [(mast_x, base_y - 220), (mast_x, base_y - 30), (mast_x + 110, base_y - 90)],
@@ -306,7 +288,47 @@ def _draw_prison(draw, width, base_y, color=(120, 115, 110)):
             draw.line([bar_x, window_y0, bar_x, window_y1], fill=bar_color, width=4)
 
 
-LANDMARKS = {"temple": _draw_temple, "hills": _draw_hills, "ship": _draw_ship, "wall": _draw_wall, "prison": _draw_prison}
+def _draw_arena(draw, width, base_y, color=(200, 180, 150)):
+    """A Roman amphitheater interior - tiered stone seating rings around a sand
+    floor - distinct from the temple's exterior columned facade. Relevant for
+    the many martyrdom-in-the-arena climaxes in this content."""
+    tier_colors = [(170, 155, 130), (185, 168, 142), (200, 180, 150)]
+    for i, tier_color in enumerate(tier_colors):
+        tier_top = base_y - 340 + i * 90
+        inset = i * 90
+        draw.polygon(
+            [(inset, tier_top), (width - inset, tier_top), (width - inset * 0.6, base_y), (inset * 0.6, base_y)],
+            fill=tier_color, outline=FIGURE_COLOR, width=2,
+        )
+    draw.rectangle([0, base_y - 20, width, base_y], fill=(210, 190, 150), outline=FIGURE_COLOR, width=2)
+
+
+def _draw_road(draw, width, base_y, color=(175, 155, 125)):
+    """A traveling/journey background - a dirt road receding into the distance
+    with sparse trees, for the many travel/exile/journey scenes in this content
+    (previously these had no landmark at all, just an empty sky)."""
+    draw.polygon(
+        [(width * 0.35, base_y - 250), (width * 0.65, base_y - 250), (width * 0.92, base_y), (width * 0.08, base_y)],
+        fill=color, outline=FIGURE_COLOR, width=2,
+    )
+    for tx, th in [(width * 0.12, 70), (width * 0.85, 90), (width * 0.05, 55)]:
+        draw.ellipse([tx - 22, base_y - 250 - th, tx + 22, base_y - 250 - th + 60], fill=(120, 140, 90))
+        draw.line([tx, base_y - 250 - th + 40, tx, base_y - 250], fill=(90, 65, 40), width=6)
+
+
+def _draw_courtroom(draw, width, base_y, color=(195, 185, 175)):
+    """A formal hall interior - a raised judgment platform with a backdrop wall -
+    distinct from a temple exterior or a plain wall, for trial/sentencing scenes."""
+    draw.rectangle([0, base_y - 280, width, base_y], fill=color, outline=FIGURE_COLOR, width=3)
+    draw.rectangle([width * 0.55, base_y - 60, width * 0.95, base_y], fill=(160, 148, 135), outline=FIGURE_COLOR, width=3)
+    for px in range(0, int(width), 90):
+        draw.line([px, base_y - 280, px, base_y], fill=(175, 165, 155), width=2)
+
+
+LANDMARKS = {
+    "temple": _draw_temple, "hills": _draw_hills, "ship": _draw_ship, "wall": _draw_wall,
+    "prison": _draw_prison, "arena": _draw_arena, "road": _draw_road, "courtroom": _draw_courtroom,
+}
 
 
 def draw_scene(width: int, height: int, sky: str, landmark: str, figures: list[dict]) -> Image.Image:
@@ -321,8 +343,6 @@ def draw_scene(width: int, height: int, sky: str, landmark: str, figures: list[d
     ground_y = int(height * 0.82)
 
     if landmark == "temple":
-        # Two smaller flanking buildings behind the main temple for a fuller skyline,
-        # not just one isolated structure.
         _draw_temple(draw, width * 0.18, ground_y, width * 0.28, height * 0.18, color=(200, 192, 200))
         _draw_temple(draw, width * 0.86, ground_y, width * 0.28, height * 0.18, color=(200, 192, 200))
         _draw_temple(draw, width * 0.5, ground_y, width * 0.85, height * 0.32)
@@ -332,13 +352,17 @@ def draw_scene(width: int, height: int, sky: str, landmark: str, figures: list[d
         _draw_ship(draw, width * 0.5, ground_y, width * 0.7)
     elif landmark == "wall":
         _draw_wall(draw, width, ground_y)
-        # A small cluster of building silhouettes peeking above the wall line,
-        # suggesting a city behind it rather than just a bare defensive wall.
         for bx, bw, bh in [(width * 0.15, width * 0.12, 60), (width * 0.35, width * 0.10, 45),
                             (width * 0.62, width * 0.14, 70), (width * 0.82, width * 0.11, 50)]:
             draw.rectangle([bx, ground_y - 90 - bh, bx + bw, ground_y - 90], fill=(160, 150, 135), outline=FIGURE_COLOR, width=2)
     elif landmark == "prison":
         _draw_prison(draw, width, ground_y)
+    elif landmark == "arena":
+        _draw_arena(draw, width, ground_y)
+    elif landmark == "road":
+        _draw_road(draw, width, ground_y)
+    elif landmark == "courtroom":
+        _draw_courtroom(draw, width, ground_y)
 
     draw.line([0, ground_y, width, ground_y], fill=(60, 50, 35), width=5)
 
@@ -357,9 +381,7 @@ def draw_crowd_silhouettes(draw, count: int, width: int, ground_y: int, scale: f
     Draws `count` simplified, smaller background figures (no individual pose detail -
     just a simple robe-blob + head silhouette) scattered behind the main interacting
     figures, to suggest a larger crowd/mob/gathering without needing each person to
-    be a fully articulated, individually-posed character. Used for scenes like "a
-    furious mob," "two hundred bishops," or "a watching crowd" where the story calls
-    for a genuine group, not just 1-3 named individuals having a specific interaction.
+    be a fully articulated, individually-posed character.
     """
     import random
     rng = random.Random(count * 97 + width)
