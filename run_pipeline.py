@@ -75,6 +75,7 @@ def _compilation_to_segment_shape(compilation_data: dict) -> dict:
         "social_title": compilation_data["social_title"],
         "caption": compilation_data["caption"],
         "scenes": all_scenes,
+        "topic": compilation_data.get("topic"),  # same topic as its segments, for a shared playlist
     }
 
 
@@ -214,6 +215,7 @@ def run(run_id: str, skip_schedule_check: bool):
                 youtube_result = publish_to_youtube(
                     render_result["video_path"], thumbnail_result["thumbnail_path"],
                     script["social_title"], script["caption"], publish_at=target_dt,
+                    playlist_title=script.get("topic"),
                 )
                 state.mark_completed("youtube", youtube_result)
             except Exception as e:
