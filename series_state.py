@@ -71,7 +71,9 @@ def start_new_series(story_data: dict, track: int, source_file: str | None = Non
         f"Started new series {state['series_id']} on track {track}: "
         f"{state['total_segments']} segments, topic={story_data['topic']!r}"
     )
-    return segments[0]
+    first_segment = dict(segments[0])
+    first_segment["topic"] = story_data["topic"]  # for a consistent playlist title across every segment
+    return first_segment
 
 
 def advance_series(track: int, today_str: str) -> dict | None:
@@ -88,7 +90,8 @@ def advance_series(track: int, today_str: str) -> dict | None:
         return None
 
     next_index = state["next_segment_index"]
-    segment = state["segments"][next_index - 1]
+    segment = dict(state["segments"][next_index - 1])
+    segment["topic"] = state["topic"]  # for a consistent playlist title across every segment
     logger.info(
         f"Continuing series {state['series_id']} on track {track}: "
         f"releasing segment {next_index}/{state['total_segments']}"
