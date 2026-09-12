@@ -1,6 +1,7 @@
 import json
 import logging
 import re
+import time
 
 import requests
 
@@ -22,7 +23,12 @@ def _strip_code_fences(raw: str) -> str:
     return raw
 
 
-@retry_with_backoff(max_retries=2, base_delay=2.0)
+# base_delay increased from 2.0 to 5.0 - Mistral's free tier rate limit is strict
+# enough that the original 2s/4s backoff was hit again in production (a 429
+# "Rate limit exceeded" on the very first of two back-to-back calls this
+# pipeline makes per story). 5s/10s gives meaningfully more room to clear
+# whatever per-second/per-minute window their free tier enforces.
+@retry_with_backoff(max_retries=2, base_delay=5.0)
 def _call_mistral(system_prompt: str, user_prompt: str) -> str:
     if not config.mistral_api_key:
         raise RuntimeError("MISTRAL_API_KEY not configured")
@@ -96,6 +102,12 @@ def generate_mistral_grounded_story() -> dict:
     logger.info("Generating story via Mistral + Tavily (manual grounding)")
     topic, search_query = _propose_topic()
     logger.info(f"Mistral proposed topic: {topic!r} (search query: {search_query!r})")
+
+    # Deliberate pause before the SECOND Mistral call - the topic-proposal and
+    # story-writing calls were previously fired back-to-back with no gap at all,
+    # which is exactly the pattern that trips a strict per-second free-tier rate
+    # limit even when each individual call's own retry logic succeeds.
+    time.sleep(4.0)
 
     research_material = web_research.search_facts(search_query)
 
