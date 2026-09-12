@@ -1,3 +1,12 @@
+# Must match stick_figures.py draw_scene()'s ground_y exactly, and draw_pose()'s
+# per-pose hip offsets exactly - both duplicated here deliberately (importing
+# stick_figures here would create a circular import, since stick_figures never
+# needs to import figure_layout at module level either).
+_GROUND_Y_FRACTION = 0.82
+_HIP_OFFSET_KNEELING = 70
+_HIP_OFFSET_STANDING = 100
+
+
 def position_figures(figure_specs: list[dict], width: int, height: int, has_landmark: bool) -> list[dict]:
     """
     Takes 1-3 figure specs, each {"pose", "robe_color", "prop"}, and returns fully-
@@ -6,9 +15,19 @@ def position_figures(figure_specs: list[dict], width: int, height: int, has_land
     figures facing left (-1) - toward each other - so multi-figure scenes read as a
     genuine interaction (a trial, an arrest, a conversation) rather than unrelated
     people who happen to share a frame.
+
+    Each figure's y (neck/shoulder position) is computed BACKWARD from the ground
+    line, per-figure, based on that figure's own pose and scale - not a fixed
+    constant. The previous fixed-neck-height approach caused feet to visibly float
+    above the ground by anywhere from ~10px up to ~130px depending on figure count
+    and scale, since the neck-to-hip distance scales with figure size while the old
+    fixed neck position did not - the smaller the scale (more figures, or a
+    landmark present), the bigger the visible gap became. Computing backward from
+    the ground guarantees every figure's feet land exactly on the ground line
+    regardless of scale or pose.
     """
     n = len(figure_specs)
-    figure_y = int(height * 0.68)
+    ground_y = int(height * _GROUND_Y_FRACTION)
 
     if n == 1:
         slots = [(0.5, 1)]
@@ -22,6 +41,8 @@ def position_figures(figure_specs: list[dict], width: int, height: int, has_land
 
     positioned = []
     for spec, (x_frac, default_facing) in zip(figure_specs, slots):
+        hip_offset = _HIP_OFFSET_KNEELING if spec["pose"] == "kneeling" else _HIP_OFFSET_STANDING
+        figure_y = ground_y - int(hip_offset * scale)
         positioned.append({
             "pose": spec["pose"],
             "robe_color": spec["robe_color"],
