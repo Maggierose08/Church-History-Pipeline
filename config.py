@@ -17,10 +17,24 @@ class Config:
             if v.strip()
         ]
     )
-    tts_language_code: str = os.environ.get("TTS_LANGUAGE_CODE") or "en-US"
-    tts_voice_gender: str = os.environ.get("TTS_VOICE_GENDER") or ""
-    tts_fallback_voice: str = os.environ.get("TTS_FALLBACK_VOICE") or "en-US-Standard-B"
-    tts_target_speed: float = float(os.environ.get("TTS_TARGET_SPEED") or "1.5")
+    # British male voice, per explicit request - en-GB (not en-US), MALE gender,
+    # and a specific voice TIER (Studio, Google's most natural/humanoid tier that
+    # still supports the SSML <mark> tags this pipeline's word-timing captions
+    # depend on - Chirp3 HD is more "humanoid" by name but does NOT support SSML
+    # at all, which would silently break every caption in the pipeline, so it was
+    # deliberately ruled out despite sounding like the obvious "most human" choice).
+    tts_language_code: str = os.environ.get("TTS_LANGUAGE_CODE") or "en-GB"
+    tts_voice_gender: str = os.environ.get("TTS_VOICE_GENDER") or "MALE"
+    tts_voice_tier: str = os.environ.get("TTS_VOICE_TIER") or "Studio"
+    tts_fallback_voice: str = os.environ.get("TTS_FALLBACK_VOICE") or "en-GB-Wavenet-B"
+    # 1.2x per explicit request. NOTE: church_script.py's word-count targets were
+    # recalibrated (300-450 -> 240-360) based on PROPORTIONAL scaling from the
+    # previously measured real rate (5.0 words/sec at 1.5x, on a different
+    # voice/tier/accent) - not re-measured against this specific new voice.
+    # Verify the actual duration in the first real production log (look for
+    # "Final audio duration") and adjust church_script.py's word constants if
+    # the real rate differs meaningfully from the ~4.0 words/sec this assumes.
+    tts_target_speed: float = float(os.environ.get("TTS_TARGET_SPEED") or "1.2")
     tts_min_timepoint_completeness: float = float(os.environ.get("TTS_MIN_TIMEPOINT_COMPLETENESS") or "0.9")
 
     # --- Video / subtitle style ---
