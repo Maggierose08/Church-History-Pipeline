@@ -29,21 +29,71 @@ SKIN_COLOR = (232, 194, 160)
 HAIR_COLOR = (60, 42, 30)
 
 
-def _draw_head(draw, cx, cy, r, facing=1):
+HAIR_STYLES = ["cap", "long", "parted", "curly"]
+
+
+def _hair_style_for_figure(robe_color: str, prop) -> str:
+    """
+    Deterministically picks one of 4 gender-neutral hairstyles from the figure's
+    EXISTING attributes (robe_color + prop) - not randomly, and not from any new
+    schema field. This means the SAME character (typically drawn with the same
+    robe_color across every scene they appear in) gets a CONSISTENT hairstyle
+    throughout a video, while genuinely different characters usually land on
+    different styles, adding real variety without any gender-specific assumption
+    or new field the schema/prompt/local-story content would need to support.
+
+    Uses a manual stable character-code sum, NOT Python's built-in hash() - the
+    built-in hash() for strings is randomized per-process (PYTHONHASHSEED) for
+    security reasons, meaning the same input would give a DIFFERENT result in
+    every new pipeline run. Since each day's segment renders in a separate
+    process, that would have meant the same character getting a different random
+    hairstyle in every new video - exactly the inconsistency this function exists
+    to prevent. A simple ordinal sum is fully stable across processes and runs.
+    """
+    key = f"{robe_color}:{prop or ''}"
+    stable_value = sum(ord(c) for c in key)
+    return HAIR_STYLES[stable_value % len(HAIR_STYLES)]
+
+
+def _draw_head(draw, cx, cy, r, facing=1, hair_style="cap"):
     """Head circle, FILLED with a solid skin tone (previously just an unfilled
     outline, letting the background show through) plus simple facial features and
     hair. Eyes shift slightly toward `facing` direction so the figure visibly
     looks toward whoever/whatever it's facing, matching the interaction direction.
-    Hair is deliberately gender-neutral in shape (a simple cap-like top rather
-    than a style implying a specific gender) since the schema has no gender field
-    - adding it safely for every figure without risking mismatched styling on
-    female historical figures like Perpetua or Felicity.
+    All 4 hair styles are deliberately gender-neutral in shape (no style implies
+    a specific gender) since the schema has no gender field - adding real variety
+    safely, without risking mismatched styling on female historical figures like
+    Perpetua or Felicity.
     """
     draw.ellipse([cx - r, cy - r, cx + r, cy + r], fill=SKIN_COLOR, outline=FIGURE_COLOR, width=LINE_WIDTH)
 
-    # Simple hair cap: an arc covering roughly the top half of the head.
-    hair_bbox = [cx - r * 1.02, cy - r * 1.15, cx + r * 1.02, cy + r * 0.25]
-    draw.pieslice(hair_bbox, start=180, end=360, fill=HAIR_COLOR, outline=FIGURE_COLOR, width=max(2, int(LINE_WIDTH * 0.5)))
+    if hair_style == "long":
+        # Cap top, PLUS hair extending down both sides past the head, toward
+        # shoulder height - a longer overall look.
+        hair_bbox = [cx - r * 1.02, cy - r * 1.15, cx + r * 1.02, cy + r * 0.25]
+        draw.pieslice(hair_bbox, start=180, end=360, fill=HAIR_COLOR, outline=FIGURE_COLOR, width=max(2, int(LINE_WIDTH * 0.5)))
+        for side in (-1, 1):
+            side_x = cx + side * r * 0.95
+            draw.rounded_rectangle(
+                [side_x - r * 0.22, cy - r * 0.1, side_x + r * 0.22, cy + r * 0.95],
+                radius=int(r * 0.2), fill=HAIR_COLOR, outline=FIGURE_COLOR, width=2,
+            )
+    elif hair_style == "parted":
+        # Same cap silhouette, but with a visible center-part line down the middle.
+        hair_bbox = [cx - r * 1.02, cy - r * 1.15, cx + r * 1.02, cy + r * 0.25]
+        draw.pieslice(hair_bbox, start=180, end=360, fill=HAIR_COLOR, outline=FIGURE_COLOR, width=max(2, int(LINE_WIDTH * 0.5)))
+        draw.line([cx, cy - r * 1.12, cx, cy - r * 0.55], fill=SKIN_COLOR, width=max(2, int(r * 0.06)))
+    elif hair_style == "curly":
+        # A scalloped/bumpy top made of overlapping small circles, instead of a
+        # single smooth arc, suggesting a curlier texture.
+        bump_r = r * 0.32
+        for i, bx_frac in enumerate([-0.65, -0.3, 0.05, 0.4, 0.72]):
+            bx = cx + bx_frac * r
+            by = cy - r * 0.72 - (bump_r * 0.3 if i % 2 == 0 else 0)
+            draw.ellipse([bx - bump_r, by - bump_r, bx + bump_r, by + bump_r], fill=HAIR_COLOR, outline=FIGURE_COLOR, width=2)
+    else:  # "cap" - the original simple style
+        hair_bbox = [cx - r * 1.02, cy - r * 1.15, cx + r * 1.02, cy + r * 0.25]
+        draw.pieslice(hair_bbox, start=180, end=360, fill=HAIR_COLOR, outline=FIGURE_COLOR, width=max(2, int(LINE_WIDTH * 0.5)))
 
     eye_offset_x = r * 0.28 * facing
     eye_y = cy - r * 0.12
@@ -175,10 +225,14 @@ def draw_pose(draw, pose: str, x: int, y: int, scale: float = 1.0, facing: int =
     f = facing
     head_r = 32 * s
 
+    # Kneeling compresses the torso-to-hip distance (person is lower to the ground);
+    # everyone else uses the standard standing torso length.
     hip_y = y + (70 * s if pose == "kneeling" else 100 * s)
 
     _draw_robe(draw, x, y, hip_y, 22 * s, 55 * s, robe_color)
 
+    # Lower body: only small feet marks peek below the robe hem, avoiding leg lines
+    # that would otherwise cross messily through the colored robe shape.
     if pose == "kneeling":
         _limb(draw, x - 12 * s * f, hip_y, x + 18 * s * f, hip_y + 6 * s, width=int(LINE_WIDTH * 0.7))
     elif pose == "sitting":
@@ -194,8 +248,11 @@ def draw_pose(draw, pose: str, x: int, y: int, scale: float = 1.0, facing: int =
         _limb(draw, x - 10 * s * f, hip_y, x + 12 * s * f, hip_y + 15 * s, width=int(LINE_WIDTH * 0.7))
         _limb(draw, x - 10 * s * f, hip_y, x - 20 * s * f, hip_y + 15 * s, width=int(LINE_WIDTH * 0.7))
 
-    _draw_head(draw, x, y - head_r - 4 * s, head_r, facing=f)
+    hair_style = _hair_style_for_figure(robe_color, prop)
+    _draw_head(draw, x, y - head_r - 4 * s, head_r, facing=f, hair_style=hair_style)
 
+    # Arms - each pose's arm geometry is chosen to stay clearly below the head's
+    # bottom edge (y - 4*s), so nothing crosses through the face.
     shoulder_y = y + 20 * s
     if pose == "praying":
         _limb(draw, x, shoulder_y, x + 16 * s * f, shoulder_y - 30 * s)
@@ -213,12 +270,19 @@ def draw_pose(draw, pose: str, x: int, y: int, scale: float = 1.0, facing: int =
         _limb(draw, x, shoulder_y, x + 20 * s * f, shoulder_y + 25 * s)
         _limb(draw, x, shoulder_y, x - 20 * s * f, shoulder_y + 25 * s)
     elif pose == "writing":
+        # One arm extended down and forward, as if writing on a surface at hip height.
         _limb(draw, x + 6 * s * f, shoulder_y, x + 45 * s * f, shoulder_y + 55 * s)
         _limb(draw, x, shoulder_y, x - 22 * s * f, shoulder_y + 30 * s)
     elif pose == "raising_arms":
+        # Both arms raised well above head height, angled WIDE enough to clear
+        # the sides of the head entirely (not cross through the face) - blessing,
+        # proclamation, or celebration, clearly distinct from praying (hands
+        # together at chest) or teaching (one arm extended sideways).
         _limb(draw, x, shoulder_y, x + 75 * s * f, shoulder_y - 85 * s)
         _limb(draw, x, shoulder_y, x - 75 * s * f, shoulder_y - 85 * s)
     elif pose == "grieving":
+        # Arms drawn inward toward the chest/face - head implicitly lowered via
+        # the shortened lower body above, giving a mourning silhouette.
         _limb(draw, x, shoulder_y, x + 14 * s * f, shoulder_y - 15 * s)
         _limb(draw, x, shoulder_y, x - 14 * s * f, shoulder_y - 15 * s)
     else:
@@ -258,7 +322,7 @@ def _draw_ship(draw, cx, base_y, width, color=(120, 85, 55)):
         [(cx - width / 2, base_y), (cx + width / 2, base_y), (cx + width * 0.4, base_y + 55), (cx - width * 0.4, base_y + 55)],
         fill=color, outline=FIGURE_COLOR, width=3,
     )
-    mast_x = cx - width * 0.28
+    mast_x = cx - width * 0.28  # offset left of center, away from a centered figure
     draw.line([mast_x, base_y, mast_x, base_y - 220], fill=(80, 60, 40), width=10)
     draw.polygon(
         [(mast_x, base_y - 220), (mast_x, base_y - 30), (mast_x + 110, base_y - 90)],
@@ -381,7 +445,9 @@ def draw_crowd_silhouettes(draw, count: int, width: int, ground_y: int, scale: f
     Draws `count` simplified, smaller background figures (no individual pose detail -
     just a simple robe-blob + head silhouette) scattered behind the main interacting
     figures, to suggest a larger crowd/mob/gathering without needing each person to
-    be a fully articulated, individually-posed character.
+    be a fully articulated, individually-posed character. Used for scenes like "a
+    furious mob," "two hundred bishops," or "a watching crowd" where the story calls
+    for a genuine group, not just 1-3 named individuals having a specific interaction.
     """
     import random
     rng = random.Random(count * 97 + width)
