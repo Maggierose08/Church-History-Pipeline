@@ -1,5 +1,6 @@
 import json
 import logging
+import os
 import random
 import subprocess
 import xml.sax.saxutils
@@ -84,14 +85,61 @@ def _pick_voice_name() -> str:
     return voice_name
 
 
-def _build_marked_ssml(text: str):
-    words = text.split()
+def _build_marked_ssml(text: str, words: list[str] = None):
+    """
+    One mark per word (not two - collapses adjacent zero-content marks otherwise).
+    Marks are named by LOCAL index within this specific call's word list (0-based),
+    NOT any global position - callers stitching multiple chunks together are
+    responsible for mapping local mark indices back to global word positions
+    themselves (see _chunk_words_for_tts / generate_audio).
+    """
+    if words is None:
+        words = text.split()
     parts = ["<speak>"]
     for i, word in enumerate(words):
         escaped = xml.sax.saxutils.escape(word)
         parts.append(f'<mark name="w{i}"/>{escaped} ')
     parts.append("</speak>")
     return "".join(parts), words
+
+
+# Google Cloud TTS hard-rejects any single request over 5000 bytes of input
+# text/SSML. Individual short segments (300-450 words) never came close to this,
+# but a full COMPILATION (10-14 segments concatenated, 2000+ words) blows past it
+# by 10x or more once per-word <mark> tags are added. This wasn't caught until a
+# real compilation actually reached the TTS step in production, since no earlier
+# testing exercised a text this long. MAX_CHUNK_BYTES stays well under the hard
+# 5000 limit to leave margin for the <speak></speak> wrapper and any single long
+# word/mark-index overshoot at a chunk boundary.
+MAX_CHUNK_BYTES = 4200
+
+
+def _chunk_words_for_tts(words: list[str], max_bytes: int = MAX_CHUNK_BYTES) -> list[list[str]]:
+    """
+    Splits a word list into chunks, each of which is guaranteed to produce marked
+    SSML under max_bytes - built incrementally (not just an average-size estimate)
+    since mark tag byte size grows slightly as the index grows more digits, and a
+    naive average could still overshoot right at a chunk boundary.
+    """
+    chunks = []
+    current: list[str] = []
+    current_ssml_len = len("<speak></speak>")
+    for word in words:
+        local_index = len(current)
+        mark_and_word = f'<mark name="w{local_index}"/>{xml.sax.saxutils.escape(word)} '
+        added_len = len(mark_and_word.encode("utf-8"))
+        if current and current_ssml_len + added_len > max_bytes:
+            chunks.append(current)
+            current = []
+            current_ssml_len = len("<speak></speak>")
+            local_index = 0
+            mark_and_word = f'<mark name="w{local_index}"/>{xml.sax.saxutils.escape(word)} '
+            added_len = len(mark_and_word.encode("utf-8"))
+        current.append(word)
+        current_ssml_len += added_len
+    if current:
+        chunks.append(current)
+    return chunks
 
 
 @retry_with_backoff(max_retries=config.max_retries, base_delay=config.retry_base_delay)
@@ -160,22 +208,82 @@ def _get_audio_duration(audio_path: str) -> float:
         return 0.0
 
 
+def _concatenate_audio(chunk_paths: list[str], out_path: str):
+    """Concatenates multiple TTS chunk audio files into one, in order, via
+    ffmpeg's concat demuxer - same approach already used elsewhere in this
+    pipeline for video clips."""
+    list_file = f"{out_path}.concat_list.txt"
+    with open(list_file, "w") as f:
+        for p in chunk_paths:
+            f.write(f"file '{os.path.abspath(p)}'\n")
+    result = subprocess.run(
+        ["ffmpeg", "-y", "-f", "concat", "-safe", "0", "-i", list_file, "-c", "copy", out_path],
+        capture_output=True, text=True,
+    )
+    os.remove(list_file)
+    if result.returncode != 0:
+        raise RuntimeError(f"ffmpeg audio concatenation failed: {result.stderr[-1500:]}")
+
+
 def generate_audio(script: dict, audio_output_path: str, timestamps_output_path: str) -> dict:
+    """
+    Splits the full narration into TTS-safe chunks (see _chunk_words_for_tts) when
+    the text is long enough to exceed Google's hard 5000-byte-per-request limit -
+    this only actually branches into multiple requests for FULL COMPILATIONS
+    (2000+ words); every individual short segment still takes the exact same
+    single-request path as before, completely unchanged. Each chunk is
+    synthesized separately, the resulting audio files are concatenated in order,
+    and each chunk's word timestamps are offset by the cumulative duration of
+    every prior chunk so the final timestamps are correct against the ONE
+    combined audio file, not restarting from zero at each chunk boundary.
+    """
     text = _full_narration_text(script)
     voice_name = _pick_voice_name()
-    ssml, words = _build_marked_ssml(text)
-    logger.info(f"Requesting TTS ({len(words)} words) from Google Cloud TTS voice {voice_name} at {config.tts_target_speed}x")
-    audio_content, timepoints = _call_google_tts(ssml, voice_name, len(words))
-    with open(audio_output_path, "wb") as f:
-        f.write(audio_content)
+    all_words = text.split()
+    word_chunks = _chunk_words_for_tts(all_words)
+
+    if len(word_chunks) > 1:
+        logger.info(f"Narration ({len(all_words)} words) exceeds the single-request TTS byte limit - splitting into {len(word_chunks)} chunks")
+
+    chunk_audio_paths = []
+    all_word_timestamps = []
+    cumulative_offset = 0.0
+    output_dir = os.path.dirname(audio_output_path) or "."
+
+    for chunk_index, chunk_words in enumerate(word_chunks):
+        ssml, _ = _build_marked_ssml(text, words=chunk_words)
+        logger.info(f"Requesting TTS chunk {chunk_index+1}/{len(word_chunks)} ({len(chunk_words)} words) from Google Cloud TTS voice {voice_name} at {config.tts_target_speed}x")
+        audio_content, timepoints = _call_google_tts(ssml, voice_name, len(chunk_words))
+
+        chunk_path = f"{output_dir}/_tts_chunk_{chunk_index}.mp3"
+        with open(chunk_path, "wb") as f:
+            f.write(audio_content)
+        chunk_audio_paths.append(chunk_path)
+
+        chunk_duration = _get_audio_duration(chunk_path)
+        chunk_word_timestamps = _timepoints_to_words(timepoints, chunk_words, chunk_duration)
+        for wt in chunk_word_timestamps:
+            wt["start"] += cumulative_offset
+            wt["end"] += cumulative_offset
+        all_word_timestamps.extend(chunk_word_timestamps)
+        cumulative_offset += chunk_duration
+
+    if len(chunk_audio_paths) == 1:
+        os.replace(chunk_audio_paths[0], audio_output_path)
+    else:
+        _concatenate_audio(chunk_audio_paths, audio_output_path)
+        for p in chunk_audio_paths:
+            if os.path.exists(p):
+                os.remove(p)
+
     duration = _get_audio_duration(audio_output_path)
-    word_timestamps = _timepoints_to_words(timepoints, words, duration)
-    logger.info(f"Final audio duration: {duration:.1f}s")
-    timestamps = {"text": text, "voice_id": voice_name, "words": word_timestamps}
+    logger.info(f"Final audio duration: {duration:.1f}s" + (f" ({len(word_chunks)} TTS chunks stitched together)" if len(word_chunks) > 1 else ""))
+
+    timestamps = {"text": text, "voice_id": voice_name, "words": all_word_timestamps}
     with open(timestamps_output_path, "w") as f:
         json.dump(timestamps, f, indent=2)
-    logger.info(f"Audio saved to {audio_output_path}; {len(word_timestamps)} word-level timestamps saved to {timestamps_output_path}")
+    logger.info(f"Audio saved to {audio_output_path}; {len(all_word_timestamps)} word-level timestamps saved to {timestamps_output_path}")
     return {
         "audio_path": audio_output_path, "timestamps_path": timestamps_output_path,
-        "word_count": len(word_timestamps), "voice_id": voice_name, "duration": duration,
+        "word_count": len(all_word_timestamps), "voice_id": voice_name, "duration": duration,
     }
