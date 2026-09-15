@@ -17,15 +17,24 @@ class Config:
             if v.strip()
         ]
     )
-    # British male voice, per explicit request - en-GB (not en-US), MALE gender,
-    # and a specific voice TIER (Studio, Google's most natural/humanoid tier that
-    # still supports the SSML <mark> tags this pipeline's word-timing captions
-    # depend on - Chirp3 HD is more "humanoid" by name but does NOT support SSML
-    # at all, which would silently break every caption in the pipeline, so it was
-    # deliberately ruled out despite sounding like the obvious "most human" choice).
+    # British male voice, per explicit request - en-GB (not en-US), MALE gender.
+    # Tier is Wavenet, NOT Studio. Studio was the original choice (based on
+    # documentation suggesting it supported the SSML <mark> tags this pipeline's
+    # word-timing captions depend on), but a REAL production run proved that
+    # wrong: Google's actual API returned "400 <mark> tags are not currently
+    # supported by Studio voices" - a flat, tier-wide rejection, not something
+    # that varies by specific voice. That earlier research was incorrect and
+    # should not have been trusted as strongly as it was. Wavenet is used here
+    # instead specifically because it's the ONE tier with actual CONFIRMED
+    # working evidence of <mark>-based captions succeeding in this project's own
+    # real production logs (other pipelines, prior sessions) - not just
+    # documentation claiming it should work. Neural2 is a plausible future
+    # upgrade (Google's own docs list it at the same SSML/GA support level as
+    # Wavenet), but should only be adopted after an actual test run confirms it
+    # - not swapped in again on documentation alone, given what just happened.
     tts_language_code: str = os.environ.get("TTS_LANGUAGE_CODE") or "en-GB"
     tts_voice_gender: str = os.environ.get("TTS_VOICE_GENDER") or "MALE"
-    tts_voice_tier: str = os.environ.get("TTS_VOICE_TIER") or "Studio"
+    tts_voice_tier: str = os.environ.get("TTS_VOICE_TIER") or "Wavenet"
     tts_fallback_voice: str = os.environ.get("TTS_FALLBACK_VOICE") or "en-GB-Wavenet-B"
     # 1.2x per explicit request. NOTE: church_script.py's word-count targets were
     # recalibrated (300-450 -> 240-360) based on PROPORTIONAL scaling from the
